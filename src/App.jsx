@@ -1,19 +1,32 @@
-import { useState } from "react";
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { z } from "zod";
 import Register from "./components/register/Register";
+import Login from "./components/login/Login";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Profile from "./components/profile/Profile";
 
-
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Register />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
+  },
+]);
 
 function App() {
- 
-
   return (
     <div>
-      <Register/>
+      {/* <Register />
+      <Login /> */}
+      <RouterProvider router={router} />
     </div>
-    );
+  );
 }
 
 export default App;

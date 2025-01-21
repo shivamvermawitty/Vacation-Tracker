@@ -1,8 +1,7 @@
 import { useState } from "react";
-import "./Register.css";
+import "./Profile.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { z } from "zod";
-import { Link, useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   firstName: z.string().min(3, "First name is required"),
@@ -14,18 +13,19 @@ const formSchema = z.object({
   dateOfBirth: z.string().min(3, "Date Of Birth is required"),
   gender: z.string().min(4, "Gender is required"),
 });
+const userData = JSON.parse(localStorage.getItem("userData"));
 
-function Register() {
-  const navigate = useNavigate();
+function Profile() {
+  console.log(userData);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-    password: "",
-    email: "",
-    contact: "",
-    dateOfBirth: "",
-    gender: "",
+    firstName: userData.firstName,
+    lastName: userData.lastName,
+    userName: userData.userName,
+    password: userData.password,
+    email: userData.email,
+    contact: userData.contact,
+    dateOfBirth: userData.dateOfBirth,
+    gender: userData.gender,
   });
 
   const [errors, setErrors] = useState({});
@@ -37,7 +37,6 @@ function Register() {
       formSchema.parse(formData);
 
       localStorage.setItem("userData", JSON.stringify(formData));
-      navigate("/Login");
       console.log(formData);
       setErrors({});
     } catch (err) {
@@ -58,7 +57,7 @@ function Register() {
         <div className="col-8 col-lg-6 d-grid justify-content-center border border-1 border-black rounded-1 ">
           <div className="row">
             <div className="col-12 d-flex justify-content-center">
-              <h1 className=" heading">Register/SignUp</h1>
+              <h1 className=" heading">Profile</h1>
             </div>
           </div>
           <form onSubmit={(e) => handleSubmit(e)}>
@@ -209,11 +208,8 @@ function Register() {
                 <input
                   className="btn btn-primary"
                   type="submit"
-                  value="Register"
+                  value="Update"
                 />
-                <Link to="/Login" className="btn btn-danger">
-                  LogIn
-                </Link>
               </div>
             </div>
           </form>
@@ -224,4 +220,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Profile;
