@@ -1,0 +1,19 @@
+.heading{
+    font-size: 3rem;
+    font-weight: 700;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  input{
+    width: 120%;
+  }
+  input[type=date]{
+    width: 13.6rem;
+  }
+  select{
+    width: 13.6rem;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  input[type=submit]{
+    width: 7rem;
+  }
