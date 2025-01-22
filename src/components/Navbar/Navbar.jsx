@@ -3,16 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 export default function Navbar() {
-    const userName=JSON.parse(localStorage.getItem('userData')).firstName
-    console.log(userName)
-    const [showLogOut,setShowLogOut]=useState(false)
-    const navigate=useNavigate();
-    function handleClick(){
-        setShowLogOut(d=>!d)
-    }
-    function handleLogOut(){
-        navigate('/Login')
-    }
+  const userName = JSON.parse(localStorage.getItem("userData"))?.firstName;
+  console.log(userName);
+  const [showLogOut, setShowLogOut] = useState(false);
+  const navigate = useNavigate();
+  function handleClick() {
+    setShowLogOut((d) => !d);
+  }
+  function handleLogOut() {
+    navigate("/Login");
+  }
   return (
     <div className=" d-grid container-fluid navBar">
       <div className="row">
@@ -29,19 +29,23 @@ export default function Navbar() {
           </li>
         </ul>
         <div className="col-6 d-flex justify-content-end">
-            <div className="d-grid">
-                <div className="row">
-                <p className=" btn fs col-12 m-0 p-0 d-flex align-items-center" onClick={handleClick}>
-                 Welcome {userName}
-            </p>
+          <div className="d-grid">
             <div className="row">
-                
-               { showLogOut&& <button className="col-6 bg-white btn" onClick={handleLogOut}>
+              <p
+                className=" btn fs col-12 m-0 p-0 d-flex align-items-center"
+                onClick={handleClick}
+              >
+                Welcome {userName}
+              </p>
+              <div className="row">
+                {showLogOut && (
+                  <button className="col-6 bg-white btn" onClick={handleLogOut}>
                     LogOut
-                </button>}
+                  </button>
+                )}
+              </div>
             </div>
-                </div>
-            </div>
+          </div>
         </div>
       </div>
     </div>

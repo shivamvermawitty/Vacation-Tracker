@@ -27,63 +27,57 @@ function Login() {
   }
 
   return (
-    <div className=" d-grid container-fluid py-4">
-      <div className="row">
-        <div className="col-2 col-lg-3"></div>
-        <div className="col-8 col-lg-6 d-grid justify-content-center border border-1 border-black rounded-1 ">
-          <div className="row">
-            <div className="col-12 d-flex justify-content-center">
-              <h1 className=" heading">Login</h1>
-            </div>
-          </div>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <div className="row">
-              <div className="col-12 col-md-6 my-2 d-grid justify-content-center">
-                <label className=" fs-3 m-0">UserName:</label>
-                <br />
-                <input
-                  className="rounded-1 p-1"
-                  type="text"
-                  value={loginCredential.userName}
-                  onChange={(e) =>
-                    setLoginCredential((data) => ({
-                      ...data,
-                      userName: e.target.value,
-                    }))
-                  }
-                />
-              </div>
-              <div className="col-12 col-md-6 my-2 d-grid justify-content-center">
-                <label className=" fs-3 m-0">password:</label>
-                <br />
-                <input
-                  className="rounded-1 p-1"
-                  type="password"
-                  value={loginCredential.password}
-                  onChange={(e) =>
-                    setLoginCredential((data) => ({
-                      ...data,
-                      password: e.target.value,
-                    }))
-                  }
-                />
-              </div>
-              {errors && (
-                <div className="col-12 col-md-12 my-2 d-grid justify-content-center text-danger">
-                  Invalid Email Or Password
-                </div>
-              )}
+    <div className="container-fluid py-4 backGround">
+      <div className="w-50 mx-auto my-3 d-flex justify-content-center logo">
+        <div>V</div>acation Calender
+      </div>
+      <div className="registartion mx-auto p-3">
+        <h1 className=" d-flex justify-content-center">SignUp</h1>
+        <form
+          onSubmit={(e) => handleSubmit(e)}
+          className=" d-flex flex-wrap gap-2 justify-content-center"
+        >
+          <div className=" d-flex flex-column justify-content-center mx-4">
+            <label className="  m-0">UserName:</label>
 
-              <div className="col-12 col-md-12 my-2 d-grid justify-content-center">
-                <input
-                  className="rounded-1 p-1 btn btn-primary"
-                  type="submit"
-                />
-              </div>
-            </div>
-          </form>
-        </div>
-        <div className="col-2 col-lg-3"></div>
+            <input
+              className=" p-1 "
+              type="text"
+              value={loginCredential.userName}
+              onChange={(e) =>
+                setLoginCredential((data) => ({
+                  ...data,
+                  userName: e.target.value,
+                }))
+              }
+            />
+            {errors.userName && (
+              <div className="text-danger">{errors.userName}</div>
+            )}
+          </div>
+          <div className=" d-flex flex-column justify-content-center mx-4">
+            <label className=" m-0">Password:</label>
+
+            <input
+              className=" p-1 "
+              type="password"
+              value={loginCredential.password}
+              onChange={(e) =>
+                setLoginCredential((data) => ({
+                  ...data,
+                  password: e.target.value,
+                }))
+              }
+            />
+            {errors.password && (
+              <div className="text-danger">{errors.password}</div>
+            )}
+          </div>
+
+          <div className="col-12  my-2 d-flex justify-content-center gap-2 ">
+            <input className="btn btn-success" type="submit" value="Login" />
+          </div>
+        </form>
       </div>
     </div>
   );

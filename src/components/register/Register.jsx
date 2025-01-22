@@ -58,174 +58,167 @@ function Register() {
       </div>
       <div className="registartion mx-auto p-3">
         <h1 className=" d-flex justify-content-center">SignUp</h1>
-        <form onSubmit={(e) => handleSubmit(e)} className=" d-flex flex-wrap gap-2 justify-content-center">
-              
-                <div className="d-flex flex-column justify-content-center mx-4">
-                  <label className="  m-0">First Name:</label>
-                  <input
-                    className=" p-1"
-                    type="text"
-                    value={formData.firstName}
-                    onChange={(e) =>
-                      setFormData((data) => ({
-                        ...data,
-                        firstName: e.target.value,
-                      }))
-                    }
-                  />
-                  {errors.firstName && (
-                    <div className="text-danger">{errors.firstName}</div>
-                  )}
-                </div>
-                <div className=" d-flex flex-column justify-content-center mx-4">
-                  <label className=" m-0">Last Name:</label>
-                  
-                  <input
-                    className=" p-1"
-                    type="text"
-                    value={formData.lastName}
-                    onChange={(e) =>
-                      setFormData((data) => ({
-                        ...data,
-                        lastName: e.target.value,
-                      }))
-                    }
-                  />
-                  {errors.lastName && (
-                    <div className="text-danger">{errors.lastName}</div>
-                  )}
-                </div>
-                <div className=" d-flex flex-column justify-content-center mx-4">
-                  <label className="  m-0">UserName:</label>
-                  
-                  <input
-                    className=" p-1 "
-                    type="text"
-                    value={formData.userName}
-                    onChange={(e) =>
-                      setFormData((data) => ({
-                        ...data,
-                        userName: e.target.value,
-                      }))
-                    }
-                  />
-                  {errors.userName && (
-                    <div className="text-danger">{errors.userName}</div>
-                  )}
-                </div>
-                <div className=" d-flex flex-column justify-content-center mx-4">
-                  <label className=" m-0">Password:</label>
-                  
-                  <input
-                    className=" p-1 "
-                    type="password"
-                    value={formData.password}
-                    onChange={(e) =>
-                      setFormData((data) => ({
-                        ...data,
-                        password: e.target.value,
-                      }))
-                    }
-                  />
-                  {errors.password && (
-                    <div className="text-danger">{errors.password}</div>
-                  )}
-                </div>
-                <div className="d-flex flex-column justify-content-center mx-4">
-                  <label className=" m-0">E-mail:</label>
-                  
-                  <input
-                    className=" p-1 "
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData((data) => ({
-                        ...data,
-                        email: e.target.value,
-                      }))
-                    }
-                  />
-                  {errors.email && (
-                    <div className="text-danger">{errors.email}</div>
-                  )}
-                </div>
-                <div className="d-flex flex-column justify-content-center mx-4">
-                  <label className="  m-0">Contact No.:</label>
-                  
-                  <input
-                    className=" p-1 "
-                    type="text"
-                    value={formData.contact}
-                    onChange={(e) =>
-                      setFormData((data) => ({
-                        ...data,
-                        contact: e.target.value,
-                      }))
-                    }
-                  />
-                  {errors.contact && (
-                    <div className="text-danger">{errors.contact}</div>
-                  )}
-                </div>
-                <div className="d-flex flex-column justify-content-center mx-4">
-                  <label className="  m-0">D.O.B:</label>
-                  
-                  <input
-                  className=""
-                  type="date"
-                  value={formData.dateOfBirth}
-                  onChange={(e) =>
-                    setFormData((data) => ({
-                      ...data,
-                      dateOfBirth: e.target.value,
-                    }))
-                  }
-                />
-                  {errors.dateOfBirth && (
-                    <div className="text-danger">{errors.dateOfBirth}</div>
-                  )}
-                </div>
-                <div className="d-flex flex-column justify-content-center mx-4">
-                  <label className=" m-0">Gender:</label>
-                  
-                  <select
-                    value={formData.gender}
-                    onChange={(e) =>
-                      setFormData((data) => ({
-                        ...data,
-                        gender: e.target.value,
-                      }))
-                    }
-                  >
-                    <option value="" disabled>
-                      Select gender
-                    </option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                  {errors.gender && (
-                    <div className="text-danger">{errors.gender}</div>
-                  )}
-                </div>
-                <div className="col-12  my-2 d-flex justify-content-center gap-2 ">
-                  <input
-                    className="btn btn-success"
-                    type="submit"
-                    value="Register"
-                  />
-                  <Link to="/Login" className="btn loginButton">
-                    LogIn
-                  </Link>
-                </div>
-              
-            </form>
+        <form
+          onSubmit={(e) => handleSubmit(e)}
+          className=" d-flex flex-wrap gap-2 justify-content-center"
+        >
+          <div className="d-flex flex-column justify-content-center mx-4">
+            <label className="  m-0">First Name:</label>
+            <input
+              className=""
+              type="text"
+              value={formData.firstName}
+              onChange={(e) =>
+                setFormData((data) => ({
+                  ...data,
+                  firstName: e.target.value,
+                }))
+              }
+            />
+            {errors.firstName && (
+              <div className="text-danger">{errors.firstName}</div>
+            )}
+          </div>
+          <div className=" d-flex flex-column justify-content-center mx-4">
+            <label className=" m-0">Last Name:</label>
 
-          {/* <div className=" w-100 d-flex justify-content-center registationForm ">
+            <input
+              className=" "
+              type="text"
+              value={formData.lastName}
+              onChange={(e) =>
+                setFormData((data) => ({
+                  ...data,
+                  lastName: e.target.value,
+                }))
+              }
+            />
+            {errors.lastName && (
+              <div className="text-danger">{errors.lastName}</div>
+            )}
+          </div>
+          <div className=" d-flex flex-column justify-content-center mx-4">
+            <label className="  m-0">UserName:</label>
+
+            <input
+              className=" "
+              type="text"
+              value={formData.userName}
+              onChange={(e) =>
+                setFormData((data) => ({
+                  ...data,
+                  userName: e.target.value,
+                }))
+              }
+            />
+            {errors.userName && (
+              <div className="text-danger">{errors.userName}</div>
+            )}
+          </div>
+          <div className=" d-flex flex-column justify-content-center mx-4">
+            <label className=" m-0">Password:</label>
+
+            <input
+              className=" "
+              type="password"
+              value={formData.password}
+              onChange={(e) =>
+                setFormData((data) => ({
+                  ...data,
+                  password: e.target.value,
+                }))
+              }
+            />
+            {errors.password && (
+              <div className="text-danger">{errors.password}</div>
+            )}
+          </div>
+          <div className="d-flex flex-column justify-content-center mx-4">
+            <label className=" m-0">E-mail:</label>
+
+            <input
+              className="  "
+              type="email"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData((data) => ({
+                  ...data,
+                  email: e.target.value,
+                }))
+              }
+            />
+            {errors.email && <div className="text-danger">{errors.email}</div>}
+          </div>
+          <div className="d-flex flex-column justify-content-center mx-4">
+            <label className="  m-0">Contact No.:</label>
+
+            <input
+              className="  "
+              type="text"
+              value={formData.contact}
+              onChange={(e) =>
+                setFormData((data) => ({
+                  ...data,
+                  contact: e.target.value,
+                }))
+              }
+            />
+            {errors.contact && (
+              <div className="text-danger">{errors.contact}</div>
+            )}
+          </div>
+          <div className="d-flex flex-column justify-content-center mx-4">
+            <label className="  m-0">D.O.B:</label>
+
+            <input
+              className=""
+              type="date"
+              value={formData.dateOfBirth}
+              onChange={(e) =>
+                setFormData((data) => ({
+                  ...data,
+                  dateOfBirth: e.target.value,
+                }))
+              }
+            />
+            {errors.dateOfBirth && (
+              <div className="text-danger">{errors.dateOfBirth}</div>
+            )}
+          </div>
+          <div className="d-flex flex-column justify-content-center mx-4">
+            <label className=" m-0">Gender:</label>
+
+            <select
+              value={formData.gender}
+              onChange={(e) =>
+                setFormData((data) => ({
+                  ...data,
+                  gender: e.target.value,
+                }))
+              }
+            >
+              <option value="" disabled>
+                Select gender
+              </option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+            {errors.gender && (
+              <div className="text-danger">{errors.gender}</div>
+            )}
+          </div>
+          <div className="col-12  my-2 d-flex justify-content-center gap-2 ">
+            <input className="btn btn-success" type="submit" value="Register" />
+            <Link to="/Login" className="btn loginButton">
+              LogIn
+            </Link>
+          </div>
+        </form>
+
+        {/* <div className=" w-100 d-flex justify-content-center registationForm ">
           
             
           </div> */}
-          
-        
       </div>
     </div>
   );
