@@ -3,11 +3,17 @@ import Register from "./components/register/Register";
 import Login from "./components/login/Login";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Profile from "./components/profile/Profile";
+import Navbar from "./components/Navbar/Navbar";
+import Home from "./components/Home/Home";
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Register />,
+    element: <>
+    
+    <Register />
+    </>,
   },
   {
     path: "/login",
@@ -15,8 +21,18 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <Profile />,
+    element: <>
+    <Navbar/>
+    <Profile />
+    </>,
   },
+  {
+    path:'/home',
+    element:<>
+    <Navbar/>
+    <Home/>
+    </>
+  }
 ]);
 
 function App() {
@@ -24,6 +40,7 @@ function App() {
     <div>
       {/* <Register />
       <Login /> */}
+      
       <RouterProvider router={router} />
     </div>
   );

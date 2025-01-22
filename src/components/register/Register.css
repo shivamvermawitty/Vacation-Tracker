@@ -4,10 +4,14 @@
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
   input{
-    width: 120%;
+    border: 1px solid white;
+    width: 150px !important;
+    border-radius: 16px !important;
   }
   input[type=date]{
-    width: 13.6rem;
+    border: 1px solid white;
+    border-radius: 3px;
+    
   }
   select{
     width: 13.6rem;
@@ -16,4 +20,48 @@
   }
   input[type=submit]{
     width: 7rem;
+    background-color: white;
+    border: 1px solid white;
+    color: #525252;
+  }
+  select{
+    width: 150px !important;
+    border-radius: 16px !important;
+  }
+  .loginButton{
+    background-color: #525252 ;
+    border: 1px solid white;
+    color: white;
+    font-weight: 600;
+  }
+  .backGround{
+    height: 100vh;
+    
+  }
+  .registartion{
+    width: 30%;
+    margin-top: auto;
+    background-color: #525252 ;
+    border-radius: 23px;
+    color: white;
+    /* box-shadow: 10px 4px 20px 4px black; */
+    padding: 20px;
+    box-shadow: 10px 10px 30px rgb(70, 70, 70)
+  }
+  .logo{
+    font-size: 2rem;
+    align-items: center;
+  }
+  .logo div{
+    background-color: #525252;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    font-size: 150%;
+    font-weight:600;
+    color: white;
+    border-radius: 70px;
+  }
+  .registrationForm{
+    justify-content: center !important;
   }

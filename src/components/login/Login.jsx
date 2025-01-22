@@ -58,7 +58,7 @@ function Login() {
                 <br />
                 <input
                   className="rounded-1 p-1"
-                  type="text"
+                  type="password"
                   value={loginCredential.password}
                   onChange={(e) =>
                     setLoginCredential((data) => ({

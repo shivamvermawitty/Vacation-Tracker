@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Profile.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   firstName: z.string().min(3, "First name is required"),
@@ -13,20 +14,22 @@ const formSchema = z.object({
   dateOfBirth: z.string().min(3, "Date Of Birth is required"),
   gender: z.string().min(4, "Gender is required"),
 });
-const userData = JSON.parse(localStorage.getItem("userData"));
+
 
 function Profile() {
-  console.log(userData);
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  
   const [formData, setFormData] = useState({
-    firstName: userData.firstName,
-    lastName: userData.lastName,
-    userName: userData.userName,
-    password: userData.password,
-    email: userData.email,
-    contact: userData.contact,
-    dateOfBirth: userData.dateOfBirth,
-    gender: userData.gender,
+    firstName: userData?.firstName,
+    lastName: userData?.lastName,
+    userName: userData?.userName,
+    password: userData?.password,
+    email: userData?.email,
+    contact: userData?.contact,
+    dateOfBirth: userData?.dateOfBirth,
+    gender: userData?.gender,
   });
+  const navigate=useNavigate()
 
   const [errors, setErrors] = useState({});
 
@@ -38,6 +41,7 @@ function Profile() {
 
       localStorage.setItem("userData", JSON.stringify(formData));
       console.log(formData);
+      navigate('/home')
       setErrors({});
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -51,127 +55,126 @@ function Profile() {
   }
 
   return (
-    <div className=" d-grid container-fluid py-4">
-      <div className="row">
-        <div className="col-2 col-lg-3"></div>
-        <div className="col-8 col-lg-6 d-grid justify-content-center border border-1 border-black rounded-1 ">
-          <div className="row">
-            <div className="col-12 d-flex justify-content-center">
-              <h1 className=" heading">Profile</h1>
-            </div>
-          </div>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <div className="row">
-              <div className="col-12 col-md-6 my-2 d-grid justify-content-center">
-                <label className=" fs-3 m-0">First Name:</label>
-                <br />
-                <input
-                  className="rounded-1 p-1"
-                  type="text"
-                  value={formData.firstName}
-                  onChange={(e) =>
-                    setFormData((data) => ({
-                      ...data,
-                      firstName: e.target.value,
-                    }))
-                  }
-                />
-                {errors.firstName && (
-                  <div className="text-danger">{errors.firstName}</div>
-                )}
-              </div>
-              <div className="col-12 col-md-6 my-2 d-grid justify-content-center">
-                <label className=" fs-3 m-0">Last Name:</label>
-                <br />
-                <input
-                  className="rounded-1 p-1"
-                  type="text"
-                  value={formData.lastName}
-                  onChange={(e) =>
-                    setFormData((data) => ({
-                      ...data,
-                      lastName: e.target.value,
-                    }))
-                  }
-                />
-                {errors.lastName && (
-                  <div className="text-danger">{errors.lastName}</div>
-                )}
-              </div>
-              <div className="col-12 col-md-6 my-2 d-grid justify-content-center">
-                <label className=" fs-3 m-0">UserName:</label>
-                <br />
-                <input
-                  className="rounded-1 p-1"
-                  type="text"
-                  value={formData.userName}
-                  onChange={(e) =>
-                    setFormData((data) => ({
-                      ...data,
-                      userName: e.target.value,
-                    }))
-                  }
-                />
-                {errors.userName && (
-                  <div className="text-danger">{errors.userName}</div>
-                )}
-              </div>
-              <div className="col-12 col-md-6 my-2 d-grid justify-content-center">
-                <label className=" fs-3 m-0">password:</label>
-                <br />
-                <input
-                  className="rounded-1 p-1"
-                  type="text"
-                  value={formData.password}
-                  onChange={(e) =>
-                    setFormData((data) => ({
-                      ...data,
-                      password: e.target.value,
-                    }))
-                  }
-                />
-                {errors.password && (
-                  <div className="text-danger">{errors.password}</div>
-                )}
-              </div>
-              <div className="col-12 col-md-6 my-2 d-grid justify-content-center">
-                <label className=" fs-3 m-0">E-mail:</label>
-                <br />
-                <input
-                  className="rounded-1 p-1"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData((data) => ({ ...data, email: e.target.value }))
-                  }
-                />
-                {errors.email && (
-                  <div className="text-danger">{errors.email}</div>
-                )}
-              </div>
-              <div className="col-12 col-md-6 my-2 d-grid justify-content-center">
-                <label className=" fs-3 m-0">Contact No.:</label>
-                <br />
-                <input
-                  className="rounded-1 p-1"
-                  type="text"
-                  value={formData.contact}
-                  onChange={(e) =>
-                    setFormData((data) => ({
-                      ...data,
-                      contact: e.target.value,
-                    }))
-                  }
-                />
-                {errors.contact && (
-                  <div className="text-danger">{errors.contact}</div>
-                )}
-              </div>
-              <div className="col-12 col-md-6 my-2 d-grid justify-content-center">
-                <label className=" fs-3 m-0">D.O.B:</label>
-                <br />
-                <input
-                  className="rounded-1 p-1"
+    <div className="container-fluid py-4 backGround">
+      <div className="w-50 mx-auto my-3 d-flex justify-content-center logo">
+        <div>V</div>acation Calender
+      </div>
+      <div className="registartion mx-auto p-3">
+        <h1 className=" d-flex justify-content-center">SignUp</h1>
+        <form onSubmit={(e) => handleSubmit(e)} className=" d-flex flex-wrap gap-2 justify-content-center">
+              
+                <div className="d-flex flex-column justify-content-center mx-4">
+                  <label className="  m-0">First Name:</label>
+                  <input
+                    
+                    type="text"
+                    value={formData.firstName}
+                    onChange={(e) =>
+                      setFormData((data) => ({
+                        ...data,
+                        firstName: e.target.value,
+                      }))
+                    }
+                  />
+                  {errors.firstName && (
+                    <div className="text-danger">{errors.firstName}</div>
+                  )}
+                </div>
+                <div className=" d-flex flex-column justify-content-center mx-4">
+                  <label className=" m-0">Last Name:</label>
+                  
+                  <input
+                    
+                    type="text"
+                    value={formData.lastName}
+                    onChange={(e) =>
+                      setFormData((data) => ({
+                        ...data,
+                        lastName: e.target.value,
+                      }))
+                    }
+                  />
+                  {errors.lastName && (
+                    <div className="text-danger">{errors.lastName}</div>
+                  )}
+                </div>
+                <div className=" d-flex flex-column justify-content-center mx-4">
+                  <label className="  m-0">UserName:</label>
+                  
+                  <input
+                    
+                    type="text"
+                    value={formData.userName}
+                    onChange={(e) =>
+                      setFormData((data) => ({
+                        ...data,
+                        userName: e.target.value,
+                      }))
+                    }
+                  />
+                  {errors.userName && (
+                    <div className="text-danger">{errors.userName}</div>
+                  )}
+                </div>
+                <div className=" d-flex flex-column justify-content-center mx-4">
+                  <label className=" m-0">Password:</label>
+                  
+                  <input
+                    
+                    type="password"
+                    value={formData.password}
+                    onChange={(e) =>
+                      setFormData((data) => ({
+                        ...data,
+                        password: e.target.value,
+                      }))
+                    }
+                  />
+                  {errors.password && (
+                    <div className="text-danger">{errors.password}</div>
+                  )}
+                </div>
+                <div className="d-flex flex-column justify-content-center mx-4">
+                  <label className=" m-0">E-mail:</label>
+                  
+                  <input
+                    
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData((data) => ({
+                        ...data,
+                        email: e.target.value,
+                      }))
+                    }
+                  />
+                  {errors.email && (
+                    <div className="text-danger">{errors.email}</div>
+                  )}
+                </div>
+                <div className="d-flex flex-column justify-content-center mx-4">
+                  <label className="  m-0">Contact No.:</label>
+                  
+                  <input
+                    
+                    type="text"
+                    value={formData.contact}
+                    onChange={(e) =>
+                      setFormData((data) => ({
+                        ...data,
+                        contact: e.target.value,
+                      }))
+                    }
+                  />
+                  {errors.contact && (
+                    <div className="text-danger">{errors.contact}</div>
+                  )}
+                </div>
+                <div className="d-flex flex-column justify-content-center mx-4">
+                  <label className="  m-0">D.O.B:</label>
+                  
+                  <input
+                  className=""
                   type="date"
                   value={formData.dateOfBirth}
                   onChange={(e) =>
@@ -181,40 +184,44 @@ function Profile() {
                     }))
                   }
                 />
-                {errors.dateOfBirth && (
-                  <div className="text-danger">{errors.dateOfBirth}</div>
-                )}
-              </div>
-              <div className="col-12 col-md-6 my-2 d-grid justify-content-center">
-                <label className=" fs-3 m-0">Gender:</label>
-                <br />
-                <select
-                  value={formData.gender}
-                  onChange={(e) =>
-                    setFormData((data) => ({ ...data, gender: e.target.value }))
-                  }
-                >
-                  <option value="" disabled>
-                    Select gender
-                  </option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                </select>
-                {errors.gender && (
-                  <div className="text-danger">{errors.gender}</div>
-                )}
-              </div>
-              <div className="col-12  my-2 d-flex justify-content-center gap-2 ">
-                <input
-                  className="btn btn-primary"
-                  type="submit"
-                  value="Update"
-                />
-              </div>
-            </div>
-          </form>
-        </div>
-        <div className="col-2 col-lg-3"></div>
+                  {errors.dateOfBirth && (
+                    <div className="text-danger">{errors.dateOfBirth}</div>
+                  )}
+                </div>
+                <div className="d-flex flex-column justify-content-center mx-4">
+                  <label className=" m-0">Gender:</label>
+                  
+                  <select
+                    value={formData.gender}
+                    onChange={(e) =>
+                      setFormData((data) => ({
+                        ...data,
+                        gender: e.target.value,
+                      }))
+                    }
+                  >
+                    <option value="" disabled>
+                      Select gender
+                    </option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                  {errors.gender && (
+                    <div className="text-danger">{errors.gender}</div>
+                  )}
+                </div>
+                <div className="col-12  my-2 d-flex justify-content-center gap-2 ">
+                  <input
+                    className="btn btn-success"
+                    type="submit"
+                    value="Update"
+                  />
+                  
+                </div>
+              
+            </form>
+          
+        
       </div>
     </div>
   );
