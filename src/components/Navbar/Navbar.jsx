@@ -3,14 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 export default function Navbar() {
-  const userName = JSON.parse(localStorage.getItem("userData"))?.firstName;
-  console.log(userName);
+  const userName=localStorage.getItem('userName')
   const [showLogOut, setShowLogOut] = useState(false);
   const navigate = useNavigate();
   function handleClick() {
     setShowLogOut((d) => !d);
   }
   function handleLogOut() {
+    localStorage.clear()
     navigate("/Login");
   }
   return (

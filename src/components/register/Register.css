@@ -4,6 +4,16 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
+form{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+.formDiv{
+  display: flex !important;
+  justify-content: center !important;
+}
 input {
   border: 1px solid white;
   width: 150px !important;
