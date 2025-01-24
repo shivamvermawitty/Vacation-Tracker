@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useState } from "react";
 
-export default function 
-() {
+
+
+
+function Home () {
+ 
+  
   return (
-    <div className=' d-grid'>
-      <div className="row">
-        <div className="col-12 d-flex justify-content-center">
-            <h1>This is Home Component</h1>
-        </div>
-      </div>
+    <div>
+     
     </div>
-  )
+  );
 }
+
+
+export default Home;

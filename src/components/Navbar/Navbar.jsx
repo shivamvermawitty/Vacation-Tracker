@@ -32,7 +32,7 @@ export default function Navbar() {
           <div className="d-grid">
             <div className="row">
               <p
-                className=" btn fs col-12 m-0 p-0 d-flex align-items-center"
+                className=" btn fs col-12 m-0 p-0 d-flex align-items-center text-white"
                 onClick={handleClick}
               >
                 Welcome {userName}

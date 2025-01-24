@@ -7,7 +7,7 @@
 input {
   border: 1px solid white;
   width: 150px !important;
-  border-radius: 16px !important;
+  border-radius: 9px !important;
 }
 input[type="date"] {
   border: 1px solid white;
@@ -24,10 +24,7 @@ input[type="submit"] {
   border: 1px solid white;
   color: #525252;
 }
-select {
-  width: 150px !important;
-  border-radius: 16px !important;
-}
+
 .loginButton {
   background-color: #525252;
   border: 1px solid white;

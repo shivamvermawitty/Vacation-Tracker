@@ -38,7 +38,7 @@ function Login() {
         <div>V</div>acation Tracker
       </div>
       <div className="registartion mx-auto p-3">
-        <h1 className=" d-flex justify-content-center">SignUp</h1>
+        <h1 className=" d-flex justify-content-center">LogIn</h1>
         <form
           onSubmit={(e) => handleSubmit(e)}
           className=" d-flex flex-wrap gap-2 justify-content-center"
