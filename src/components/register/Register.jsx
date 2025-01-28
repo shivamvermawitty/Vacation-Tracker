@@ -4,6 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { z } from "zod";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import InputComponent from "../InputComponent/InputComponent";
+import Dropdown from "../DropDown/Dropdown";
+import ErrorComponent from "../ErrorComponent/ErrorComponent";
+
 
 const formSchema = z.object({
   firstName: z.string().min(3, "First name is required"),
@@ -26,7 +30,7 @@ function Register() {
     dob: "",
     gender: "",
   });
-
+  console.log(formData);
   const [errors, setErrors] = useState({});
 
   function handleSubmit(e) {
@@ -68,133 +72,92 @@ function Register() {
           <form onSubmit={(e) => handleSubmit(e)} className=" gap-2 ">
             <div className="d-flex flex-column  mx-4">
               <label className="  m-0">First Name:</label>
-              <input
-                className=""
-                type="text"
-                value={formData.firstName}
-                onChange={(e) =>
-                  setFormData((data) => ({
-                    ...data,
-                    firstName: e.target.value,
-                  }))
-                }
+              <InputComponent
+                type={"text"}
+                formData={formData}
+                name={"firstName"}
+                setFormData={setFormData}
               />
               {errors.firstName && (
-                <div className="text-danger">{errors.firstName}</div>
+                <ErrorComponent errorMessage={errors.firstName}/>
+                
               )}
             </div>
             <div className=" d-flex flex-column  mx-4">
               <label className=" m-0">Last Name:</label>
-
-              <input
-                className=" "
-                type="text"
-                value={formData.lastName}
-                onChange={(e) =>
-                  setFormData((data) => ({
-                    ...data,
-                    lastName: e.target.value,
-                  }))
-                }
+              <InputComponent
+                type={"text"}
+                formData={formData}
+                name={"lastName"}
+                setFormData={setFormData}
               />
               {errors.lastName && (
-                <div className="text-danger">{errors.lastName}</div>
+                <ErrorComponent errorMessage={errors.lastName}/>
+               
               )}
             </div>
             <div className="d-flex flex-column  mx-4">
               <label className=" m-0">E-mail:</label>
-
-              <input
-                className="  "
-                type="email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData((data) => ({
-                    ...data,
-                    email: e.target.value,
-                  }))
-                }
+              <InputComponent
+                type={"text"}
+                formData={formData}
+                name={"email"}
+                setFormData={setFormData}
               />
+              
+              
               {errors.email && (
-                <div className="text-danger">{errors.email}</div>
+                <ErrorComponent errorMessage={errors.email}/>
+                
               )}
             </div>
 
             <div className=" d-flex flex-column mx-4">
               <label className=" m-0">Password:</label>
-
-              <input
-                className=" "
-                type="password"
-                value={formData.password}
-                onChange={(e) =>
-                  setFormData((data) => ({
-                    ...data,
-                    password: e.target.value,
-                  }))
-                }
+              <InputComponent
+                type={"password"}
+                formData={formData}
+                name={"password"}
+                setFormData={setFormData}
               />
               {errors.password && (
-                <div className="text-danger">{errors.password}</div>
+                <ErrorComponent errorMessage={errors.password}/>
+                
               )}
             </div>
 
             <div className="d-flex flex-column mx-4">
               <label className="  m-0">Contact No.:</label>
-
-              <input
-                className="  "
-                type="text"
-                value={formData.contact}
-                onChange={(e) =>
-                  setFormData((data) => ({
-                    ...data,
-                    contact: e.target.value,
-                  }))
-                }
+              <InputComponent
+                type={"text"}
+                formData={formData}
+                name={"contact"}
+                setFormData={setFormData}
               />
               {errors.contact && (
-                <div className="text-danger">{errors.contact}</div>
+                <ErrorComponent errorMessage={errors.contact}/>
+                
               )}
             </div>
             <div className="d-flex flex-column mx-4">
               <label className="  m-0">D.O.B:</label>
-
-              <input
-                className=""
-                type="date"
-                value={formData.dob}
-                onChange={(e) =>
-                  setFormData((data) => ({
-                    ...data,
-                    dob: e.target.value,
-                  }))
-                }
+              <InputComponent
+                type={"date"}
+                formData={formData}
+                name={"dob"}
+                setFormData={setFormData}
               />
               {errors.dateOfBirth && (
-                <div className="text-danger">{errors.dateOfBirth}</div>
+                <ErrorComponent errorMessage={errors.dob}/>
+                
               )}
             </div>
             <div className="d-flex flex-column mx-4">
               <label className=" m-0">Gender:</label>
-
-              <select
-                value={formData.gender}
-                onChange={(e) =>
-                  setFormData((data) => ({
-                    ...data,
-                    gender: e.target.value,
-                  }))
-                }
-              >
-                <option value="" disabled>
-                  Select gender
-                </option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
+              <Dropdown formData={formData} setFormData={setFormData} name={"gender"} optionArr={['Male' , 'Female']}/>
               {errors.gender && (
-                <div className="text-danger">{errors.gender}</div>
+                <ErrorComponent errorMessage={errors.gender}/>
+         
               )}
             </div>
             <div className=" col-5 my-2 d-flex gap-2 ">

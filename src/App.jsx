@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Profile from "./components/profile/Profile";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
+import RouteGaurd from './components/RouteGaurd/RauteGaurd'
 
 
 const router = createBrowserRouter([
@@ -21,17 +22,21 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <>
-    <Navbar/>
-    <Profile />
-    </>,
+    element: (
+      <RouteGaurd>
+        <Navbar />
+        <Profile />
+      </RouteGaurd>
+    ),
   },
   {
     path:'/home',
-    element:<>
-    <Navbar/>
-    <Home/>
-    </>
+    element: (
+      <RouteGaurd>
+        <Navbar />
+        <Home />
+      </RouteGaurd>
+    )
   }
 ]);
 

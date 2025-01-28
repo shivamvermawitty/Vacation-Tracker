@@ -4,6 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { z } from "zod";
 import { data, useNavigate } from "react-router-dom";
 import axios from "axios";
+import InputComponent from "../InputComponent/InputComponent";
+import ErrorComponent from "../ErrorComponent/ErrorComponent";
+import Dropdown from "../DropDown/Dropdown";
 
 const formSchema = z.object({
   firstName: z.string().min(3, "First name is required"),
@@ -42,7 +45,7 @@ function Profile() {
             },
           }
         );
-        console.log(response.data)
+        console.log(response.data);
         setFormData((data) => ({
           ...data,
           firstName: response.data.firstName,
@@ -50,7 +53,7 @@ function Profile() {
           email: response.data.email,
           password: response.data.password,
           contact: response.data.contact,
-          dob: new Date(response.data.dob).toISOString().split('T')[0],
+          dob: new Date(response.data.dob).toISOString().split("T")[0],
           gender: response.data.gender,
         }));
       } catch (err) {
@@ -64,11 +67,19 @@ function Profile() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    // console.log(formData)
 
     try {
-      formSchema.parse(formData);
+      console.log(formData);
+
+      console.log(formData, "afterParse");
+
       axios
-        .patch("http://localhost:3000/update", formData)
+        .patch("http://localhost:3000/update", formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((update) => {
           navigate("/home");
           setErrors({});
@@ -99,126 +110,85 @@ function Profile() {
         <form onSubmit={(e) => handleSubmit(e)} className=" d-flex">
           <div className="d-flex flex-column justify-content-center mx-4">
             <label className="  m-0">First Name:</label>
-            <input
-              type="text"
-              value={formData.firstName}
-              onChange={(e) =>
-                setFormData((data) => ({
-                  ...data,
-                  firstName: e.target.value,
-                }))
-              }
+            <InputComponent
+              type={"text"}
+              formData={formData}
+              name={"firstName"}
+              setFormData={setFormData}
             />
             {errors.firstName && (
-              <div className="text-danger">{errors.firstName}</div>
+              <ErrorComponent errorMessage={errors.firstName} />
             )}
           </div>
           <div className=" d-flex flex-column justify-content-end mx-4">
             <label className=" m-0">Last Name:</label>
 
-            <input
-              type="text"
-              value={formData.lastName}
-              onChange={(e) =>
-                setFormData((data) => ({
-                  ...data,
-                  lastName: e.target.value,
-                }))
-              }
+            <InputComponent
+              type={"text"}
+              formData={formData}
+              name={"lastName"}
+              setFormData={setFormData}
             />
             {errors.lastName && (
-              <div className="text-danger">{errors.lastName}</div>
+              <ErrorComponent errorMessage={errors.lastName} />
             )}
           </div>
           <div className="d-flex flex-column justify-content-center mx-4">
             <label className=" m-0">E-mail:</label>
 
-            <input
-              type="email"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData((data) => ({
-                  ...data,
-                  email: e.target.value,
-                }))
-              }
+            <InputComponent
+              type={"text"}
+              formData={formData}
+              name={"email"}
+              setFormData={setFormData}
             />
-            {errors.email && <div className="text-danger">{errors.email}</div>}
+
+            {errors.email && <ErrorComponent errorMessage={errors.email} />}
           </div>
           <div className=" d-flex flex-column justify-content-center mx-4">
             <label className=" m-0">Password:</label>
 
-            <input
-              type="password"
-              value={formData.password}
-              onChange={(e) =>
-                setFormData((data) => ({
-                  ...data,
-                  password: e.target.value,
-                }))
-              }
+            <InputComponent
+              type={"password"}
+              formData={formData}
+              name={"password"}
+              setFormData={setFormData}
             />
             {errors.password && (
-              <div className="text-danger">{errors.password}</div>
+              <ErrorComponent errorMessage={errors.password} />
             )}
           </div>
 
           <div className="d-flex flex-column justify-content-center mx-4">
             <label className="  m-0">Contact No.:</label>
 
-            <input
-              type="text"
-              value={formData.contact}
-              onChange={(e) =>
-                setFormData((data) => ({
-                  ...data,
-                  contact: e.target.value,
-                }))
-              }
+            <InputComponent
+              type={"text"}
+              formData={formData}
+              name={"contact"}
+              setFormData={setFormData}
             />
-            {errors.contact && (
-              <div className="text-danger">{errors.contact}</div>
-            )}
+            {errors.contact && <ErrorComponent errorMessage={errors.contact} />}
           </div>
           <div className="d-flex flex-column justify-content-center mx-4">
             <label className="  m-0">D.O.B:</label>
 
-            <input
-              className=""
-              type="date"
-              value={formData.dob}
-              onChange={(e) =>
-                setFormData((data) => ({
-                  ...data,
-                  dob: e.target.value,
-                }))
-              }
+            <InputComponent
+              type={"date"}
+              formData={formData}
+              name={"dob"}
+              setFormData={setFormData}
             />
-            {errors.dateOfBirth && (
-              <div className="text-danger">{errors.dateOfBirth}</div>
-            )}
+            {errors.dateOfBirth && <ErrorComponent errorMessage={errors.dob} />}
           </div>
           <div className="d-flex flex-column justify-content-center mx-4 ">
             <label className=" m-0">Gender:</label>
 
-            <select
-              value={formData.gender}
-              onChange={(e) =>
-                setFormData((data) => ({
-                  ...data,
-                  gender: e.target.value,
-                }))
-              }
-            >
-              <option value="" disabled>
-                Select gender
-              </option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-            {errors.gender && (
-              <div className="text-danger">{errors.gender}</div>
-            )}
+            <Dropdown formData={formData} setFormData={setFormData} name={"gender"} optionArr={['Male' , 'Female']}/>
+                          {errors.gender && (
+                            <ErrorComponent errorMessage={errors.gender}/>
+                     
+                          )}
           </div>
           <div>
             <input type="submit" className=" fw-bold my-3" value="Update" />

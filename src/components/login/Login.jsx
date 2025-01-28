@@ -3,6 +3,7 @@ import "./Login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import InputComponent from "../InputComponent/InputComponent";
 
 function Login() {
   const navigate = useNavigate();
@@ -16,19 +17,20 @@ function Login() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // Ensure loginCredential is defined correctly (e.g., from form state)
-
     try {
-      const response = await axios.post("http://localhost:3000/login", loginCredential);
+      const response = await axios.post(
+        "http://localhost:3000/login",
+        loginCredential
+      );
       console.log(response);
       localStorage.setItem("authToken", response.data.accessToken);
-      console.log(response.data)
-      localStorage.setItem('userName',response.data.user.firstName)
-      localStorage.setItem('email',response.data.user.email)
+      console.log(response.data);
+      localStorage.setItem("userName", response.data.user.firstName);
+      localStorage.setItem("email", response.data.user.email);
       navigate("/home");
-      setErrors(false)
+      setErrors(false);
     } catch (error) {
-      setErrors(true)
+      setErrors(true);
     }
   }
 
@@ -45,32 +47,20 @@ function Login() {
         >
           <div className=" d-flex flex-column justify-content-center mx-4">
             <label className="  m-0">Email:</label>
-
-            <input
-              className=" p-1 "
-              type="text"
-              value={loginCredential.email}
-              onChange={(e) =>
-                setLoginCredential((data) => ({
-                  ...data,
-                  email: e.target.value,
-                }))
-              }
+            <InputComponent
+              type={"text"}
+              formData={loginCredential}
+              name={"email"}
+              setFormData={setLoginCredential}
             />
           </div>
           <div className=" d-flex flex-column justify-content-center mx-4">
             <label className=" m-0">Password:</label>
-
-            <input
-              className=" p-1 "
-              type="password"
-              value={loginCredential.password}
-              onChange={(e) =>
-                setLoginCredential((data) => ({
-                  ...data,
-                  password: e.target.value,
-                }))
-              }
+            <InputComponent
+              type={"password"}
+              formData={loginCredential}
+              name={"password"} 
+              setFormData={setLoginCredential}
             />
           </div>
           {errors && (
