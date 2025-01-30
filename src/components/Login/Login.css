@@ -18,8 +18,21 @@ select {
   border-radius: 5px;
   padding: 5px;
 }
+.button{
+  display: flex;
+  justify-content: center;
+  align-items:center ;
+  border-radius: 13px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  width: 7rem;
+  background-color: white;
+  border: 1px solid white;
+  color: #525252;
+}
 input[type="submit"] {
   width: 7rem;
+  font-weight: 600;
   background-color: white;
   border: 1px solid white;
   color: #525252;

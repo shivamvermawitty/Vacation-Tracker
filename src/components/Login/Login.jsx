@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import InputComponent from "../InputComponent/InputComponent";
 import { postLoginCred } from "../../ApiMethods";
+import { Link } from "react-router-dom";
 
 
 function Login() {
@@ -23,8 +24,8 @@ function Login() {
       const response = await postLoginCred(loginCredential);
       console.log(7777, response.data);
       localStorage.setItem("authToken", response.data.accessToken);
-      localStorage.setItem("userName", response.data.user.firstName);
-      localStorage.setItem("email", response.data.user.email);
+      // localStorage.setItem("userName", response.data.user.firstName);
+      // localStorage.setItem("email", response.data.user.email);
       navigate("/home");
       setErrors(false);
     } catch (error) {
@@ -66,6 +67,7 @@ function Login() {
           )}
 
           <div className="col-12  my-2 d-flex justify-content-center gap-2 ">
+            <Link to='/' className="button" style={{ textDecoration: 'none' }}>Register</Link>
             <input className="btn" type="submit" value="Login" />
           </div>
         </form>

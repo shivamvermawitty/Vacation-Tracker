@@ -1,15 +1,43 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
+import { UserContext } from "../../App";
+import getData from "../../ApiMethods";
 
 
 
 export default function Navbar() {
  
-  
-  const userName= localStorage.getItem('userName')
+  const {userDetails,setUserDetails}=useContext(UserContext)
+  const [userName,setUserName]=useState()
   const [showLogOut, setShowLogOut] = useState(false);
   const navigate = useNavigate();
+  // console.log(user)
+  useEffect(()=>{
+    async function fetchData() {
+          try {
+            const response =await getData()
+            
+            // setFormData((data) => ({
+            //   ...data,
+            //   firstName: response.firstName,
+            //   lastName: response.lastName,
+            //   email: response.email,
+            //   password: response.password,
+            //   contact: response.contact,
+            //   dob: new Date(response.dob).toISOString().split("T")[0],
+            //   gender: response.gender,
+            // }));
+            setUserName(response.firstName)
+            setUserDetails(response)
+
+          } catch (err) {
+            console.log("Error fetching Data");
+          }
+        }
+        fetchData();
+  },[])
+
   function handleClick() {
     setShowLogOut((d) => !d);
   }

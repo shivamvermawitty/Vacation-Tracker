@@ -1,13 +1,6 @@
-import { useState } from "react";
-import "./Register.css";
+import { useState, Link, useNavigate, InputComponent, Dropdown, registerData,z } from './index';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { z } from "zod";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import InputComponent from "../InputComponent/InputComponent";
-import Dropdown from "../DropDown/Dropdown";
-import ErrorComponent from "../ErrorComponent/ErrorComponent";
-import { registerData } from "../../ApiMethods";
+import './Register.css'
 
 
 const formSchema = z.object({
@@ -31,7 +24,6 @@ function Register() {
     dob: "",
     gender: "",
   });
-  console.log(formData);
   const [errors, setErrors] = useState({});
 
   function handleSubmit(e) {
@@ -47,8 +39,6 @@ function Register() {
         .catch((err) => {
           console.log("Unable to register User");
         });
-
-      console.log(formData);
       setErrors({});
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -71,94 +61,85 @@ function Register() {
         <div className=" formDiv">
           <form onSubmit={(e) => handleSubmit(e)} className=" gap-2 ">
             <div className="d-flex flex-column  mx-4">
-              <label className="  m-0">First Name:</label>
+              
               <InputComponent
+              label={'First Name:'}
                 type={"text"}
                 formData={formData}
                 name={"firstName"}
                 setFormData={setFormData}
+                errorMessage={errors.firstName}
               />
-              {errors.firstName && (
-                <ErrorComponent errorMessage={errors.firstName}/>
-                
-              )}
+              
             </div>
             <div className=" d-flex flex-column  mx-4">
-              <label className=" m-0">Last Name:</label>
+              
               <InputComponent
+              label="Last Name:"
                 type={"text"}
                 formData={formData}
                 name={"lastName"}
                 setFormData={setFormData}
+                errorMessage={errors.lastName}
               />
-              {errors.lastName && (
-                <ErrorComponent errorMessage={errors.lastName}/>
-               
-              )}
+            
             </div>
             <div className="d-flex flex-column  mx-4">
-              <label className=" m-0">E-mail:</label>
+              
               <InputComponent
+              label="E-mail:"
                 type={"text"}
                 formData={formData}
                 name={"email"}
                 setFormData={setFormData}
+                errorMessage={errors.email}
               />
               
               
-              {errors.email && (
-                <ErrorComponent errorMessage={errors.email}/>
-                
-              )}
+              
             </div>
 
             <div className=" d-flex flex-column mx-4">
-              <label className=" m-0">Password:</label>
+             
               <InputComponent
+              label={"Password:"}
                 type={"password"}
                 formData={formData}
                 name={"password"}
                 setFormData={setFormData}
+                errorMessage={errors.password}
               />
-              {errors.password && (
-                <ErrorComponent errorMessage={errors.password}/>
-                
-              )}
+              
             </div>
 
             <div className="d-flex flex-column mx-4">
-              <label className="  m-0">Contact No.:</label>
+              
               <InputComponent
+                label={"Contact No.:"}
                 type={"text"}
                 formData={formData}
                 name={"contact"}
                 setFormData={setFormData}
+                errorMessage={errors.contact}
               />
-              {errors.contact && (
-                <ErrorComponent errorMessage={errors.contact}/>
-                
-              )}
+              
             </div>
             <div className="d-flex flex-column mx-4">
-              <label className="  m-0">D.O.B:</label>
+              
               <InputComponent
+                label={"D.O.B"}
                 type={"date"}
                 formData={formData}
                 name={"dob"}
                 setFormData={setFormData}
+                errorMessage={errors.dob}
               />
-              {errors.dateOfBirth && (
-                <ErrorComponent errorMessage={errors.dob}/>
-                
-              )}
+              
             </div>
             <div className="d-flex flex-column mx-4">
-              <label className=" m-0">Gender:</label>
-              <Dropdown formData={formData} setFormData={setFormData} name={"gender"} optionArr={['Male' , 'Female']}/>
-              {errors.gender && (
-                <ErrorComponent errorMessage={errors.gender}/>
-         
-              )}
+              
+              <Dropdown label={"Gender:"} formData={formData} setFormData={setFormData} name={"gender"} optionArr={['Male' , 'Female']} errorMessage={errors.gender}/>
+              
             </div>
             <div className=" col-5 my-2 d-flex gap-2 ">
               <input className="btn " type="submit" value="Register" />

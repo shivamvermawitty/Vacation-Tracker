@@ -1,14 +1,6 @@
-import { useEffect, useState ,useContext} from "react";
 import "./Profile.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { z } from "zod";
-import { data, useNavigate } from "react-router-dom";
-import InputComponent from "../InputComponent/InputComponent";
-import ErrorComponent from "../ErrorComponent/ErrorComponent";
-import Dropdown from "../DropDown/Dropdown";
-import ApiMethods, { updateData } from '../../ApiMethods'
-import getData from "../../ApiMethods";
-
+import {useEffect , useState , useContext ,z , data , useNavigate , InputComponent ,Dropdown , ApiMethods , getData , updateData ,UserContext } from './index'
 
 const formSchema = z.object({
   firstName: z.string().min(3, "First name is required"),
@@ -22,8 +14,7 @@ const formSchema = z.object({
 });
 
 function Profile() {
-  const email = localStorage.getItem("email");
-
+  const {userDetails,setUserDetails} = useContext(UserContext);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -36,32 +27,23 @@ function Profile() {
   });
   const navigate = useNavigate();
   useEffect(() => {
-    async function fetchData(userEmail) {
-      try {
-        const response =await getData(userEmail)
-        
-        setFormData((data) => ({
-          ...data,
-          firstName: response.firstName,
-          lastName: response.lastName,
-          email: response.email,
-          password: response.password,
-          contact: response.contact,
-          dob: new Date(response.dob).toISOString().split("T")[0],
-          gender: response.gender,
-        }));
-      } catch (err) {
-        console.log("Error fetching Data");
-      }
-    }
-    fetchData(email);
+    console.log("Profile page rendered");
+    setFormData((data) => ({
+      ...data,
+      firstName: userDetails.firstName,
+      lastName: userDetails.lastName,
+      email: userDetails.email,
+      password: userDetails.password,
+      contact: userDetails.contact,
+      dob: new Date(userDetails.dob).toISOString().split("T")[0],
+      gender: userDetails.gender,
+    }));
   }, []);
 
   const [errors, setErrors] = useState({});
 
   function handleSubmit(e) {
     e.preventDefault();
-
 
     try {
       updateData(formData)
@@ -94,86 +76,96 @@ function Profile() {
 
         <form onSubmit={(e) => handleSubmit(e)} className=" d-flex">
           <div className="d-flex flex-column justify-content-center mx-4">
-            <label className="  m-0">First Name:</label>
+            
             <InputComponent
+            label={"First Name:"}
               type={"text"}
               formData={formData}
               name={"firstName"}
               setFormData={setFormData}
+              errorMessage={errors.firstName}
             />
-            {errors.firstName && (
-              <ErrorComponent errorMessage={errors.firstName} />
-            )}
+            
           </div>
           <div className=" d-flex flex-column justify-content-end mx-4">
-            <label className=" m-0">Last Name:</label>
+            
 
             <InputComponent
+            label={"Last Name:"}
               type={"text"}
               formData={formData}
               name={"lastName"}
               setFormData={setFormData}
+              errorMessage={errors.lastName}
             />
-            {errors.lastName && (
-              <ErrorComponent errorMessage={errors.lastName} />
-            )}
+            
           </div>
           <div className="d-flex flex-column justify-content-center mx-4">
-            <label className=" m-0">E-mail:</label>
+       
 
             <InputComponent
+            label={"E-mail"}
               type={"text"}
               formData={formData}
               name={"email"}
               setFormData={setFormData}
+              errorMessage={errors.email}
             />
 
-            {errors.email && <ErrorComponent errorMessage={errors.email} />}
+            
           </div>
           <div className=" d-flex flex-column justify-content-center mx-4">
-            <label className=" m-0">Password:</label>
+            
 
             <InputComponent
+            label={"Password:"}
               type={"password"}
               formData={formData}
               name={"password"}
               setFormData={setFormData}
+              errorMessage={errors.password}
             />
-            {errors.password && (
-              <ErrorComponent errorMessage={errors.password} />
-            )}
+            
           </div>
 
           <div className="d-flex flex-column justify-content-center mx-4">
-            <label className="  m-0">Contact No.:</label>
+            
 
             <InputComponent
+            label={"Contact No:"}
               type={"text"}
               formData={formData}
               name={"contact"}
               setFormData={setFormData}
+              errorMessage={errors.contact}
             />
-            {errors.contact && <ErrorComponent errorMessage={errors.contact} />}
+            
           </div>
           <div className="d-flex flex-column justify-content-center mx-4">
-            <label className="  m-0">D.O.B:</label>
+            
 
             <InputComponent
+            label={"D.O.B"}
               type={"date"}
               formData={formData}
               name={"dob"}
               setFormData={setFormData}
+              errorMessage={errors.dob}
             />
-            {errors.dateOfBirth && <ErrorComponent errorMessage={errors.dob} />}
+            
           </div>
           <div className="d-flex flex-column justify-content-center mx-4 ">
-            <label className=" m-0">Gender:</label>
+            
 
-            <Dropdown formData={formData} setFormData={setFormData} name={"gender"} optionArr={['Male' , 'Female']}/>
-                          {errors.gender && (
-                            <ErrorComponent errorMessage={errors.gender}/>
-                     
-                          )}
+            <Dropdown
+            label={"Gender:"}
+              formData={formData}
+              setFormData={setFormData}
+              name={"gender"}
+              optionArr={["Male", "Female"]}
+              errorMessage={errors.gender}
+            />
+            
           </div>
           <div>
             <input type="submit" className=" fw-bold my-3" value="Update" />

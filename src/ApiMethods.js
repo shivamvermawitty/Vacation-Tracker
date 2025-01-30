@@ -1,9 +1,9 @@
 import ApiInterceptor from './ApiInterceptor'
 
-export default async function getData(email){
+export default async function getData(){
     try{
-        const response =await ApiInterceptor.get(`details/${email}`)
-        console.log(response.data)
+        const response =await ApiInterceptor.get(`details`)
+        
         return response.data
     }
     catch(error ) {
