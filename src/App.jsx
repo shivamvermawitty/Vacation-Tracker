@@ -6,6 +6,9 @@ import Profile from "./components/profile/Profile";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import RouteGaurd from './components/RouteGaurd/RauteGaurd'
+import { jwtDecode } from "jwt-decode";
+import React,{ createContext, useEffect, useRef, useState } from "react"
+
 
 
 const router = createBrowserRouter([
@@ -41,14 +44,22 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  
+  
+  
+  
   return (
     <div>
       {/* <Register />
       <Login /> */}
       
       <RouterProvider router={router} />
+    
+      
+      
     </div>
   );
 }
+
 
 export default App;

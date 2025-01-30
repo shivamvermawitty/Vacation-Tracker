@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./Login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
 import InputComponent from "../InputComponent/InputComponent";
+import { postLoginCred } from "../../ApiMethods";
+
 
 function Login() {
   const navigate = useNavigate();
@@ -18,13 +20,9 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/login",
-        loginCredential
-      );
-      console.log(response);
+      const response = await postLoginCred(loginCredential);
+      console.log(7777, response.data);
       localStorage.setItem("authToken", response.data.accessToken);
-      console.log(response.data);
       localStorage.setItem("userName", response.data.user.firstName);
       localStorage.setItem("email", response.data.user.email);
       navigate("/home");
@@ -59,7 +57,7 @@ function Login() {
             <InputComponent
               type={"password"}
               formData={loginCredential}
-              name={"password"} 
+              name={"password"}
               setFormData={setLoginCredential}
             />
           </div>

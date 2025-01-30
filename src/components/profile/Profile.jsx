@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
 import "./Profile.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { z } from "zod";
 import { data, useNavigate } from "react-router-dom";
-import axios from "axios";
 import InputComponent from "../InputComponent/InputComponent";
 import ErrorComponent from "../ErrorComponent/ErrorComponent";
 import Dropdown from "../DropDown/Dropdown";
+import ApiMethods, { updateData } from '../../ApiMethods'
+import getData from "../../ApiMethods";
+
 
 const formSchema = z.object({
   firstName: z.string().min(3, "First name is required"),
@@ -21,7 +23,6 @@ const formSchema = z.object({
 
 function Profile() {
   const email = localStorage.getItem("email");
-  const token = localStorage.getItem("authToken");
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -35,51 +36,35 @@ function Profile() {
   });
   const navigate = useNavigate();
   useEffect(() => {
-    async function fetchData(userEmail, token) {
+    async function fetchData(userEmail) {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/details/${userEmail}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        console.log(response.data);
+        const response =await getData(userEmail)
+        
         setFormData((data) => ({
           ...data,
-          firstName: response.data.firstName,
-          lastName: response.data.lastName,
-          email: response.data.email,
-          password: response.data.password,
-          contact: response.data.contact,
-          dob: new Date(response.data.dob).toISOString().split("T")[0],
-          gender: response.data.gender,
+          firstName: response.firstName,
+          lastName: response.lastName,
+          email: response.email,
+          password: response.password,
+          contact: response.contact,
+          dob: new Date(response.dob).toISOString().split("T")[0],
+          gender: response.gender,
         }));
       } catch (err) {
         console.log("Error fetching Data");
       }
     }
-    fetchData(email, token);
+    fetchData(email);
   }, []);
 
   const [errors, setErrors] = useState({});
 
   function handleSubmit(e) {
     e.preventDefault();
-    // console.log(formData)
+
 
     try {
-      console.log(formData);
-
-      console.log(formData, "afterParse");
-
-      axios
-        .patch("http://localhost:3000/update", formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+      updateData(formData)
         .then((update) => {
           navigate("/home");
           setErrors({});

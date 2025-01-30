@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
+
+
 export default function Navbar() {
-  const userName=localStorage.getItem('userName')
+ 
+  
+  const userName= localStorage.getItem('userName')
   const [showLogOut, setShowLogOut] = useState(false);
   const navigate = useNavigate();
   function handleClick() {
     setShowLogOut((d) => !d);
   }
   function handleLogOut() {
-    localStorage.clear()
+    localStorage.clear();
+   
     navigate("/Login");
   }
   return (

@@ -7,6 +7,7 @@ import axios from "axios";
 import InputComponent from "../InputComponent/InputComponent";
 import Dropdown from "../DropDown/Dropdown";
 import ErrorComponent from "../ErrorComponent/ErrorComponent";
+import { registerData } from "../../ApiMethods";
 
 
 const formSchema = z.object({
@@ -38,8 +39,7 @@ function Register() {
 
     try {
       formSchema.parse(formData);
-      axios
-        .post("http://localhost:3000/register", formData)
+        registerData(formData)
         .then((register) => {
           navigate("/Login");
           console.log("User Registered", register);

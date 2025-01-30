@@ -19,6 +19,8 @@
     "@schedule-x/theme-default": "^2.15.0",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-calendar": "^5.1.0",
     "react-dom": "^18.3.1",
@@ -32,9 +34,12 @@
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.17.0",
     "eslint-plugin-react": "^7.37.2",
-    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.4.2",
     "vite": "^6.0.5"
   }
 }
