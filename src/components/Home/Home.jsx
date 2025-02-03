@@ -1,5 +1,6 @@
-import {useEffect,useState , DateCard} from './index'
+import {useState , DateCard , ApplyLeave , useRef} from './index'
 import "./Home.css";
+import { useEffect } from 'react';
 
 function Home() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -22,21 +23,24 @@ function Home() {
     newDate.setMonth(currentDate.getMonth() + counter);
     setCurrentDate(newDate);
   }
-  function selectDate(date, month, year) {
+  function handleDateClick() {
     
-    let getDate = new Date(Date.UTC(year, month, date));
-    getDate = getDate.toISOString().split("T")[0];
-
-    if (startDate === null) {
-      setStartDate(getDate);
-    } else if (endDate === null) {
-      setEndDate(getDate);
+    if(!showLeaveModal){
+      setShowLeaveModal(true)
     }
   }
-  function handleReset(){
-    setEndDate(null);
-    setStartDate(null)
-  }
+  
+  const [showLeaveModal,setShowLeaveModal]=useState(true)
+  const modalRef = useRef(null);
+  useEffect(()=>{
+    function handleModal(event){
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setShowLeaveModal(false);
+      }
+    }
+    document.addEventListener('mousedown',handleModal)
+
+  },[])
   
 
 
@@ -46,9 +50,7 @@ function Home() {
         <h1 className="col-3 fw-bold">{monthYear}</h1>
         <div className="col-6 d-flex align-items-center justify-content-end gap-2">
           
-          <button className=" btn btn-outline-primary bg-white text-primary fw-bold" onClick={handleReset}>
-            Reset
-          </button>
+          
         </div>
         <div className="col-3 d-flex justify-content-center align-items-center fs-1 ">
           <i
@@ -113,12 +115,15 @@ function Home() {
                 ? "endDate"
                 : ""}`}
             key={index}
-            onClick={() => selectDate(index + 1, month, year)}
+            onClick={() => handleDateClick()}
           >
             <li hidden={!(new Date(year,month,index+1)>=new Date(startDate) && new Date(year,month,index+1)<=new Date(endDate))} ></li>
             <div><DateCard date={index + 1} month={month} year={year} showLi={!(new Date(year,month,index+1)>=new Date(startDate) && new Date(year,month,index+1)<=new Date(endDate))}/></div>
           </div>
         ))}
+      </div>
+      <div className=' leaveModal'>
+        { showLeaveModal && <ApplyLeave modalRef={modalRef}/>}
       </div>
     </>
   );

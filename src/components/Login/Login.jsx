@@ -1,11 +1,6 @@
-import { useContext, useState } from "react";
 import "./Login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate } from "react-router-dom";
-
-import InputComponent from "../InputComponent/InputComponent";
-import { postLoginCred } from "../../ApiMethods";
-import { Link } from "react-router-dom";
+import {useNavigate , InputComponent , postLoginCred , Link , useContext , useState} from './index'
 
 
 function Login() {

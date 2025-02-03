@@ -13,7 +13,9 @@ export default function InputComponent({label,type,formData , name , setFormData
   return (<>
   
   <label>{label}</label>
-  <input type={type} value={formData[name]}   onChange={e=>handleChange(e,name)} />
+  <input type={type} 
+  value={formData[name]}   
+  onChange={e=>handleChange(e,name)} />
   {
     errorMessage && <div className='text-danger'>{errorMessage}</div>
   }
