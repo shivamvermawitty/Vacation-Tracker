@@ -1,6 +1,18 @@
 import "./Profile.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {useEffect , useState , useContext ,z , data , useNavigate , InputComponent ,Dropdown , ApiMethods , getData , updateData ,UserContext } from './index'
+import {
+  useEffect,
+  useState,
+  useContext,
+  z,
+  useNavigate,
+  InputComponent,
+  Dropdown,
+  ApiMethods,
+  getData,
+  updateData,
+  UserContext,
+} from "./index";
 
 const formSchema = z.object({
   firstName: z.string().min(3, "First name is required"),
@@ -11,10 +23,11 @@ const formSchema = z.object({
   contact: z.string().min(10, "Contact number should be at least 10 digits"),
   dob: z.string().min(3, "Date Of Birth is required"),
   gender: z.string().min(4, "Gender is required"),
+  color: z.string().min(3, "Color is required"),
 });
 
 function Profile() {
-  const {userDetails,setUserDetails} = useContext(UserContext);
+  const { userDetails, setUserDetails } = useContext(UserContext);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -24,10 +37,10 @@ function Profile() {
     contact: "",
     dob: "",
     gender: "",
+    color: "",
   });
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("Profile page rendered");
     setFormData((data) => ({
       ...data,
       firstName: userDetails.firstName,
@@ -37,6 +50,7 @@ function Profile() {
       contact: userDetails.contact,
       dob: new Date(userDetails.dob).toISOString().split("T")[0],
       gender: userDetails.gender,
+      color: userDetails.color,
     }));
   }, []);
 
@@ -44,6 +58,10 @@ function Profile() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    console.log(formData.dob)
+    const [year, month, day] = formData.dob.split('-');
+  const dateObj = new Date(year, month - 1, day);
+  setUserDetails({...formData,dob:dateObj.toISOString()})
 
     try {
       updateData(formData)
@@ -76,96 +94,85 @@ function Profile() {
 
         <form onSubmit={(e) => handleSubmit(e)} className=" d-flex">
           <div className="d-flex flex-column justify-content-center mx-4">
-            
             <InputComponent
-            label={"First Name:"}
+              label={"First Name:"}
               type={"text"}
               formData={formData}
               name={"firstName"}
               setFormData={setFormData}
               errorMessage={errors.firstName}
             />
-            
           </div>
           <div className=" d-flex flex-column justify-content-end mx-4">
-            
-
             <InputComponent
-            label={"Last Name:"}
+              label={"Last Name:"}
               type={"text"}
               formData={formData}
               name={"lastName"}
               setFormData={setFormData}
               errorMessage={errors.lastName}
             />
-            
           </div>
           <div className="d-flex flex-column justify-content-center mx-4">
-       
-
             <InputComponent
-            label={"E-mail"}
+              label={"E-mail"}
               type={"text"}
               formData={formData}
               name={"email"}
               setFormData={setFormData}
               errorMessage={errors.email}
             />
-
-            
           </div>
           <div className=" d-flex flex-column justify-content-center mx-4">
-            
-
             <InputComponent
-            label={"Password:"}
+              label={"Password:"}
               type={"password"}
               formData={formData}
               name={"password"}
               setFormData={setFormData}
               errorMessage={errors.password}
             />
-            
           </div>
 
           <div className="d-flex flex-column justify-content-center mx-4">
-            
-
             <InputComponent
-            label={"Contact No:"}
+              label={"Contact No:"}
               type={"text"}
               formData={formData}
               name={"contact"}
               setFormData={setFormData}
               errorMessage={errors.contact}
             />
-            
           </div>
           <div className="d-flex flex-column justify-content-center mx-4">
-            
-
             <InputComponent
-            label={"D.O.B"}
+              label={"D.O.B"}
               type={"date"}
               formData={formData}
               name={"dob"}
               setFormData={setFormData}
               errorMessage={errors.dob}
             />
-            
+          </div>
+          <div className="d-flex flex-column justify-content-center mx-4">
+            <InputComponent
+              label={"Color:"}
+              type={"color"}
+              formData={formData}
+              name={"color"}
+              setFormData={setFormData}
+              errorMessage={errors.color}
+            />
           </div>
           <div className="d-flex flex-column justify-content-center mx-4 ">
-            
-
             <Dropdown
-            label={"Gender:"}
+              label={"Gender:"}
               formData={formData}
               setFormData={setFormData}
               name={"gender"}
               optionArr={["Male", "Female"]}
               errorMessage={errors.gender}
             />
-            
           </div>
           <div>
             <input type="submit" className=" fw-bold my-3" value="Update" />

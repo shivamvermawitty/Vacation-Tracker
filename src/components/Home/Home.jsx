@@ -1,6 +1,6 @@
-import {useState , DateCard , ApplyLeave , useRef} from './index'
+import { useState, DateCard, ApplyLeave, useRef } from "./index";
 import "./Home.css";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 function Home() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -24,65 +24,92 @@ function Home() {
     setCurrentDate(newDate);
   }
   function handleDateClick() {
-    
-    if(!showLeaveModal){
-      setShowLeaveModal(true)
+    if (!showLeaveModal) {
+      console.log(month,year)
+      setShowLeaveModal(true);
     }
   }
-  
-  const [showLeaveModal,setShowLeaveModal]=useState(true)
+
+  const [userLeaveDetail,setUserLeaveDetails] = useState([
+    {
+      color: "#125ed9",
+      from: "2024-12-31T00:00:00.000Z",
+      to: "2025-01-02T00:00:00.000Z",
+      email: "user1@a.com",
+    },
+    {
+      color: "#e91e63",
+      from: "2025-01-02T00:00:00.000Z",
+      to: "2025-01-05T00:00:00.000Z",
+      email: "user2@a.com",
+    },
+    {
+      color: "#ff5722",
+      from: "2025-01-05T00:00:00.000Z",
+      to: "2025-01-08T00:00:00.000Z",
+      email: "user3@a.com",
+    },
+    {
+      color: "#4caf50",
+      from: "2025-01-08T00:00:00.000Z",
+      to: "2025-01-11T00:00:00.000Z",
+      email: "user4@a.com",
+    },
+    {
+      color: "#8bc34a",
+      from: "2025-01-11T00:00:00.000Z",
+      to: "2025-01-13T00:00:00.000Z",
+      email: "user5@a.com",
+    },
+  ]);
+
+  const [showLeaveModal, setShowLeaveModal] = useState(false);
   const modalRef = useRef(null);
-  useEffect(()=>{
-    function handleModal(event){
+  useEffect(() => {
+    function handleModal(event) {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         setShowLeaveModal(false);
       }
     }
-    document.addEventListener('mousedown',handleModal)
-
-  },[])
-  
-
+    document.addEventListener("mousedown", handleModal);
+  }, []);
 
   return (
     <>
       <div className="row justify-content-between calenderHeader">
-        <h1 className="col-3 fw-bold">{monthYear}</h1>
-        <div className="col-6 d-flex align-items-center justify-content-end gap-2">
-          
-          
-        </div>
+        <h1 className="col-3 fw-bold monthYear">{monthYear}</h1>
+        <div className="col-6 d-flex align-items-center justify-content-end gap-2"></div>
         <div className="col-3 d-flex justify-content-center align-items-center fs-1 ">
           <i
-            className="fa-solid fa-chevron-left p-1 bg-white rounded m-1"
+            className="fa-solid fa-chevron-left p-1 bg-white rounded m-1 calenderChange"
             onClick={() => changeMonth(-1)}
           ></i>
           <i
-            className="fa-solid fa-chevron-right p-1 bg-white rounded"
+            className="fa-solid fa-chevron-right p-1 bg-white rounded calenderChange"
             onClick={() => changeMonth(1)}
           ></i>
         </div>
       </div>
       <div className="weekDays">
-        <div className="dayBox text-danger fw-bold d-flex justify-content-center">
+        <div className="dayBox text-danger fw-bold d-flex justify-content-center dayName">
           Sunday
         </div>
-        <div className="dayBox  fw-bold d-flex justify-content-center">
+        <div className="dayBox  fw-bold d-flex justify-content-center dayName" >
           Monday
         </div>
-        <div className="dayBox fw-bold d-flex justify-content-center">
+        <div className="dayBox fw-bold d-flex justify-content-center dayName">
           Tuesday
         </div>
-        <div className="dayBox fw-bold d-flex justify-content-center">
+        <div className="dayBox fw-bold d-flex justify-content-center dayName">
           Wedneday
         </div>
-        <div className="dayBox fw-bold d-flex justify-content-center">
+        <div className="dayBox fw-bold d-flex justify-content-center dayName">
           Thursday
         </div>
-        <div className="dayBox fw-bold d-flex justify-content-center">
+        <div className="dayBox fw-bold d-flex justify-content-center dayName">
           Friday
         </div>
-        <div className="dayBox fw-bold d-flex justify-content-center">
+        <div className="dayBox fw-bold d-flex justify-content-center dayName">
           Saturday
         </div>
       </div>
@@ -94,36 +121,54 @@ function Home() {
         ))}
         {new Array(daysInMonth).fill().map((_, index) => (
           <div
-            className={` ${new Date(year,month,index+1).getDay()==0?'disabledDate':'dateCard'} ${new Date(year,month,index+1).getDay()==6?'disabledDate':'dateCard'} ${
+            className={` ${new Date(year, month, index + 1).getDay() == 0 ? "disabledDate" : "dateCard"} ${new Date(year, month, index + 1).getDay() == 6 ? "disabledDate" : "dateCard"} ${
               currentDate.getDate() == index + 1 &&
               currentDate.getMonth() == new Date().getMonth() &&
               currentDate.getFullYear() == new Date().getFullYear()
                 ? "currentDate"
                 : ""
-            } ${
-              (startDate ===
-              new Date(Date.UTC(year, month, index + 1))
-                .toISOString()
-                .split("T")[0]
-                ? "startDate"
-                : "")
-            } ${
-              endDate ===
-              new Date(Date.UTC(year, month, index + 1))
-                .toISOString()
-                .split("T")[0]
-                ? "endDate"
-                : ""}`}
+            }`}
             key={index}
             onClick={() => handleDateClick()}
           >
-            <li hidden={!(new Date(year,month,index+1)>=new Date(startDate) && new Date(year,month,index+1)<=new Date(endDate))} ></li>
-            <div><DateCard date={index + 1} month={month} year={year} showLi={!(new Date(year,month,index+1)>=new Date(startDate) && new Date(year,month,index+1)<=new Date(endDate))}/></div>
+            <div>
+              <DateCard date={index + 1} month={month} year={year} />
+            </div>
+            {userLeaveDetail.map((leaveDetail, i) => {
+            
+              return new Date(year, month, index + 1).setHours(0,0,0,0)>= new Date(leaveDetail.from).setHours(0,0,0,0) &&
+              new Date(year, month, index + 1).setHours(0,0,0,0)<= new Date(leaveDetail.to).setHours(0,0,0,0) ? (
+                <div
+                  key={i}
+                  className={`leaveStrip ${new Date(year,month,index+1).setHours(0,0,0,0)== new Date(leaveDetail.from).setHours(0,0,0,0)?'borderRadiusLeft':''} ${new Date(year,month,index+1).setHours(0,0,0,0)== new Date(leaveDetail.to).setHours(0,0,0,0)?'borderRadiusRight':''}`}
+                  style={{ backgroundColor: `${leaveDetail["color"]}` }}
+                >
+                  {
+                  // console.log(new Date(year,month,index+1).setHours(0,0,0,0)==new Date(leaveDetail.from).setHours(0,0,0,0),new Date(year,month,index+1).setHours(0,0,0,0), new Date(leaveDetail.from).setHours(0,0,0,0))
+                  new Date(year,month,index+1).setHours(0,0,0,0)==new Date(leaveDetail.from).setHours(0,0,0,0)?<p>{leaveDetail.email}</p>:''
+
+                  }
+                  
+                  
+                </div>
+              ) : (
+                ""
+              );
+            })}
           </div>
         ))}
       </div>
-      <div className=' leaveModal'>
-        { showLeaveModal && <ApplyLeave modalRef={modalRef}/>}
+      {showLeaveModal && <div className="backdrop"></div>}
+      <div className=" leaveModal">
+        {showLeaveModal && (
+          <ApplyLeave 
+            setShowLeaveModal={setShowLeaveModal}
+            modalRef={modalRef}
+            setUserLeaveDetails={setUserLeaveDetails}
+            month={month}
+            year={year}
+          />
+        )}
       </div>
     </>
   );

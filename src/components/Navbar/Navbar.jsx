@@ -12,17 +12,6 @@ export default function Navbar() {
     async function fetchData() {
       try {
         const response = await getData();
-
-        // setFormData((data) => ({
-        //   ...data,
-        //   firstName: response.firstName,
-        //   lastName: response.lastName,
-        //   email: response.email,
-        //   password: response.password,
-        //   contact: response.contact,
-        //   dob: new Date(response.dob).toISOString().split("T")[0],
-        //   gender: response.gender,
-        // }));
         setUserName(response.firstName);
         setUserDetails(response);
       } catch (err) {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { data } from 'react-router-dom'
+
 
 export default function InputComponent({label,type,formData , name , setFormData , errorMessage}) {
     
@@ -15,7 +15,7 @@ export default function InputComponent({label,type,formData , name , setFormData
   <label>{label}</label>
   <input type={type} 
   value={formData[name]}   
-  onChange={e=>handleChange(e,name)} />
+  onChange={e=>handleChange(e,name)} /> <br />
   {
     errorMessage && <div className='text-danger'>{errorMessage}</div>
   }

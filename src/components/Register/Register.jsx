@@ -11,6 +11,7 @@ const formSchema = z.object({
   contact: z.string().min(10, "Invalid Contact Number"),
   dob: z.string().min(3, "Date Of Birth is required"),
   gender: z.string().min(4, "Gender is required"),
+  color:z.string().min(4,"Invalid color")
 });
 
 function Register() {
@@ -23,6 +24,7 @@ function Register() {
     contact: "",
     dob: "",
     gender: "",
+    color:'#ffffff',
   });
   const [errors, setErrors] = useState({});
 
@@ -135,6 +137,16 @@ function Register() {
                 errorMessage={errors.dob}
               />
               
+            </div>
+            <div className='d-flex flex-column mx-4'>
+              <InputComponent
+              label={'Color:'}
+              type={'color'}
+              formData={formData}
+              name={'color'}
+              setFormData={setFormData}
+              errorMessage={errors.color}
+              />
             </div>
             <div className="d-flex flex-column mx-4">
               
