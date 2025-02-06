@@ -8,6 +8,7 @@ import Home from "./components/Home/Home";
 import RouteGaurd from './components/RouteGaurd/RauteGaurd'
 import { jwtDecode } from "jwt-decode";
 import React,{ createContext, useState } from "react"
+import AddEvent from "./components/AddEvent/AddEvent";
 
 const UserContext=createContext()
 
@@ -38,6 +39,15 @@ const router = createBrowserRouter([
       <RouteGaurd>
         <Navbar />
         <Home />
+      </RouteGaurd>
+    )
+  },
+  {
+    path:'/addEvent',
+    element:(
+      <RouteGaurd>
+        <Navbar />
+        <AddEvent/>
       </RouteGaurd>
     )
   }

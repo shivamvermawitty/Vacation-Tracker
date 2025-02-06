@@ -1,5 +1,4 @@
-import { getLeaveDetails } from '../../ApiMethods';
-import {UserContext , getData , useContext , useState , useRef , useEffect , Link ,useNavigate} from './index'
+import {UserContext , getData , useContext , useState , useRef , useEffect , Link ,useNavigate ,getLeaveDetails} from './index'
 import "./Navbar.css";
 
 

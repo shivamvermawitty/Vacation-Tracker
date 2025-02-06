@@ -1,10 +1,6 @@
-import {useState ,InputComponent} from './index'
-import { z } from "zod";
+import {useState,InputComponent, useEffect ,useContext, UserContext , LeaveDateInput, postLeaveDetails , z} from './index'
 import "./ApplyLeave.css";
-import { useEffect , useContext } from 'react';
-import { UserContext } from "../../App";
-import LeaveDateInput from '../LeaveDateInput/LeaveDateInput';
-import { postLeaveDetails } from '../../ApiMethods';
+
 
 const formSchema = z.object({
   fromDate: z
