@@ -1,12 +1,19 @@
-import { useState, DateCard, ApplyLeave, useRef } from "./index";
+import {
+  useState,
+  DateCard,
+  ApplyLeave,
+  useRef,
+  useContext,
+  UserContext,
+} from "./index";
 import "./Home.css";
 import { useEffect } from "react";
 
 function Home() {
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const { userDetails, setUserDetails, leaveDetails, setLeaveDetails } =
+    useContext(UserContext);
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
@@ -25,44 +32,9 @@ function Home() {
   }
   function handleDateClick() {
     if (!showLeaveModal) {
-      console.log(month,year)
       setShowLeaveModal(true);
     }
   }
-
-  const [userLeaveDetail,setUserLeaveDetails] = useState([
-    {
-      color: "#125ed9",
-      from: "2024-12-31T00:00:00.000Z",
-      to: "2025-01-02T00:00:00.000Z",
-      email: "user1@a.com",
-    },
-    {
-      color: "#e91e63",
-      from: "2025-01-02T00:00:00.000Z",
-      to: "2025-01-05T00:00:00.000Z",
-      email: "user2@a.com",
-    },
-    {
-      color: "#ff5722",
-      from: "2025-01-05T00:00:00.000Z",
-      to: "2025-01-08T00:00:00.000Z",
-      email: "user3@a.com",
-    },
-    {
-      color: "#4caf50",
-      from: "2025-01-08T00:00:00.000Z",
-      to: "2025-01-11T00:00:00.000Z",
-      email: "user4@a.com",
-    },
-    {
-      color: "#8bc34a",
-      from: "2025-01-11T00:00:00.000Z",
-      to: "2025-01-13T00:00:00.000Z",
-      email: "user5@a.com",
-    },
-  ]);
-
   const [showLeaveModal, setShowLeaveModal] = useState(false);
   const modalRef = useRef(null);
   useEffect(() => {
@@ -94,7 +66,7 @@ function Home() {
         <div className="dayBox text-danger fw-bold d-flex justify-content-center dayName">
           Sunday
         </div>
-        <div className="dayBox  fw-bold d-flex justify-content-center dayName" >
+        <div className="dayBox  fw-bold d-flex justify-content-center dayName">
           Monday
         </div>
         <div className="dayBox fw-bold d-flex justify-content-center dayName">
@@ -134,37 +106,39 @@ function Home() {
             <div>
               <DateCard date={index + 1} month={month} year={year} />
             </div>
-            {userLeaveDetail.map((leaveDetail, i) => {
-            
-              return new Date(year, month, index + 1).setHours(0,0,0,0)>= new Date(leaveDetail.from).setHours(0,0,0,0) &&
-              new Date(year, month, index + 1).setHours(0,0,0,0)<= new Date(leaveDetail.to).setHours(0,0,0,0) ? (
-                <div
-                  key={i}
-                  className={`leaveStrip ${new Date(year,month,index+1).setHours(0,0,0,0)== new Date(leaveDetail.from).setHours(0,0,0,0)?'borderRadiusLeft':''} ${new Date(year,month,index+1).setHours(0,0,0,0)== new Date(leaveDetail.to).setHours(0,0,0,0)?'borderRadiusRight':''}`}
-                  style={{ backgroundColor: `${leaveDetail["color"]}` }}
-                >
-                  {
-                  // console.log(new Date(year,month,index+1).setHours(0,0,0,0)==new Date(leaveDetail.from).setHours(0,0,0,0),new Date(year,month,index+1).setHours(0,0,0,0), new Date(leaveDetail.from).setHours(0,0,0,0))
-                  new Date(year,month,index+1).setHours(0,0,0,0)==new Date(leaveDetail.from).setHours(0,0,0,0)?<p>{leaveDetail.email}</p>:''
-
-                  }
-                  
-                  
-                </div>
-              ) : (
-                ""
-              );
-            })}
+            {Array.isArray(leaveDetails)
+              ? leaveDetails.map((leaveDetail, i) => {
+                  return new Date(year, month, index + 1).setHours(0,0,0,0) >= new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0) &&
+                    new Date(year, month, index + 1).setHours(0, 0, 0, 0) <=
+                      new Date(leaveDetail.toDate).setHours(0, 0, 0, 0) ? (
+                    <div
+                      key={i}
+                      className={`leaveStrip ${new Date(year, month, index + 1).setHours(0, 0, 0, 0) == new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0) ? "borderRadiusLeft" : ""} ${new Date(year, month, index + 1).setHours(0, 0, 0, 0) == new Date(leaveDetail.toDate).setHours(0, 0, 0, 0) ? "borderRadiusRight" : ""}`}
+                      style={{ backgroundColor: `${leaveDetail["color"]}` }}
+                    >
+                      {new Date(year, month, index + 1).setHours(0, 0, 0, 0) ==
+                      new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0) ? (
+                        <p className=" text-white">{leaveDetail.email}</p>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  ) : (
+                    ""
+                  );
+                })
+              : ""}
           </div>
+          
         ))}
       </div>
       {showLeaveModal && <div className="backdrop"></div>}
       <div className=" leaveModal">
         {showLeaveModal && (
-          <ApplyLeave 
+          <ApplyLeave
             setShowLeaveModal={setShowLeaveModal}
             modalRef={modalRef}
-            setUserLeaveDetails={setUserLeaveDetails}
+            setUserLeaveDetails={setLeaveDetails}
             month={month}
             year={year}
           />

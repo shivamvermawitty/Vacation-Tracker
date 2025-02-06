@@ -46,13 +46,13 @@ const router = createBrowserRouter([
 function App() {
   
   const [userDetails,setUserDetails]=useState({name:'Shivam'})
-  
+  const [leaveDetails,setLeaveDetails]=useState(null)
   
   return (
     <div>
       {/* <Register />
       <Login /> */}
-      <UserContext.Provider value={{userDetails,setUserDetails}}>
+      <UserContext.Provider value={{userDetails,setUserDetails , leaveDetails , setLeaveDetails}}>
       
       <RouterProvider router={router} />
       </UserContext.Provider>

@@ -4,12 +4,13 @@ import "./ApplyLeave.css";
 import { useEffect , useContext } from 'react';
 import { UserContext } from "../../App";
 import LeaveDateInput from '../LeaveDateInput/LeaveDateInput';
+import { postLeaveDetails } from '../../ApiMethods';
 
 const formSchema = z.object({
-  from: z
+  fromDate: z
     .string()
     .min(3, "Date Of Birth is required"),
-  to: z
+  toDate: z
     .string()
     .min(3, "Date Of Birth is required"),
   color: z.string().min(3, "Color is required"),
@@ -19,25 +20,26 @@ const formSchema = z.object({
 export default function ApplyLeave({ modalRef ,setShowLeaveModal , setUserLeaveDetails ,month ,year }) {
   const [errors, setErrors] = useState({});
 
-  const [leaveDetails, setLeaveDetails] = useState({
-    from: new Date(year,month ,2).toISOString().split('T')[0],
-    to: new Date(year,month ,2).toISOString().split('T')[0],
+  const [leaveDetail, setLeaveDetail] = useState({
+    fromDate: new Date(year,month ,2).toISOString().split('T')[0],
+    toDate: new Date(year,month ,2).toISOString().split('T')[0],
     color: "",
     email:''
   });
 
-  const {userDetails,setUserDetails} = useContext(UserContext);
+  const {userDetails,setUserDetails, leaveDetails , setLeaveDetails} = useContext(UserContext);
   useEffect(()=>{
-    setLeaveDetails(otherDetails=>({...otherDetails,color:userDetails.color ,email:userDetails.email}))
+    setLeaveDetail(otherDetails=>({...otherDetails,color:userDetails.color ,email:userDetails.email}))
     // console.log(userDetails)
 
   },[])
-  function handleLeaveSubmit(e) {
+ async  function handleLeaveSubmit(e) {
     e.preventDefault();
     try {
-      formSchema.parse(leaveDetails);
-      console.log(leaveDetails)
-      setUserLeaveDetails(data=>([...data , leaveDetails]))
+      formSchema.parse(leaveDetail);
+      console.log(leaveDetail)
+      setLeaveDetails(details=>([...details,leaveDetail]))
+      const response =await postLeaveDetails(leaveDetail)
       setErrors({});
       setShowLeaveModal(false)
     } catch (err) {
@@ -62,10 +64,10 @@ export default function ApplyLeave({ modalRef ,setShowLeaveModal , setUserLeaveD
         <div className=" d-flex justify-content-between align-items-center gap-1">
           <LeaveDateInput
           label={'From Date:'}
-          formData={leaveDetails}
-          name={'from'}
-          setFormData={setLeaveDetails}
-          errorMessage={errors.from}
+          formData={leaveDetail}
+          name={'fromDate'}
+          setFormData={setLeaveDetail}
+          errorMessage={errors.fromDate}
           month={month}
           year={year}
           
@@ -76,10 +78,10 @@ export default function ApplyLeave({ modalRef ,setShowLeaveModal , setUserLeaveD
         <div className=" d-flex justify-content-between align-items-center gap-1">
         <LeaveDateInput
           label={'To Date:'}
-          formData={leaveDetails}
-          name={'to'}
-          setFormData={setLeaveDetails}
-          errorMessage={errors.to}
+          formData={leaveDetail}
+          name={'toDate'}
+          setFormData={setLeaveDetail}
+          errorMessage={errors.toDate}
           month={month}
           year={year}
           

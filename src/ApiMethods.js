@@ -39,3 +39,26 @@ export async function registerData(userData){
     }
 }
 
+export async function postLeaveDetails(leaveDetails) {
+    try{
+        const response=await ApiInterceptor.post('addLeave',leaveDetails)
+        return response
+    }
+    catch(error){
+        console.log('Unable to Post Leave Details',error)
+    }
+    
+}
+
+export async function getLeaveDetails(){
+    try{
+        const response=await ApiInterceptor.get('getLeaves')
+        return response.data
+
+    }
+    catch (err){
+        console.log('Error Fetching data',err)
+
+    }
+}
+
