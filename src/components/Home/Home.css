@@ -95,6 +95,10 @@
   border-radius: 5px;
   box-shadow: 0 4px 6px rgb(0, 0, 0, 0.3);
 }
+.eventCard:has(.eventDate){
+  border: 2px solid rgb(97, 1, 97);
+  background-color: rgb(97,1,97 ,0.1);
+}
 @media (max-width: 550px) {
   .dayBox {
     font-size: 8px;

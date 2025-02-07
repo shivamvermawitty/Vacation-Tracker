@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 
 const RouteGuard = ({ children }) => {
 
-  const isAuthenticated = Boolean(localStorage.getItem('authToken')); 
+  const isAuthenticated = localStorage.getItem('authToken'); 
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;

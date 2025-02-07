@@ -13,7 +13,7 @@ import "./Home.css";
 function Home() {
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  const { userDetails, setUserDetails, leaveDetails, setLeaveDetails } =
+  const { userDetails, setUserDetails, leaveDetails, setLeaveDetails ,eventDetails , setEventDetails} =
     useContext(UserContext);
 
   const year = currentDate.getFullYear();
@@ -100,10 +100,17 @@ function Home() {
               currentDate.getFullYear() == new Date().getFullYear()
                 ? "currentDate"
                 : ""
-            }`}
+            } eventCard`}
             key={index}
             onClick={() => handleDateClick()}
           >
+            {
+              eventDetails.map((event , i)=>{
+                
+                return new Date(year, month , index+1).setHours(0, 0, 0, 0)==new Date(event.date).setHours(0, 0, 0, 0)?<div className=" d-flex justify-content-center eventDate" key={i}>{event.eventName}</div>:null
+              })
+            }
+            
             <div>
               <DateCard date={index + 1} month={month} year={year} />
             </div>

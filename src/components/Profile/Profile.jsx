@@ -28,7 +28,7 @@ const formSchema = z.object({
 
 function Profile() {
   const { userDetails, setUserDetails , leaveDetails,setLeaveDetails} = useContext(UserContext);
-  console.log(leaveDetails)
+  
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

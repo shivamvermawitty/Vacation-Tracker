@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState ,useContext } from "react";
 import { z } from "zod";
 import "./AddEvent.css";
 import InputComponent from "../InputComponent/InputComponent";
+import { UserContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   eventName: z.string().min(3, "First name is required"),
@@ -10,16 +12,25 @@ const formSchema = z.object({
 });
 
 export default function AddEvent() {
+  const { userDetails, setUserDetails, leaveDetails, setLeaveDetails ,eventDetails , setEventDetails} =
+    useContext(UserContext);
+    const navigate=useNavigate()
   const [eventDetail, setEventDetail] = useState({
     eventName:'',
     date:''
   });
   const [errors, setErrors] = useState({});
+  function handleSubmit(e){
+    e.preventDefault()
+    console.log(eventDetail)
+    setEventDetails(event=>([...event , eventDetail]))
+    navigate('/home')
+  }
   return (
     <div className="event">
       <div className="eventForm">
         <h2 className=" d-flex justify-content-center fw-bold">Add Event</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <InputComponent
             label={'Event Name:'}

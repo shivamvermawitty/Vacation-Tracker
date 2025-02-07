@@ -57,12 +57,26 @@ function App() {
   
   const [userDetails,setUserDetails]=useState({name:'Shivam'})
   const [leaveDetails,setLeaveDetails]=useState(null)
+  const [eventDetails , setEventDetails]=useState([
+    {
+      eventName:'Maha Shivratri',
+      date:"2025-02-26T00:00:00.000+00:00"
+    },
+    {
+      eventName:'New Year',
+      date:'2025-01-01T00:00:00.000+00:00'
+    },
+    {
+      eventName:"Makar Shankranti",
+      date:'2025-01-14T00:00:00.000+00:00'
+    }
+  ])
   
   return (
     <div>
       {/* <Register />
       <Login /> */}
-      <UserContext.Provider value={{userDetails,setUserDetails , leaveDetails , setLeaveDetails}}>
+      <UserContext.Provider value={{userDetails,setUserDetails , leaveDetails , setLeaveDetails,eventDetails , setEventDetails}}>
       
       <RouterProvider router={router} />
       </UserContext.Provider>

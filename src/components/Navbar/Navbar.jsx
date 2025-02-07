@@ -53,6 +53,13 @@ export default function Navbar() {
             Profile
           </Link>
         </li>
+        {
+          userDetails.email=='admin@admin.com'?<li className="p-2 list-unstyled">
+          <Link className=" fs text-white text-decoration-none" to="/addEvent">
+            Add Event
+          </Link>
+        </li>:''
+        }
       </ul>
       <div className="col-6 d-flex flex-column justify-content-end">
         {/* <div className="d-grid"> */}
