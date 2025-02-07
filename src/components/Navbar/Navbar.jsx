@@ -1,13 +1,14 @@
+import { getEvent } from '../../ApiMethods';
 import {UserContext , getData , useContext , useState , useRef , useEffect , Link ,useNavigate ,getLeaveDetails} from './index'
 import "./Navbar.css";
 
 
 export default function Navbar() {
-  const { userDetails, setUserDetails , leaveDetails,setLeaveDetails } = useContext(UserContext);
+  const { userDetails, setUserDetails , leaveDetails,setLeaveDetails ,eventDetails, setEventDetails} = useContext(UserContext);
   const [userName, setUserName] = useState();
   const [showLogOut, setShowLogOut] = useState(false);
   const navigate = useNavigate();
-  // console.log(user)
+  
   useEffect(() => {
     async function fetchUserData() {
       try {
@@ -27,6 +28,17 @@ export default function Navbar() {
         console.log('Error Fetching data')
       }
     }
+    async function fetchEventDetails(){
+      try{
+        const response=await getEvent()
+        console.log(response)
+        setEventDetails(response)
+      }
+      catch(err){
+        console.log('Error Fetching Event Details')
+      }
+    }
+    fetchEventDetails();
     fetchUserData();
     fetchLeaveDetail();
   }, []);

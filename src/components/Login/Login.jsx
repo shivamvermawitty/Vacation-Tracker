@@ -40,21 +40,25 @@ function Login() {
           className=" d-flex flex-wrap gap-2 justify-content-center"
         >
           <div className=" d-flex flex-column justify-content-center mx-4">
-            <label className="  m-0">Email:</label>
+            
             <InputComponent
+            label={'Email:'}
               type={"text"}
               formData={loginCredential}
               name={"email"}
               setFormData={setLoginCredential}
+              errorMessage={errors.email}
             />
           </div>
           <div className=" d-flex flex-column justify-content-center mx-4">
-            <label className=" m-0">Password:</label>
+            
             <InputComponent
+            label={'Password:'}
               type={"password"}
               formData={loginCredential}
               name={"password"}
               setFormData={setLoginCredential}
+              errorMessage={errors.password}
             />
           </div>
           {errors && (

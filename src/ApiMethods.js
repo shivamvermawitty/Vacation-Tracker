@@ -62,3 +62,22 @@ export async function getLeaveDetails(){
     }
 }
 
+export async function postEvent(eventData){
+    try{
+        const response=await ApiInterceptor.post('event/create',eventData)
+        return response
+    }
+    catch(err){
+        console.log('Unable to post Event')
+    }
+}
+export async function getEvent(){
+    try{
+        const response=await ApiInterceptor.get('event/fetch')
+        return response.data
+    }
+    catch(err){
+        console.log('Unable to fetch Data')
+    }
+}
+

@@ -104,11 +104,11 @@ function Home() {
             key={index}
             onClick={() => handleDateClick()}
           >
-            {
+            {Array.isArray(eventDetails)?
               eventDetails.map((event , i)=>{
                 
-                return new Date(year, month , index+1).setHours(0, 0, 0, 0)==new Date(event.date).setHours(0, 0, 0, 0)?<div className=" d-flex justify-content-center eventDate" key={i}>{event.eventName}</div>:null
-              })
+                return new Date(year, month , index+1).setHours(0, 0, 0, 0)==new Date(event.eventDate).setHours(0, 0, 0, 0)?<div className=" d-flex justify-content-center eventDate" key={i}>{event.eventName}</div>:null
+              }):null
             }
             
             <div>

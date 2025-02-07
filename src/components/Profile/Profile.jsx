@@ -27,42 +27,30 @@ const formSchema = z.object({
 });
 
 function Profile() {
-  const { userDetails, setUserDetails , leaveDetails,setLeaveDetails} = useContext(UserContext);
-  
+  const { userDetails, setUserDetails, leaveDetails, setLeaveDetails } =
+    useContext(UserContext);
+
   const [formData, setFormData] = useState({
     firstName: "",
-    lastName: "",
-    userName: "",
-    password: "",
-    email: "",
-    contact: "",
-    dob: "",
-    gender: "",
-    color: "",
+    firstName: userDetails.firstName,
+    lastName: userDetails.lastName,
+    email: userDetails.email,
+    password: userDetails.password,
+    contact: userDetails.contact,
+    dob: new Date(userDetails.dob).toISOString().split("T")[0],
+    gender: userDetails.gender,
+    color: userDetails.color,
   });
   const navigate = useNavigate();
-  useEffect(() => {
-    setFormData((data) => ({
-      ...data,
-      firstName: userDetails.firstName,
-      lastName: userDetails.lastName,
-      email: userDetails.email,
-      password: userDetails.password,
-      contact: userDetails.contact,
-      dob: new Date(userDetails.dob).toISOString().split("T")[0],
-      gender: userDetails.gender,
-      color: userDetails.color,
-    }));
-  }, []);
 
   const [errors, setErrors] = useState({});
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(formData.dob)
-    const [year, month, day] = formData.dob.split('-');
-  const dateObj = new Date(year, month - 1, day);
-  setUserDetails({...formData,dob:dateObj.toISOString()})
+    console.log(formData.dob);
+    const [year, month, day] = formData.dob.split("-");
+    const dateObj = new Date(year, month - 1, day);
+    setUserDetails({ ...formData, dob: dateObj.toISOString() });
 
     try {
       updateData(formData)

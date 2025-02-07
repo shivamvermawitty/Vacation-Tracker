@@ -4,11 +4,12 @@ import "./AddEvent.css";
 import InputComponent from "../InputComponent/InputComponent";
 import { UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import { postEvent } from "../../ApiMethods";
 
 const formSchema = z.object({
   eventName: z.string().min(3, "First name is required"),
 
-  date: z.string().min(3, "Date Of Birth is required"),
+  eventDate: z.string().min(3, "Date Of Birth is required"),
 });
 
 export default function AddEvent() {
@@ -17,14 +18,21 @@ export default function AddEvent() {
     const navigate=useNavigate()
   const [eventDetail, setEventDetail] = useState({
     eventName:'',
-    date:''
+    eventDate:'',
+    // eventDescription:''
   });
   const [errors, setErrors] = useState({});
-  function handleSubmit(e){
+  async function handleSubmit(e){
     e.preventDefault()
-    console.log(eventDetail)
-    setEventDetails(event=>([...event , eventDetail]))
+    try{
+      formSchema.parse(eventDetail)
+      const response=await postEvent(eventDetail)
+      setEventDetails(event=>([...event , eventDetail]))
     navigate('/home')
+    }
+    catch(err){
+      console.log('Unable to parse data')
+    }
   }
   return (
     <div className="event">
@@ -47,9 +55,9 @@ export default function AddEvent() {
             label={'Date:'}
             type={"date"}
             formData={eventDetail}
-            name={"date"}
+            name={"eventDate"}
             setFormData={setEventDetail}
-            errorMessage={errors.date}
+            errorMessage={errors.eventDate}
             />
           </div>
           <div>
