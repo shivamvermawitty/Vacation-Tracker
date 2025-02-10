@@ -1,8 +1,8 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { z } from 'zod';
 import './AddEvent.css';
 import InputComponent from '../InputComponent';
-import { UserContext } from '../../App';
+import { useUser } from '../../useUser';
 import { useNavigate } from 'react-router-dom';
 import { postEvent } from '../../ApiMethods';
 
@@ -13,7 +13,7 @@ const formSchema = z.object({
 });
 
 export default function AddEvent() {
-  const { setEventDetails } = useContext(UserContext);
+  const { setEventDetails } = useUser();
   const navigate = useNavigate();
   const [eventDetail, setEventDetail] = useState({
     eventName: '',

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { useContext } from 'react';
-import { UserContext } from '../../App';
+import { useUser } from '../../useUser';
 import LeaveDateInput from '../LeaveDateInput';
 import { postLeaveDetails } from '../../ApiMethods';
 import PropTypes from 'prop-types';
@@ -24,7 +23,7 @@ export default function ApplyLeave({
   year,
 }) {
   const [errors, setErrors] = useState({});
-  const { userDetails, setLeaveDetails } = useContext(UserContext);
+  const { userDetails, setLeaveDetails } = useUser();
   const [leaveDetail, setLeaveDetail] = useState({
     fromDate: new Date(year, month, 2).toISOString().split('T')[0],
     toDate: new Date(year, month, 2).toISOString().split('T')[0],

@@ -28,5 +28,5 @@ LeaveDateInput.propTypes = {
   formData: PropTypes.object.isRequired,
   setFormData: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  errorMessage: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string,
 };

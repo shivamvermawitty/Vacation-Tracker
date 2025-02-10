@@ -1,14 +1,13 @@
-import { useEffect, useState, useRef, useContext } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import DateCard from '../Date';
 import ApplyLeave from '../ApplyLeave';
-import { UserContext } from '../../App';
 import './Home.css';
+import { useUser } from '../../useUser';
 
 function Home() {
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  const { leaveDetails, setLeaveDetails, eventDetails } =
-    useContext(UserContext);
+  const { leaveDetails, setLeaveDetails, eventDetails } = useUser();
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();

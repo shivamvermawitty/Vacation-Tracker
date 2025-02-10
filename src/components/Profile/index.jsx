@@ -1,15 +1,12 @@
 import './Profile.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState, useContext } from 'react';
-
+import { useState } from 'react';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
 import InputComponent from '../InputComponent';
-
 import Dropdown from '../DropDown';
 import { updateData } from '../../ApiMethods';
-
-import { UserContext } from '../../App';
+import { useUser } from '../../useUser';
 
 // const formSchema = z.object({
 //   firstName: z.string().min(3, "First name is required"),
@@ -24,7 +21,7 @@ import { UserContext } from '../../App';
 // });
 
 function Profile() {
-  const { userDetails, setUserDetails } = useContext(UserContext);
+  const { userDetails, setUserDetails } = useUser();
 
   const [formData, setFormData] = useState({
     firstName: userDetails.firstName,

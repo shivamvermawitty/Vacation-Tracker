@@ -1,14 +1,14 @@
 import { getEvent } from '../../ApiMethods';
-import { UserContext } from '../../App';
 import getData from '../../ApiMethods';
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getLeaveDetails } from '../../ApiMethods';
 import './Navbar.css';
+import { useUser } from '../../useUser';
 
 export default function Navbar() {
   const { userDetails, setUserDetails, setLeaveDetails, setEventDetails } =
-    useContext(UserContext);
+    useUser();
   const [userName, setUserName] = useState();
   const [showLogOut, setShowLogOut] = useState(false);
   const navigate = useNavigate();
