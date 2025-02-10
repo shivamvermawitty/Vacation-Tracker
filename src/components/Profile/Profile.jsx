@@ -1,37 +1,34 @@
 import "./Profile.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  useEffect,
-  useState,
-  useContext,
-  z,
-  useNavigate,
-  InputComponent,
-  Dropdown,
-  ApiMethods,
-  getData,
-  updateData,
-  UserContext,
-} from "./index";
+import { useState, useContext } from "react";
 
-const formSchema = z.object({
-  firstName: z.string().min(3, "First name is required"),
-  lastName: z.string().min(3, "Last name is required"),
-  userName: z.string().min(3, "Invalid Username"),
-  password: z.string().min(4, "Invalid Password"),
-  email: z.string().email("Please enter a valid email address"),
-  contact: z.string().min(10, "Contact number should be at least 10 digits"),
-  dob: z.string().min(3, "Date Of Birth is required"),
-  gender: z.string().min(4, "Gender is required"),
-  color: z.string().min(3, "Color is required"),
-});
+
+import { z } from "zod";
+import { useNavigate } from "react-router-dom";
+import InputComponent from "../InputComponent/InputComponent";
+
+import Dropdown from "../DropDown/Dropdown";
+import  { updateData } from "../../ApiMethods";
+
+import { UserContext } from "../../App";
+
+// const formSchema = z.object({
+//   firstName: z.string().min(3, "First name is required"),
+//   lastName: z.string().min(3, "Last name is required"),
+//   userName: z.string().min(3, "Invalid Username"),
+//   password: z.string().min(4, "Invalid Password"),
+//   email: z.string().email("Please enter a valid email address"),
+//   contact: z.string().min(10, "Contact number should be at least 10 digits"),
+//   dob: z.string().min(3, "Date Of Birth is required"),
+//   gender: z.string().min(4, "Gender is required"),
+//   color: z.string().min(3, "Color is required"),
+// });
 
 function Profile() {
-  const { userDetails, setUserDetails, leaveDetails, setLeaveDetails } =
+  const { userDetails, setUserDetails} =
     useContext(UserContext);
 
   const [formData, setFormData] = useState({
-    firstName: "",
     firstName: userDetails.firstName,
     lastName: userDetails.lastName,
     email: userDetails.email,
@@ -60,7 +57,7 @@ function Profile() {
           console.log("Profile Updated", update);
         })
         .catch((err) => {
-          console.log("Unable to register User");
+          console.log("Unable to register User",err);
         });
     } catch (err) {
       if (err instanceof z.ZodError) {

@@ -1,13 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import Register from "./components/Register/Register";
+import Register from "./components/Register";
 import Login from "./components/Login/Login";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Profile from "./components/Profile/Profile";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import RouteGaurd from './components/RouteGaurd/RauteGaurd'
-import { jwtDecode } from "jwt-decode";
-import React,{ createContext, useState } from "react"
+import { createContext, useState } from "react"
 import AddEvent from "./components/AddEvent/AddEvent";
 
 const UserContext=createContext()

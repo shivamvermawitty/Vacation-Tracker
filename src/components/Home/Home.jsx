@@ -1,19 +1,13 @@
-import {
-  useState,
-  DateCard,
-  ApplyLeave,
-  useRef,
-  useContext,
-  UserContext,
-  useEffect
-} from "./index";
+import { useEffect, useState, useRef, useContext } from "react";
+import DateCard from "../Date/DateCard";
+import ApplyLeave from "../ApplyLeave/ApplyLeave";
+import { UserContext } from "../../App";
 import "./Home.css";
-
 
 function Home() {
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  const { userDetails, setUserDetails, leaveDetails, setLeaveDetails ,eventDetails , setEventDetails} =
+  const { leaveDetails, setLeaveDetails, eventDetails } =
     useContext(UserContext);
 
   const year = currentDate.getFullYear();
@@ -104,19 +98,35 @@ function Home() {
             key={index}
             onClick={() => handleDateClick()}
           >
-            {Array.isArray(eventDetails)?
-              eventDetails.map((event , i)=>{
-                
-                return new Date(year, month , index+1).setHours(0, 0, 0, 0)==new Date(event.eventDate).setHours(0, 0, 0, 0)?<div className=" d-flex justify-content-center eventDate" key={i}>{event.eventName}</div>:null
-              }):null
-            }
-            
+            {Array.isArray(eventDetails)
+              ? eventDetails.map((event, i) => {
+                  return new Date(year, month, index + 1).setHours(
+                    0,
+                    0,
+                    0,
+                    0
+                  ) == new Date(event.eventDate).setHours(0, 0, 0, 0) ? (
+                    <div
+                      className=" d-flex justify-content-center eventDate"
+                      key={i}
+                    >
+                      {event.eventName}
+                    </div>
+                  ) : null;
+                })
+              : null}
+
             <div>
               <DateCard date={index + 1} month={month} year={year} />
             </div>
             {Array.isArray(leaveDetails)
               ? leaveDetails.map((leaveDetail, i) => {
-                  return new Date(year, month, index + 1).setHours(0,0,0,0) >= new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0) &&
+                  return new Date(year, month, index + 1).setHours(
+                    0,
+                    0,
+                    0,
+                    0
+                  ) >= new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0) &&
                     new Date(year, month, index + 1).setHours(0, 0, 0, 0) <=
                       new Date(leaveDetail.toDate).setHours(0, 0, 0, 0) ? (
                     <div
@@ -137,7 +147,6 @@ function Home() {
                 })
               : ""}
           </div>
-          
         ))}
       </div>
       {showLeaveModal && <div className="backdrop"></div>}

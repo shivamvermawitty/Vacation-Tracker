@@ -13,7 +13,7 @@ export default async function getData(){
 
 export async function updateData(data){
     try{
-        const response=await ApiInterceptor.patch('update',data)
+        await ApiInterceptor.patch('update',data)
     }
     catch(error){
         console.log('Unable to Update data', error)
@@ -68,7 +68,7 @@ export async function postEvent(eventData){
         return response
     }
     catch(err){
-        console.log('Unable to post Event')
+        console.log('Unable to post Event',err)
     }
 }
 export async function getEvent(){
@@ -77,7 +77,7 @@ export async function getEvent(){
         return response.data
     }
     catch(err){
-        console.log('Unable to fetch Data')
+        console.log('Unable to fetch Data',err)
     }
 }
 

@@ -1,4 +1,16 @@
-import {useState,InputComponent, useEffect ,useContext, UserContext , LeaveDateInput, postLeaveDetails , z} from './index'
+import { useState } from "react";
+
+
+
+
+
+import { useContext } from 'react';
+import { UserContext } from "../../App";
+import LeaveDateInput from '../LeaveDateInput/LeaveDateInput';
+import { postLeaveDetails } from '../../ApiMethods';
+
+import { z } from "zod";
+
 import "./ApplyLeave.css";
 
 
@@ -13,29 +25,29 @@ const formSchema = z.object({
   email:z.string().email('Invalid Email')
 });
 
-export default function ApplyLeave({ modalRef ,setShowLeaveModal , setUserLeaveDetails ,month ,year }) {
+export default function ApplyLeave({ modalRef ,setShowLeaveModal ,month ,year }) {
   const [errors, setErrors] = useState({});
-
+  const {userDetails,setLeaveDetails} = useContext(UserContext);
   const [leaveDetail, setLeaveDetail] = useState({
     fromDate: new Date(year,month ,2).toISOString().split('T')[0],
     toDate: new Date(year,month ,2).toISOString().split('T')[0],
-    color: "",
-    email:''
+    color: userDetails.color,
+    email:userDetails.email
   });
 
-  const {userDetails,setUserDetails, leaveDetails , setLeaveDetails} = useContext(UserContext);
-  useEffect(()=>{
-    setLeaveDetail(otherDetails=>({...otherDetails,color:userDetails.color ,email:userDetails.email}))
-    // console.log(userDetails)
+  
+  // useEffect(()=>{
+  //   setLeaveDetail(otherDetails=>({...otherDetails,color:userDetails.color ,email:userDetails.email}))
+  //   // console.log(userDetails)
 
-  },[])
+  // },[])
  async  function handleLeaveSubmit(e) {
     e.preventDefault();
     try {
       formSchema.parse(leaveDetail);
       console.log(leaveDetail)
       setLeaveDetails(details=>([...details,leaveDetail]))
-      const response =await postLeaveDetails(leaveDetail)
+      await postLeaveDetails(leaveDetail)
       setErrors({});
       setShowLeaveModal(false)
     } catch (err) {

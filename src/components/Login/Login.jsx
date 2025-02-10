@@ -1,6 +1,11 @@
 import "./Login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {useNavigate , InputComponent , postLoginCred , Link , useContext , useState} from './index'
+import { useNavigate } from "react-router-dom";
+
+import InputComponent from "../InputComponent/InputComponent";
+import { postLoginCred } from "../../ApiMethods";
+import { Link } from "react-router-dom";
+import {  useState } from "react";
 
 
 function Login() {
@@ -23,7 +28,8 @@ function Login() {
       // localStorage.setItem("email", response.data.user.email);
       navigate("/home");
       setErrors(false);
-    } catch (error) {
+    } catch (err) {
+      console.log(err)
       setErrors(true);
     }
   }

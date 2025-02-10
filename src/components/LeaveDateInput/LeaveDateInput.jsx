@@ -1,6 +1,5 @@
-import React from 'react'
 
-export default function LeaveDateInput({label,formData , name , setFormData , errorMessage , month ,year}) {
+export default function LeaveDateInput({label,formData , name , setFormData , errorMessage}) {
     function handleChange(e , propertyName){
         setFormData(data=>({...data ,[propertyName] :e.target.value}))
         

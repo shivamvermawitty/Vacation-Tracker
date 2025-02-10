@@ -1,4 +1,4 @@
-import React, { useState ,useContext } from "react";
+import { useState ,useContext } from "react";
 import { z } from "zod";
 import "./AddEvent.css";
 import InputComponent from "../InputComponent/InputComponent";
@@ -13,7 +13,7 @@ const formSchema = z.object({
 });
 
 export default function AddEvent() {
-  const { userDetails, setUserDetails, leaveDetails, setLeaveDetails ,eventDetails , setEventDetails} =
+  const { setEventDetails} =
     useContext(UserContext);
     const navigate=useNavigate()
   const [eventDetail, setEventDetail] = useState({
@@ -26,12 +26,13 @@ export default function AddEvent() {
     e.preventDefault()
     try{
       formSchema.parse(eventDetail)
-      const response=await postEvent(eventDetail)
+      await postEvent(eventDetail)
       setEventDetails(event=>([...event , eventDetail]))
+      setErrors({})
     navigate('/home')
     }
     catch(err){
-      console.log('Unable to parse data')
+      console.log('Unable to parse data' , err)
     }
   }
   return (

@@ -1,10 +1,14 @@
 import { getEvent } from '../../ApiMethods';
-import {UserContext , getData , useContext , useState , useRef , useEffect , Link ,useNavigate ,getLeaveDetails} from './index'
+import { UserContext } from "../../App";
+import getData from "../../ApiMethods";
+import { useContext, useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getLeaveDetails } from '../../ApiMethods';
 import "./Navbar.css";
 
 
 export default function Navbar() {
-  const { userDetails, setUserDetails , leaveDetails,setLeaveDetails ,eventDetails, setEventDetails} = useContext(UserContext);
+  const { userDetails, setUserDetails , setLeaveDetails , setEventDetails} = useContext(UserContext);
   const [userName, setUserName] = useState();
   const [showLogOut, setShowLogOut] = useState(false);
   const navigate = useNavigate();
@@ -16,7 +20,7 @@ export default function Navbar() {
         setUserName(response.firstName);
         setUserDetails(response);
       } catch (err) {
-        console.log("Error fetching Data");
+        console.log("Error fetching Data",err);
       }
     }
     async function fetchLeaveDetail(){
@@ -25,7 +29,7 @@ export default function Navbar() {
         setLeaveDetails(response)
       }
       catch(err){
-        console.log('Error Fetching data')
+        console.log('Error Fetching data',err)
       }
     }
     async function fetchEventDetails(){
@@ -35,7 +39,7 @@ export default function Navbar() {
         setEventDetails(response)
       }
       catch(err){
-        console.log('Error Fetching Event Details')
+        console.log('Error Fetching Event Details',err)
       }
     }
     fetchEventDetails();

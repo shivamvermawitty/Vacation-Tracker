@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 
 export default function InputComponent({label,type,formData , name , setFormData , errorMessage}) {
