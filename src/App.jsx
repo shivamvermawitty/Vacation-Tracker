@@ -9,66 +9,8 @@ import RouteGaurd from './components/RouteGaurd';
 import { UserProvider } from './UserProvider';
 import AddEvent from './components/AddEvent/AddEvent';
 
-// const router = createBrowserRouter([
-//   {
-//     path: '/',
-//     element: (
-//       <>
-//         <Register />
-//       </>
-//     ),
-//   },
-//   {
-//     path: '/login',
-//     element: <Login />,
-//   },
-//   {
-//     path: '/profile',
-//     element: (
-//       <RouteGaurd>
-//         <Navbar />
-//         <Profile />
-//       </RouteGaurd>
-//     ),
-//   },
-//   {
-//     path: '/home',
-//     element: (
-//       <RouteGaurd>
-//         <Navbar />
-//         <Home />
-//       </RouteGaurd>
-//     ),
-//   },
-//   {
-//     path: '/addEvent',
-//     element: (
-//       <RouteGaurd>
-//         <Navbar />
-//         <AddEvent />
-//       </RouteGaurd>
-//     ),
-//   },
-// ]);
-
 function App() {
   return (
-    // <div>
-    //   {/* <Register />
-    //   <Login /> */}
-    // <UserContext.Provider
-    //   value={{
-    //     userDetails,
-    //     setUserDetails,
-    //     leaveDetails,
-    //     setLeaveDetails,
-    //     eventDetails,
-    //     setEventDetails,
-    //   }}
-    // >
-    //   <RouterProvider router={router} />
-    // </UserContext.Provider>
-    // </div>
     <UserProvider>
       <BrowserRouter>
         <Routes>

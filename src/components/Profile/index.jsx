@@ -8,17 +8,16 @@ import Dropdown from '../DropDown';
 import { updateData } from '../../ApiMethods';
 import { useUser } from '../../useUser';
 
-// const formSchema = z.object({
-//   firstName: z.string().min(3, "First name is required"),
-//   lastName: z.string().min(3, "Last name is required"),
-//   userName: z.string().min(3, "Invalid Username"),
-//   password: z.string().min(4, "Invalid Password"),
-//   email: z.string().email("Please enter a valid email address"),
-//   contact: z.string().min(10, "Contact number should be at least 10 digits"),
-//   dob: z.string().min(3, "Date Of Birth is required"),
-//   gender: z.string().min(4, "Gender is required"),
-//   color: z.string().min(3, "Color is required"),
-// });
+const formSchema = z.object({
+  firstName: z.string().min(3, 'First name is required'),
+  lastName: z.string().min(3, 'Last name is required'),
+  password: z.string().min(4, 'Invalid Password'),
+  email: z.string().email('Please enter a valid email address'),
+  contact: z.string().min(10, 'Contact number should be at least 10 digits'),
+  dob: z.string().min(3, 'Date Of Birth is required'),
+  gender: z.string().min(4, 'Gender is required'),
+  color: z.string().min(3, 'Color is required'),
+});
 
 function Profile() {
   const { userDetails, setUserDetails } = useUser();
@@ -39,12 +38,12 @@ function Profile() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(formData.dob);
     const [year, month, day] = formData.dob.split('-');
     const dateObj = new Date(year, month - 1, day);
     setUserDetails({ ...formData, dob: dateObj.toISOString() });
 
     try {
+      formSchema.parse(formData);
       updateData(formData)
         .then((update) => {
           navigate('/home');
@@ -55,6 +54,7 @@ function Profile() {
           console.log('Unable to register User', err);
         });
     } catch (err) {
+      console.log('Unable to parse formData', err);
       if (err instanceof z.ZodError) {
         const errorObj = {};
         err.errors.forEach((error) => {
