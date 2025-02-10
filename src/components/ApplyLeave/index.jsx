@@ -94,9 +94,9 @@ export default function ApplyLeave({
 }
 ApplyLeave.propTypes = {
   modalRef: PropTypes.shape({
-    current: PropTypes.instanceOf(Element), // Since it's a ref, it should be an object with a `current` property
+    current: PropTypes.instanceOf(Element),
   }),
-  setShowLeaveModal: PropTypes.func.isRequired, // Function to toggle modal visibility
-  month: PropTypes.number.isRequired, // Expecting a number for month
-  year: PropTypes.number.isRequired, // Expecting a number for year
+  setShowLeaveModal: PropTypes.func.isRequired,
+  month: PropTypes.number.isRequired,
+  year: PropTypes.number.isRequired,
 };

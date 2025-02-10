@@ -81,18 +81,6 @@ export default function Navbar() {
           )}
         </ul>
         <div className="col-6 d-flex flex-column justify-content-end">
-          {/* <div className="d-grid"> */}
-          {/* <div className="row"> */}
-
-          {/* <div className="row">
-                {showLogOut && (
-                  <button className="col-6 bg-white btn" onClick={handleLogOut}>
-                    LogOut
-                  </button>
-                )}
-              </div> */}
-          {/* </div> */}
-          {/* </div> */}
           <p
             className=" btn fs d-flex justify-content-end text-white"
             onClick={handleClick}
