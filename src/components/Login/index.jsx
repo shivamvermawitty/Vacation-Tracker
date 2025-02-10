@@ -1,11 +1,16 @@
 import './Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
-
+import { z } from 'zod';
 import InputComponent from '../InputComponent';
 import { postLoginCred } from '../../ApiMethods';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+
+const formSchema = z.object({
+  password: z.string().min(4, 'Invalid Password'),
+  email: z.string().email('Please enter a valid email address'),
+});
 
 function Login() {
   const navigate = useNavigate();
@@ -15,19 +20,33 @@ function Login() {
   });
 
   const [errors, setErrors] = useState(false);
+  const [invalid, setInvalid] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      const response = await postLoginCred(loginCredential);
-      console.log(7777, response.data);
-      localStorage.setItem('authToken', response.data.accessToken);
-      navigate('/home');
-      setErrors(false);
+      formSchema.parse(loginCredential);
+      try {
+        const response = await postLoginCred(loginCredential);
+        console.log(7777, response.data);
+        localStorage.setItem('authToken', response.data.accessToken);
+        navigate('/home');
+        setErrors({});
+        setInvalid(false);
+      } catch (err) {
+        console.log('Invalid Credentials', err);
+        setInvalid(true);
+      }
     } catch (err) {
-      console.log(err);
-      setErrors(true);
+      console.log('Unable to parse formData', err);
+      if (err instanceof z.ZodError) {
+        const errorObj = {};
+        err.errors.forEach((error) => {
+          errorObj[error.path[0]] = error.message;
+        });
+        setErrors(errorObj);
+      }
     }
   }
 
@@ -49,6 +68,7 @@ function Login() {
               formData={loginCredential}
               name={'email'}
               setFormData={setLoginCredential}
+              errorMessage={errors.email}
             />
           </div>
           <div className=" d-flex flex-column justify-content-center mx-4">
@@ -58,9 +78,10 @@ function Login() {
               formData={loginCredential}
               name={'password'}
               setFormData={setLoginCredential}
+              errorMessage={errors.password}
             />
           </div>
-          {errors && (
+          {invalid && (
             <div className=" text-danger">Invalid Email or Passowrd</div>
           )}
 

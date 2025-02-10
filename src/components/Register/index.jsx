@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import InputComponent from '../InputComponent';
 import Dropdown from '../DropDown';
 
-import { registerData } from '../../ApiMethods';
+import { postLoginCred, registerData } from '../../ApiMethods';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Register.css';
 
@@ -35,20 +35,28 @@ function Register() {
   });
   const [errors, setErrors] = useState({});
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     try {
       formSchema.parse(formData);
-      registerData(formData)
-        .then((register) => {
-          navigate('/Login');
-          console.log('User Registered', register);
-        })
-        .catch((err) => {
-          console.log('Unable to register User', err);
-        });
-      setErrors({});
+      try {
+        await registerData(formData);
+        setErrors({});
+        console.log('User Registered');
+        try {
+          const response = await postLoginCred({
+            email: formData.email,
+            password: formData.password,
+          });
+          localStorage.setItem('authToken', response.data.accessToken);
+          navigate('/home');
+        } catch (err) {
+          console.log('Unable to post login Cred', err);
+        }
+      } catch (err) {
+        console.log('Unable to register User', err);
+      }
     } catch (err) {
       if (err instanceof z.ZodError) {
         const errorObj = {};

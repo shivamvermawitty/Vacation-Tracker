@@ -21,16 +21,18 @@ const formSchema = z.object({
 
 function Profile() {
   const { userDetails, setUserDetails } = useUser();
+  const { firstName, lastName, email, password, contact, dob, gender, color } =
+    userDetails;
 
   const [formData, setFormData] = useState({
-    firstName: userDetails.firstName,
-    lastName: userDetails.lastName,
-    email: userDetails.email,
-    password: userDetails.password,
-    contact: userDetails.contact,
-    dob: new Date(userDetails.dob).toISOString().split('T')[0],
-    gender: userDetails.gender,
-    color: userDetails.color,
+    firstName,
+    lastName,
+    email,
+    password,
+    contact,
+    dob: new Date(dob).toISOString().split('T')[0],
+    gender,
+    color,
   });
   const navigate = useNavigate();
 
