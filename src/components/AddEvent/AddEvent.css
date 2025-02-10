@@ -1,45 +1,45 @@
-.event{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
+.event {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
 }
-.eventForm{
-    width: 25%;
-    background-color: rgb(80, 80, 80);
-    border-radius: 13px;
-    padding: 10px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.eventForm {
+  width: 25%;
+  background-color: rgb(80, 80, 80);
+  border-radius: 13px;
+  padding: 10px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.eventForm form{
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
+.eventForm form {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
 }
-.eventForm form div{
-    display: flex;
-    
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    margin: 5px;
+.eventForm form div {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin: 5px;
 }
-.eventForm form div label{
-    width: 30%;
-    display: flex;
-    justify-content: end;
+.eventForm form div label {
+  width: 30%;
+  display: flex;
+  justify-content: end;
 }
-.eventSubmitButton{
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    background-color: white;
-    border: none;
-    border-radius: 5px;
+.eventSubmitButton {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
 }
 /* .eventForm form div input{
     width: 70% !important;
@@ -47,22 +47,22 @@
     justify-content: start;
 } */
 @media (max-width: 900px) {
-    .eventForm{
-        width: 50%;
-        justify-content: start;
-        /* padding: 0; */
-    }
-    .eventForm form div{
-        flex-direction: column;
-        justify-content: start;
-        gap: 2px;
-        margin: 0;
-    }
-    .eventForm form div label{
-        width: 100%;
-        justify-content: center;
-    }
-    .eventForm form div input{
-        width: 70% !important;
-    }
+  .eventForm {
+    width: 50%;
+    justify-content: start;
+    /* padding: 0; */
   }
+  .eventForm form div {
+    flex-direction: column;
+    justify-content: start;
+    gap: 2px;
+    margin: 0;
+  }
+  .eventForm form div label {
+    width: 100%;
+    justify-content: center;
+  }
+  .eventForm form div input {
+    width: 70% !important;
+  }
+}

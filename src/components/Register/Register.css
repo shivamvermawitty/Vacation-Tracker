@@ -1,16 +1,16 @@
 .heading {
   font-size: 3rem;
   font-weight: 700;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family:
+    'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-form{
+form {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
 }
-.formDiv{
+.formDiv {
   display: flex !important;
   justify-content: center !important;
 }
@@ -20,7 +20,7 @@ input {
   border-radius: 16px !important;
   padding: 8px;
 }
-input[type="date"] {
+input[type='date'] {
   border: 1px solid white;
   border-radius: 3px;
 }
@@ -30,7 +30,7 @@ select {
   padding: 5px;
   height: 45px;
 }
-input[type="submit"] {
+input[type='submit'] {
   width: 7rem;
   background-color: white;
   border: 1px solid white;

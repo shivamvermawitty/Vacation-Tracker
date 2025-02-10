@@ -1,15 +1,16 @@
 .heading {
   font-size: 3rem;
   font-weight: 700;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family:
+    'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 input {
   border: 1px solid white;
   width: 150px !important;
   border-radius: 9px !important;
 }
-input[type="date"] {
+input[type='date'] {
   border: 1px solid white;
   border-radius: 3px;
 }
@@ -18,10 +19,10 @@ select {
   border-radius: 5px;
   padding: 5px;
 }
-.button{
+.button {
   display: flex;
   justify-content: center;
-  align-items:center ;
+  align-items: center;
   border-radius: 13px;
   font-size: 1.05rem;
   font-weight: 600;
@@ -30,7 +31,7 @@ select {
   border: 1px solid white;
   color: #525252;
 }
-input[type="submit"] {
+input[type='submit'] {
   width: 7rem;
   font-weight: 600;
   background-color: white;

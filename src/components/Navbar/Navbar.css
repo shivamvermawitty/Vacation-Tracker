@@ -1,17 +1,16 @@
-.fs{
-    font-size: 1.5rem;
-    font-weight: 700;
+.fs {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
-.navBar{
-    
-    background-color: #525252;
+.navBar {
+  background-color: #525252;
 }
-.logOutBtn{
-    border: 1px solid black;
-    border-radius: 7px;
-    margin-top: 4px;
+.logOutBtn {
+  border: 1px solid black;
+  border-radius: 7px;
+  margin-top: 4px;
   width: 10%;
-   padding: 7px;
-   font-size: 1rem;
-    font-weight: 700;
+  padding: 7px;
+  font-size: 1rem;
+  font-weight: 700;
 }

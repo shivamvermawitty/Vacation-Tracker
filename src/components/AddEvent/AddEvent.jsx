@@ -1,38 +1,36 @@
-import { useState ,useContext } from "react";
-import { z } from "zod";
-import "./AddEvent.css";
-import InputComponent from "../InputComponent/InputComponent";
-import { UserContext } from "../../App";
-import { useNavigate } from "react-router-dom";
-import { postEvent } from "../../ApiMethods";
+import { useState, useContext } from 'react';
+import { z } from 'zod';
+import './AddEvent.css';
+import InputComponent from '../InputComponent';
+import { UserContext } from '../../App';
+import { useNavigate } from 'react-router-dom';
+import { postEvent } from '../../ApiMethods';
 
 const formSchema = z.object({
-  eventName: z.string().min(3, "First name is required"),
+  eventName: z.string().min(3, 'First name is required'),
 
-  eventDate: z.string().min(3, "Date Of Birth is required"),
+  eventDate: z.string().min(3, 'Date Of Birth is required'),
 });
 
 export default function AddEvent() {
-  const { setEventDetails} =
-    useContext(UserContext);
-    const navigate=useNavigate()
+  const { setEventDetails } = useContext(UserContext);
+  const navigate = useNavigate();
   const [eventDetail, setEventDetail] = useState({
-    eventName:'',
-    eventDate:'',
+    eventName: '',
+    eventDate: '',
     // eventDescription:''
   });
   const [errors, setErrors] = useState({});
-  async function handleSubmit(e){
-    e.preventDefault()
-    try{
-      formSchema.parse(eventDetail)
-      await postEvent(eventDetail)
-      setEventDetails(event=>([...event , eventDetail]))
-      setErrors({})
-    navigate('/home')
-    }
-    catch(err){
-      console.log('Unable to parse data' , err)
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      formSchema.parse(eventDetail);
+      await postEvent(eventDetail);
+      setEventDetails((event) => [...event, eventDetail]);
+      setErrors({});
+      navigate('/home');
+    } catch (err) {
+      console.log('Unable to parse data', err);
     }
   }
   return (
@@ -42,27 +40,29 @@ export default function AddEvent() {
         <form onSubmit={handleSubmit}>
           <div>
             <InputComponent
-            label={'Event Name:'}
-            type={"text"}
-            formData={eventDetail}
-            name={"eventName"}
-            setFormData={setEventDetail}
-            errorMessage={errors.eventName}
+              label={'Event Name:'}
+              type={'text'}
+              formData={eventDetail}
+              name={'eventName'}
+              setFormData={setEventDetail}
+              errorMessage={errors.eventName}
             />
           </div>
-          
+
           <div>
             <InputComponent
-            label={'Date:'}
-            type={"date"}
-            formData={eventDetail}
-            name={"eventDate"}
-            setFormData={setEventDetail}
-            errorMessage={errors.eventDate}
+              label={'Date:'}
+              type={'date'}
+              formData={eventDetail}
+              name={'eventDate'}
+              setFormData={setEventDetail}
+              errorMessage={errors.eventDate}
             />
           </div>
           <div>
-            <button className="eventSubmitButton" type="submit">Submit</button>
+            <button className="eventSubmitButton" type="submit">
+              Submit
+            </button>
           </div>
         </form>
       </div>

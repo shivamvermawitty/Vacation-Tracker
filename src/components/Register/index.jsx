@@ -1,40 +1,37 @@
 // import { useState, Link, useNavigate, InputComponent, Dropdown, registerData,z } from './index';
-import { useState } from "react";
-import { z } from "zod";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { z } from 'zod';
+import { Link, useNavigate } from 'react-router-dom';
 
+import InputComponent from '../InputComponent';
+import Dropdown from '../DropDown';
 
-import InputComponent from "../InputComponent/InputComponent";
-import Dropdown  from "../DropDown/Dropdown";
-
-
-import { registerData } from "../../ApiMethods";
-import "bootstrap/dist/css/bootstrap.min.css";
-import './Register.css'
-
+import { registerData } from '../../ApiMethods';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './Register.css';
 
 const formSchema = z.object({
-  firstName: z.string().min(3, "First name is required"),
-  lastName: z.string().min(3, "Last name is required"),
-  password: z.string().min(4, "Invalid Password"),
-  email: z.string().email("Invalid email address"),
-  contact: z.string().min(10, "Invalid Contact Number"),
-  dob: z.string().min(3, "Date Of Birth is required"),
-  gender: z.string().min(4, "Gender is required"),
-  color:z.string().min(4,"Invalid color")
+  firstName: z.string().min(3, 'First name is required'),
+  lastName: z.string().min(3, 'Last name is required'),
+  password: z.string().min(4, 'Invalid Password'),
+  email: z.string().email('Invalid email address'),
+  contact: z.string().min(10, 'Invalid Contact Number'),
+  dob: z.string().min(3, 'Date Of Birth is required'),
+  gender: z.string().min(4, 'Gender is required'),
+  color: z.string().min(4, 'Invalid color'),
 });
 
 function Register() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    password: "",
-    email: "",
-    contact: "",
-    dob: "",
-    gender: "",
-    color:'#ffffff',
+    firstName: '',
+    lastName: '',
+    password: '',
+    email: '',
+    contact: '',
+    dob: '',
+    gender: '',
+    color: '#ffffff',
   });
   const [errors, setErrors] = useState({});
 
@@ -43,13 +40,13 @@ function Register() {
 
     try {
       formSchema.parse(formData);
-        registerData(formData)
+      registerData(formData)
         .then((register) => {
-          navigate("/Login");
-          console.log("User Registered", register);
+          navigate('/Login');
+          console.log('User Registered', register);
         })
         .catch((err) => {
-          console.log("Unable to register User",err);
+          console.log('Unable to register User', err);
         });
       setErrors({});
     } catch (err) {
@@ -73,95 +70,86 @@ function Register() {
         <div className=" formDiv">
           <form onSubmit={(e) => handleSubmit(e)} className=" gap-2 ">
             <div className="d-flex flex-column  mx-4">
-              
               <InputComponent
-              label={'First Name:'}
-                type={"text"}
+                label={'First Name:'}
+                type={'text'}
                 formData={formData}
-                name={"firstName"}
+                name={'firstName'}
                 setFormData={setFormData}
                 errorMessage={errors.firstName}
               />
-              
             </div>
             <div className=" d-flex flex-column  mx-4">
-              
               <InputComponent
-              label="Last Name:"
-                type={"text"}
+                label="Last Name:"
+                type={'text'}
                 formData={formData}
-                name={"lastName"}
+                name={'lastName'}
                 setFormData={setFormData}
                 errorMessage={errors.lastName}
               />
-            
             </div>
             <div className="d-flex flex-column  mx-4">
-              
               <InputComponent
-              label="E-mail:"
-                type={"text"}
+                label="E-mail:"
+                type={'text'}
                 formData={formData}
-                name={"email"}
+                name={'email'}
                 setFormData={setFormData}
                 errorMessage={errors.email}
               />
-              
-              
-              
             </div>
 
             <div className=" d-flex flex-column mx-4">
-             
               <InputComponent
-              label={"Password:"}
-                type={"password"}
+                label={'Password:'}
+                type={'password'}
                 formData={formData}
-                name={"password"}
+                name={'password'}
                 setFormData={setFormData}
                 errorMessage={errors.password}
               />
-              
             </div>
 
             <div className="d-flex flex-column mx-4">
-              
               <InputComponent
-                label={"Contact No.:"}
-                type={"text"}
+                label={'Contact No.:'}
+                type={'text'}
                 formData={formData}
-                name={"contact"}
+                name={'contact'}
                 setFormData={setFormData}
                 errorMessage={errors.contact}
               />
-              
             </div>
             <div className="d-flex flex-column mx-4">
-              
               <InputComponent
-                label={"D.O.B"}
-                type={"date"}
+                label={'D.O.B'}
+                type={'date'}
                 formData={formData}
-                name={"dob"}
+                name={'dob'}
                 setFormData={setFormData}
                 errorMessage={errors.dob}
               />
-              
             </div>
-            <div className='d-flex flex-column mx-4'>
+            <div className="d-flex flex-column mx-4">
               <InputComponent
-              label={'Color:'}
-              type={'color'}
-              formData={formData}
-              name={'color'}
-              setFormData={setFormData}
-              errorMessage={errors.color}
+                label={'Color:'}
+                type={'color'}
+                formData={formData}
+                name={'color'}
+                setFormData={setFormData}
+                errorMessage={errors.color}
               />
             </div>
             <div className="d-flex flex-column mx-4">
-              
-              <Dropdown label={"Gender:"} formData={formData} setFormData={setFormData} name={"gender"} optionArr={['Male' , 'Female']} errorMessage={errors.gender}/>
-              
+              <Dropdown
+                label={'Gender:'}
+                formData={formData}
+                setFormData={setFormData}
+                name={'gender'}
+                optionArr={['Male', 'Female']}
+                errorMessage={errors.gender}
+              />
             </div>
             <div className=" col-5 my-2 d-flex gap-2 ">
               <input className="btn " type="submit" value="Register" />
