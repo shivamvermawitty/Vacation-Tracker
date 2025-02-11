@@ -76,7 +76,7 @@ function Profile() {
         <h1 className=" d-flex justify-content-center">User Details</h1>
 
         <form onSubmit={(e) => handleSubmit(e)} className=" d-flex">
-          <div className="d-flex flex-column justify-content-center mx-4">
+          <div className="d-flex flex-column justify-content-center mx-4 registerInput">
             <InputComponent
               label={'First Name:'}
               type={'text'}

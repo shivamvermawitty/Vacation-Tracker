@@ -3,6 +3,7 @@ import DateCard from '../Date';
 import ApplyLeave from '../ApplyLeave';
 import './Home.css';
 import { useUser } from '../../useUser';
+import DayName from '../DayName';
 
 function Home() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -29,6 +30,15 @@ function Home() {
       setShowLeaveModal(true);
     }
   }
+  const days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
   const [showLeaveModal, setShowLeaveModal] = useState(false);
   const modalRef = useRef(null);
   useEffect(() => {
@@ -57,27 +67,9 @@ function Home() {
         </div>
       </div>
       <div className="weekDays">
-        <div className="dayBox text-danger fw-bold d-flex justify-content-center dayName">
-          Sunday
-        </div>
-        <div className="dayBox  fw-bold d-flex justify-content-center dayName">
-          Monday
-        </div>
-        <div className="dayBox fw-bold d-flex justify-content-center dayName">
-          Tuesday
-        </div>
-        <div className="dayBox fw-bold d-flex justify-content-center dayName">
-          Wedneday
-        </div>
-        <div className="dayBox fw-bold d-flex justify-content-center dayName">
-          Thursday
-        </div>
-        <div className="dayBox fw-bold d-flex justify-content-center dayName">
-          Friday
-        </div>
-        <div className="dayBox fw-bold d-flex justify-content-center dayName">
-          Saturday
-        </div>
+        {days.map((el, ind) => (
+          <DayName dayName={el} key={ind} />
+        ))}
       </div>
       <div className="dateBox row">
         {new Array(startingDay).fill().map((v, index) => (

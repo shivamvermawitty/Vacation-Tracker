@@ -56,7 +56,7 @@ export default function Navbar() {
   return (
     <>
       <div className="row navBar">
-        <ul className=" col-6 d-flex gap-3">
+        <ul className=" col-8 d-flex gap-3">
           <li className="p-2 list-unstyled">
             <Link className=" fs text-white text-decoration-none" to="/home">
               Home
@@ -80,7 +80,7 @@ export default function Navbar() {
             ''
           )}
         </ul>
-        <div className="col-6 d-flex flex-column justify-content-end">
+        <div className="col-4 d-flex flex-column justify-content-end">
           <p
             className=" btn fs d-flex justify-content-end text-white"
             onClick={handleClick}

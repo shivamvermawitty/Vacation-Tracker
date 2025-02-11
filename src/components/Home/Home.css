@@ -95,6 +95,9 @@
   border-radius: 5px;
   box-shadow: 0 4px 6px rgb(0, 0, 0, 0.3);
 }
+.eventDate{
+  font-size: 1rem !important;
+}
 .eventCard:has(.eventDate) {
   border: 2px solid rgb(97, 1, 97);
   background-color: rgb(97, 1, 97, 0.1);
@@ -104,9 +107,12 @@
     font-size: 8px;
   }
   .dateCard {
-    height: 8vh;
+    height: 20vh;
   }
   .dateBox {
     border-radius: 13px;
+  }
+  .eventDate{
+    font-size: 0.7rem !important;
   }
 }
