@@ -8,10 +8,9 @@ import Week from './Week';
 import Month from './Month';
 
 function Home() {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  // const { leaveDetails, setLeaveDetails, eventDetails } = useUser();
   const [leaveDetails, setLeaveDetails] = useState();
   const [eventDetails, setEventDetails] = useState();
+  const [currentDate, setCurrentDate] = useState(new Date());
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   const firstDay = new Date(year, month, 1);
@@ -40,25 +39,6 @@ function Home() {
       }
     }
     document.addEventListener('mousedown', handleModal);
-    // async function fetchLeaveDetail() {
-    //   try {
-    //     const response = await getLeaveDetails();
-    //     setLeaveDetails(response);
-    //   } catch (err) {
-    //     console.log('Error Fetching data', err);
-    //   }
-    // }
-    // async function fetchEventDetails() {
-    //   try {
-    //     const response = await getEvent();
-    //     console.log(response);
-    //     setEventDetails(response);
-    //   } catch (err) {
-    //     console.log('Error Fetching Event Details', err);
-    //   }
-    // }
-    // fetchEventDetails();
-    // fetchLeaveDetail()
 
     Promise.all([getLeaveDetails(), getEvent()])
       .then((value) => {

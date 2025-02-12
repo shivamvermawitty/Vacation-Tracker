@@ -1,9 +1,10 @@
 import getData from '../../ApiMethods';
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import './Navbar.css';
 import { useUser } from '../../useUser';
+import NavBarLink from './NavBarLink';
 
 export default function Navbar() {
   const { userDetails, setUserDetails } = useUser();
@@ -23,7 +24,6 @@ export default function Navbar() {
     }
 
     fetchUserData();
-    // fetchLeaveDetail();
   }, [setUserDetails]);
 
   function handleClick() {
@@ -38,25 +38,10 @@ export default function Navbar() {
     <>
       <div className="row navBar">
         <ul className=" col-8 d-flex gap-3">
-          <li className="p-2 list-unstyled">
-            <Link className=" fs text-white text-decoration-none" to="/home">
-              Home
-            </Link>
-          </li>
-          <li className="p-2 list-unstyled">
-            <Link className=" fs text-white text-decoration-none" to="/profile">
-              Profile
-            </Link>
-          </li>
+          <NavBarLink value={'Home'} route={'/home'} />
+          <NavBarLink value={'Profile'} route={'/profile'} />
           {userDetails.email == 'admin@admin.com' ? (
-            <li className="p-2 list-unstyled">
-              <Link
-                className=" fs text-white text-decoration-none"
-                to="/addEvent"
-              >
-                Add Event
-              </Link>
-            </li>
+            <NavBarLink value={'Add Event'} route={'addEvent'} />
           ) : (
             ''
           )}
