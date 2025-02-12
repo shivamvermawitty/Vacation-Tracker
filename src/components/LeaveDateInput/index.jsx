@@ -9,7 +9,7 @@ export default function LeaveDateInput({
   function handleChange(e, propertyName) {
     setFormData((data) => ({ ...data, [propertyName]: e.target.value }));
   }
-  // console.log(month,'month' , year,'year')
+
   return (
     <>
       <label>{label}</label>

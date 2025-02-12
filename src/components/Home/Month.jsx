@@ -81,8 +81,8 @@ Month.propTypes = {
   daysInMonth: PropTypes.number.isRequired,
   year: PropTypes.number.isRequired,
   month: PropTypes.number.isRequired,
-  currentDate: PropTypes.number.isRequired,
-  eventDetails: PropTypes.object.isRequired,
-  leaveDetails: PropTypes.object.isRequired,
+  currentDate: PropTypes.instanceOf(Date),
+  eventDetails: PropTypes.array,
+  leaveDetails: PropTypes.array,
   handleDateClick: PropTypes.func.isRequired,
 };
