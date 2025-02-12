@@ -1,14 +1,12 @@
-import { getEvent } from '../../ApiMethods';
 import getData from '../../ApiMethods';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getLeaveDetails } from '../../ApiMethods';
+
 import './Navbar.css';
 import { useUser } from '../../useUser';
 
 export default function Navbar() {
-  const { userDetails, setUserDetails, setLeaveDetails, setEventDetails } =
-    useUser();
+  const { userDetails, setUserDetails } = useUser();
   const [userName, setUserName] = useState();
   const [showLogOut, setShowLogOut] = useState(false);
   const navigate = useNavigate();
@@ -23,27 +21,10 @@ export default function Navbar() {
         console.log('Error fetching Data', err);
       }
     }
-    async function fetchLeaveDetail() {
-      try {
-        const response = await getLeaveDetails();
-        setLeaveDetails(response);
-      } catch (err) {
-        console.log('Error Fetching data', err);
-      }
-    }
-    async function fetchEventDetails() {
-      try {
-        const response = await getEvent();
-        console.log(response);
-        setEventDetails(response);
-      } catch (err) {
-        console.log('Error Fetching Event Details', err);
-      }
-    }
-    fetchEventDetails();
+
     fetchUserData();
-    fetchLeaveDetail();
-  }, [setEventDetails, setLeaveDetails, setUserDetails]);
+    // fetchLeaveDetail();
+  }, [setUserDetails]);
 
   function handleClick() {
     setShowLogOut((d) => !d);

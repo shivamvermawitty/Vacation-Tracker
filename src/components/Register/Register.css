@@ -10,10 +10,6 @@ form {
   flex-wrap: wrap;
   justify-content: center;
 }
-.formDiv {
-  display: flex !important;
-  justify-content: center !important;
-}
 input {
   border: 1px solid white;
   width: 150px !important;
@@ -31,10 +27,15 @@ select {
   height: 45px;
 }
 input[type='submit'] {
-  width: 7rem;
+  height: 50px;
+  width: 5rem !important;
   background-color: white;
   border: 1px solid white;
   color: #525252;
+  margin-right: 5px;
+}
+input[type='submit']:hover{
+  color: white;
 }
 select {
   width: 150px !important;
@@ -42,9 +43,12 @@ select {
 }
 .loginButton {
   background-color: #525252;
-  border: 1px solid white;
+  border: none !important;
   color: white;
   font-weight: 600;
+}
+.loginButton:hover{
+  color: rgb(161, 158, 158);
 }
 .backGround {
   height: 100vh;
@@ -74,6 +78,9 @@ select {
 }
 .registrationForm {
   justify-content: center !important;
+}
+.width{
+  width: 150px;
 }
 @media (max-width: 1480px) {
   .registartion{

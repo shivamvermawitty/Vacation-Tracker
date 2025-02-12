@@ -3,11 +3,10 @@ import Register from './components/Register';
 import Login from './components/Login';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Profile from './components/Profile';
-import Navbar from './components/Navbar';
 import Home from './components/Home';
-import RouteGaurd from './components/RouteGaurd';
 import { UserProvider } from './UserProvider';
-import AddEvent from './components/AddEvent/AddEvent';
+import AddEvent from './components/AddEvent';
+import RouteWrapper from './components/RouteWrapper';
 
 function App() {
   return (
@@ -19,28 +18,25 @@ function App() {
           <Route
             path="/profile"
             element={
-              <RouteGaurd>
-                <Navbar />
+              <RouteWrapper>
                 <Profile />
-              </RouteGaurd>
+              </RouteWrapper>
             }
           />
           <Route
             path="/home"
             element={
-              <RouteGaurd>
-                <Navbar />
+              <RouteWrapper>
                 <Home />
-              </RouteGaurd>
+              </RouteWrapper>
             }
           />
           <Route
             path="/addEvent"
             element={
-              <RouteGaurd>
-                <Navbar />
+              <RouteWrapper>
                 <AddEvent />
-              </RouteGaurd>
+              </RouteWrapper>
             }
           />
         </Routes>

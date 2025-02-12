@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import './InputComponent.css';
 export default function InputComponent({
   label,
   type,
@@ -12,14 +13,16 @@ export default function InputComponent({
   }
   return (
     <>
-      <label>{label}</label>
-      <input
-        type={type}
-        value={formData[name]}
-        onChange={(e) => handleChange(e, name)}
-      />{' '}
-      <br />
-      {errorMessage && <div className="text-danger">{errorMessage}</div>}
+      <div className="d-flex flex-column mx-4">
+        <label>{label}</label>
+        <input
+          type={type}
+          value={formData[name]}
+          onChange={(e) => handleChange(e, name)}
+        />{' '}
+        <br />
+        {errorMessage && <span className="  text-danger">{errorMessage}</span>}
+      </div>
     </>
   );
 }

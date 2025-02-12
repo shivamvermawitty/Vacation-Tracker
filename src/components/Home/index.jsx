@@ -1,18 +1,19 @@
 import { useEffect, useState, useRef } from 'react';
-import DateCard from '../Date';
 import ApplyLeave from '../ApplyLeave';
 import './Home.css';
-import { useUser } from '../../useUser';
-import DayName from '../DayName';
+import { getLeaveDetails } from '../../ApiMethods';
+import { getEvent } from '../../ApiMethods';
+import CalenderHeader from './CalenderHeader';
+import Week from './Week';
+import Month from './Month';
 
 function Home() {
   const [currentDate, setCurrentDate] = useState(new Date());
-
-  const { leaveDetails, setLeaveDetails, eventDetails } = useUser();
-
+  // const { leaveDetails, setLeaveDetails, eventDetails } = useUser();
+  const [leaveDetails, setLeaveDetails] = useState();
+  const [eventDetails, setEventDetails] = useState();
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
-
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
   const daysInMonth = lastDay.getDate();
@@ -30,15 +31,6 @@ function Home() {
       setShowLeaveModal(true);
     }
   }
-  const days = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
   const [showLeaveModal, setShowLeaveModal] = useState(false);
   const modalRef = useRef(null);
   useEffect(() => {
@@ -48,110 +40,61 @@ function Home() {
       }
     }
     document.addEventListener('mousedown', handleModal);
+    // async function fetchLeaveDetail() {
+    //   try {
+    //     const response = await getLeaveDetails();
+    //     setLeaveDetails(response);
+    //   } catch (err) {
+    //     console.log('Error Fetching data', err);
+    //   }
+    // }
+    // async function fetchEventDetails() {
+    //   try {
+    //     const response = await getEvent();
+    //     console.log(response);
+    //     setEventDetails(response);
+    //   } catch (err) {
+    //     console.log('Error Fetching Event Details', err);
+    //   }
+    // }
+    // fetchEventDetails();
+    // fetchLeaveDetail()
+
+    Promise.all([getLeaveDetails(), getEvent()])
+      .then((value) => {
+        setLeaveDetails(value[0]);
+        setEventDetails(value[1]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
     <>
-      <div className="row justify-content-between calenderHeader">
-        <h1 className="col-3 fw-bold monthYear">{monthYear}</h1>
-        <div className="col-6 d-flex align-items-center justify-content-end gap-2"></div>
-        <div className="col-3 d-flex justify-content-center align-items-center fs-1 ">
-          <i
-            className="fa-solid fa-chevron-left p-1 bg-white rounded m-1 calenderChange"
-            onClick={() => changeMonth(-1)}
-          ></i>
-          <i
-            className="fa-solid fa-chevron-right p-1 bg-white rounded calenderChange"
-            onClick={() => changeMonth(1)}
-          ></i>
-        </div>
-      </div>
-      <div className="weekDays">
-        {days.map((el, ind) => (
-          <DayName dayName={el} key={ind} />
-        ))}
-      </div>
-      <div className="dateBox row">
-        {new Array(startingDay).fill().map((v, index) => (
-          <div key={index} className="dateCard">
-            <DateCard />
-          </div>
-        ))}
-        {new Array(daysInMonth).fill().map((_, index) => (
-          <div
-            className={` ${new Date(year, month, index + 1).getDay() == 0 ? 'disabledDate' : 'dateCard'} ${new Date(year, month, index + 1).getDay() == 6 ? 'disabledDate' : 'dateCard'} ${
-              currentDate.getDate() == index + 1 &&
-              currentDate.getMonth() == new Date().getMonth() &&
-              currentDate.getFullYear() == new Date().getFullYear()
-                ? 'currentDate'
-                : ''
-            } eventCard`}
-            key={index}
-            onClick={() => handleDateClick()}
-          >
-            {Array.isArray(eventDetails)
-              ? eventDetails.map((event, i) => {
-                  return new Date(year, month, index + 1).setHours(
-                    0,
-                    0,
-                    0,
-                    0
-                  ) == new Date(event.eventDate).setHours(0, 0, 0, 0) ? (
-                    <div
-                      className=" d-flex justify-content-center eventDate"
-                      key={i}
-                    >
-                      {event.eventName}
-                    </div>
-                  ) : null;
-                })
-              : null}
-
-            <div>
-              <DateCard date={index + 1} month={month} year={year} />
-            </div>
-            {Array.isArray(leaveDetails)
-              ? leaveDetails.map((leaveDetail, i) => {
-                  return new Date(year, month, index + 1).setHours(
-                    0,
-                    0,
-                    0,
-                    0
-                  ) >= new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0) &&
-                    new Date(year, month, index + 1).setHours(0, 0, 0, 0) <=
-                      new Date(leaveDetail.toDate).setHours(0, 0, 0, 0) ? (
-                    <div
-                      key={i}
-                      className={`leaveStrip ${new Date(year, month, index + 1).setHours(0, 0, 0, 0) == new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0) ? 'borderRadiusLeft' : ''} ${new Date(year, month, index + 1).setHours(0, 0, 0, 0) == new Date(leaveDetail.toDate).setHours(0, 0, 0, 0) ? 'borderRadiusRight' : ''}`}
-                      style={{ backgroundColor: `${leaveDetail['color']}` }}
-                    >
-                      {new Date(year, month, index + 1).setHours(0, 0, 0, 0) ==
-                      new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0) ? (
-                        <p className=" text-white">{leaveDetail.email}</p>
-                      ) : (
-                        ''
-                      )}
-                    </div>
-                  ) : (
-                    ''
-                  );
-                })
-              : ''}
-          </div>
-        ))}
-      </div>
+      <CalenderHeader monthYear={monthYear} changeMonth={changeMonth} />
+      <Week />
+      <Month
+        startingDay={startingDay}
+        daysInMonth={daysInMonth}
+        year={year}
+        month={month}
+        currentDate={currentDate}
+        eventDetails={eventDetails}
+        leaveDetails={leaveDetails}
+        handleDateClick={handleDateClick}
+      />
       {showLeaveModal && <div className="backdrop"></div>}
-      <div className=" leaveModal">
-        {showLeaveModal && (
-          <ApplyLeave
-            setShowLeaveModal={setShowLeaveModal}
-            modalRef={modalRef}
-            setUserLeaveDetails={setLeaveDetails}
-            month={month}
-            year={year}
-          />
-        )}
-      </div>
+
+      {showLeaveModal && (
+        <ApplyLeave
+          setShowLeaveModal={setShowLeaveModal}
+          modalRef={modalRef}
+          setUserLeaveDetails={setLeaveDetails}
+          month={month}
+          year={year}
+        />
+      )}
     </>
   );
 }

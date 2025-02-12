@@ -19,17 +19,14 @@ select {
   border-radius: 5px;
   padding: 5px;
 }
-.button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 13px;
-  font-size: 1.05rem;
+.registerButton {
+  background-color: #525252;
+  border: none !important;
+  color: white;
   font-weight: 600;
-  width: 7rem;
-  background-color: white;
-  border: 1px solid white;
-  color: #525252;
+}
+.registerButton:hover{
+  color: rgb(161, 158, 158);
 }
 input[type='submit'] {
   width: 7rem;

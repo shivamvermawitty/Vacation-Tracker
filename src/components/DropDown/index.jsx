@@ -12,18 +12,20 @@ export default function Dropdown({
   }
   return (
     <>
-      <label>{label}</label>
-      <select value={formData.gender} onChange={(e) => handleChange(e, name)}>
-        <option value="" disabled>
-          Select {name}
-        </option>
-        {optionArr.map((options, index) => (
-          <option value={options} key={index}>
-            {options}
+      <div className="d-flex flex-column mx-4">
+        <label>{label}</label>
+        <select value={formData.gender} onChange={(e) => handleChange(e, name)}>
+          <option value="" disabled>
+            Select {name}
           </option>
-        ))}
-      </select>
-      {errorMessage && <div className="text-danger">{errorMessage}</div>}
+          {optionArr.map((options, index) => (
+            <option value={options} key={index}>
+              {options}
+            </option>
+          ))}
+        </select>
+        {errorMessage && <span className="text-danger">{errorMessage}</span>}
+      </div>
     </>
   );
 }
