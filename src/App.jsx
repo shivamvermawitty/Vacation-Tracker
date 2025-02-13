@@ -9,6 +9,7 @@ import AddEvent from './components/AddEvent';
 import RouteWrapper from './components/RouteWrapper';
 import UpdateEvent from './components/UpdateEvent';
 import AdminRouteGuard from './components/AdminRouteGaurd';
+import { HomeProvider } from './HomeProvider';
 
 function App() {
   return (
@@ -29,7 +30,9 @@ function App() {
             path="/home"
             element={
               <RouteWrapper>
-                <Home />
+                <HomeProvider>
+                  <Home />
+                </HomeProvider>
               </RouteWrapper>
             }
           />

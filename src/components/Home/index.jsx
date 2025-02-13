@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import ApplyLeave from '../ApplyLeave';
 import './Home.css';
 import { getLeaveDetails } from '../../ApiMethods';
@@ -6,17 +6,23 @@ import { getEvent } from '../../ApiMethods';
 import CalenderHeader from './CalenderHeader';
 import Week from './Week';
 import Month from './Month';
+import { useHome } from '../../useHome';
 
 function Home() {
-  const [leaveDetails, setLeaveDetails] = useState();
-  const [eventDetails, setEventDetails] = useState();
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const {
+    setLeaveDetails,
+    setEventDetails,
+    currentDate,
+    setCurrentDate,
+    showLeaveModal,
+    setShowLeaveModal,
+  } = useHome();
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   const firstDay = new Date(year, month, 1);
-  const lastDay = new Date(year, month + 1, 0);
-  const daysInMonth = lastDay.getDate();
-  const startingDay = firstDay.getDay();
+  // const lastDay = new Date(year, month + 1, 0);
+  // const daysInMonth = lastDay.getDate();
+
   const monthYear = `${firstDay.toLocaleString('default', {
     month: 'long',
   })} ${year}`;
@@ -30,7 +36,7 @@ function Home() {
       setShowLeaveModal(true);
     }
   }
-  const [showLeaveModal, setShowLeaveModal] = useState(false);
+
   const modalRef = useRef(null);
   useEffect(() => {
     function handleModal(event) {
@@ -54,16 +60,7 @@ function Home() {
     <>
       <CalenderHeader monthYear={monthYear} changeMonth={changeMonth} />
       <Week />
-      <Month
-        startingDay={startingDay}
-        daysInMonth={daysInMonth}
-        year={year}
-        month={month}
-        currentDate={currentDate}
-        eventDetails={eventDetails}
-        leaveDetails={leaveDetails}
-        handleDateClick={handleDateClick}
-      />
+      <Month handleDateClick={handleDateClick} />
       {showLeaveModal && <div className="backdrop"></div>}
 
       {showLeaveModal && (

@@ -1,7 +1,7 @@
 import './Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
-import { z } from 'zod';
+import { parceFormData } from './parcer';
 import InputComponent from '../InputComponent';
 import FormHeading from '../FormHeading';
 import ProjectName from '../ProjectName';
@@ -9,11 +9,6 @@ import { postLoginCred } from '../../ApiMethods';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useUser } from '../../useUser';
-
-const formSchema = z.object({
-  password: z.string().min(4, 'Invalid Password'),
-  email: z.string().email('Please enter a valid email address'),
-});
 
 function Login() {
   const { setUserDetails } = useUser();
@@ -29,8 +24,7 @@ function Login() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    try {
-      formSchema.parse(loginCredential);
+    if (!parceFormData(loginCredential)) {
       try {
         const response = await postLoginCred(loginCredential);
         localStorage.setItem('authToken', response.data.accessToken);
@@ -42,15 +36,8 @@ function Login() {
         console.log('Invalid Credentials', err);
         setInvalid(true);
       }
-    } catch (err) {
-      console.log('Unable to parse formData', err);
-      if (err instanceof z.ZodError) {
-        const errorObj = {};
-        err.errors.forEach((error) => {
-          errorObj[error.path[0]] = error.message;
-        });
-        setErrors(errorObj);
-      }
+    } else {
+      setErrors(parceFormData(loginCredential));
     }
   }
 
