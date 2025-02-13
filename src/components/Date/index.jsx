@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
+import './DateCard.css';
 export default function Date({ date }) {
   return (
     <>
-      <span>{date}</span>
+      <span className="date">{date}</span>
     </>
   );
 }
