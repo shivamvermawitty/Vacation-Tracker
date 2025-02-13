@@ -10,14 +10,31 @@ import RouteWrapper from './components/RouteWrapper';
 import UpdateEvent from './components/UpdateEvent';
 import AdminRouteGuard from './components/AdminRouteGaurd';
 import { HomeProvider } from './HomeProvider';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <UserProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/register"
+            element={
+              <>
+                <Navbar />
+                <Register />
+              </>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <>
+                <Navbar />
+                <Login />
+              </>
+            }
+          />
           <Route
             path="/profile"
             element={
@@ -27,13 +44,14 @@ function App() {
             }
           />
           <Route
-            path="/home"
+            path="/"
             element={
-              <RouteWrapper>
-                <HomeProvider>
-                  <Home />
-                </HomeProvider>
-              </RouteWrapper>
+              // <RouteWrapper>
+              <HomeProvider>
+                <Navbar />
+                <Home />
+              </HomeProvider>
+              // </RouteWrapper>
             }
           />
           <Route

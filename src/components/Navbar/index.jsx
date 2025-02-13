@@ -23,7 +23,7 @@ export default function Navbar() {
       }
     }
 
-    fetchUserData();
+    localStorage.getItem('authToken') ? fetchUserData() : null;
   }, [setUserDetails]);
 
   function handleClick() {
@@ -31,29 +31,42 @@ export default function Navbar() {
   }
   function handleLogOut() {
     localStorage.clear();
+    setShowLogOut(false);
+    setUserDetails({});
 
-    navigate('/Login');
+    navigate('/');
   }
   return (
     <>
       <div className="row navBar">
         <ul className=" col-8 d-flex gap-3">
-          <NavBarLink value={'Home'} route={'/home'} />
-          <NavBarLink value={'Profile'} route={'/profile'} />
+          <NavBarLink value={'Home'} route={'/'} />
+
+          {localStorage.getItem('authToken') ? (
+            <NavBarLink value={'Profile'} route={'/profile'} />
+          ) : (
+            <>
+              <NavBarLink value={'LogIn'} route={'/login'} />
+              <NavBarLink value={'SignUp'} route={'/register'} />
+            </>
+          )}
+
           {userDetails.email == 'admin@admin.com' ? (
             <NavBarLink value={'Add Event'} route={'/addEvent'} />
           ) : (
             ''
           )}
         </ul>
-        <div className="col-4 d-flex flex-column justify-content-end">
-          <p
-            className=" btn fs d-flex justify-content-end text-white"
-            onClick={handleClick}
-          >
-            Welcome {userName}
-          </p>
-        </div>
+        {localStorage.getItem('authToken') ? (
+          <div className="col-4 d-flex flex-column justify-content-end">
+            <p
+              className=" btn fs d-flex justify-content-end text-white"
+              onClick={handleClick}
+            >
+              Welcome {userName}
+            </p>
+          </div>
+        ) : null}
       </div>
       <div className="d-flex justify-content-end mx-4">
         {showLogOut && (

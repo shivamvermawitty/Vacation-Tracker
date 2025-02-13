@@ -49,7 +49,7 @@ function Profile() {
     if (!parseFormData(formData)) {
       try {
         const response = await updateData(formData);
-        navigate('/home');
+        navigate('/');
         setErrors({});
         console.log('Profile Updated', response);
       } catch (err) {

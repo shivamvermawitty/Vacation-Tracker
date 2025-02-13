@@ -42,7 +42,7 @@ function Register() {
             password: formData.password,
           });
           localStorage.setItem('authToken', response.data.accessToken);
-          navigate('/home');
+          navigate('/');
           setUserDetails({ email: formData.email });
         } catch (err) {
           console.log('Unable to post login Cred', err);

@@ -61,16 +61,19 @@ function Home() {
       <CalenderHeader monthYear={monthYear} changeMonth={changeMonth} />
       <Week />
       <Month handleDateClick={handleDateClick} />
-      {showLeaveModal && <div className="backdrop"></div>}
+      {/* {showLeaveModal && } */}
 
-      {showLeaveModal && (
-        <ApplyLeave
-          setShowLeaveModal={setShowLeaveModal}
-          modalRef={modalRef}
-          setUserLeaveDetails={setLeaveDetails}
-          month={month}
-          year={year}
-        />
+      {showLeaveModal && localStorage.getItem('authToken') && (
+        <>
+          <div className="backdrop"></div>
+          <ApplyLeave
+            setShowLeaveModal={setShowLeaveModal}
+            modalRef={modalRef}
+            setUserLeaveDetails={setLeaveDetails}
+            month={month}
+            year={year}
+          />
+        </>
       )}
     </>
   );

@@ -28,7 +28,7 @@ function Login() {
       try {
         const response = await postLoginCred(loginCredential);
         localStorage.setItem('authToken', response.data.accessToken);
-        navigate('/home');
+        navigate('/');
         setUserDetails({ email: loginCredential.email });
         setErrors({});
         setInvalid(false);

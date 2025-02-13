@@ -21,7 +21,7 @@ export default function UpdateEvent() {
       try {
         await updateEvent(eventDetail, id);
         setErrors({});
-        navigate('/home');
+        navigate('/');
       } catch (err) {
         console.log('Unable to update event', err);
       }
