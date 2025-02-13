@@ -69,3 +69,11 @@ export async function getEvent() {
     console.log('Unable to fetch Data', err);
   }
 }
+export async function updateEvent(formData, id) {
+  try {
+    const response = await ApiInterceptor.put(`event/update/${id}`, formData);
+    return response;
+  } catch (err) {
+    console.log('Update Unsuccessful', err);
+  }
+}

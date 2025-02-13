@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import DateCard from '../Date';
+import { Link } from 'react-router-dom';
+import { useUser } from '../../useUser';
 
 export default function Month({
   startingDay,
@@ -11,6 +13,9 @@ export default function Month({
   leaveDetails,
   handleDateClick,
 }) {
+  const { userDetails } = useUser();
+  // console.log(userDetails)
+
   return (
     <div className="dateBox row">
       {new Array(startingDay).fill().map((v, index) => (
@@ -32,15 +37,31 @@ export default function Month({
         >
           {Array.isArray(eventDetails)
             ? eventDetails.map((event, i) => {
-                return new Date(year, month, index + 1).setHours(0, 0, 0, 0) ==
-                  new Date(event.eventDate).setHours(0, 0, 0, 0) ? (
-                  <div
-                    className=" d-flex justify-content-center eventDate"
-                    key={i}
-                  >
-                    {event.eventName}
-                  </div>
-                ) : null;
+                if (
+                  new Date(year, month, index + 1).setHours(0, 0, 0, 0) ==
+                  new Date(event.eventDate).setHours(0, 0, 0, 0)
+                ) {
+                  if (userDetails.email == 'admin@admin.com') {
+                    return (
+                      <Link
+                        className=" d-flex justify-content-center eventDate"
+                        key={i}
+                        to={`/updateEvent/${event._id}`}
+                      >
+                        {event.eventName}
+                      </Link>
+                    );
+                  } else {
+                    return (
+                      <div
+                        className=" d-flex justify-content-center eventDate"
+                        key={i}
+                      >
+                        {event.eventName}
+                      </div>
+                    );
+                  }
+                }
               })
             : null}
 

@@ -7,6 +7,8 @@ import Home from './components/Home';
 import { UserProvider } from './UserProvider';
 import AddEvent from './components/AddEvent';
 import RouteWrapper from './components/RouteWrapper';
+import UpdateEvent from './components/UpdateEvent';
+import AdminRouteGuard from './components/AdminRouteGaurd';
 
 function App() {
   return (
@@ -35,13 +37,24 @@ function App() {
             path="/addEvent"
             element={
               <RouteWrapper>
-                <AddEvent />
+                <AdminRouteGuard>
+                  <AddEvent />
+                </AdminRouteGuard>
+              </RouteWrapper>
+            }
+          />
+          <Route
+            path="/updateEvent/:id"
+            element={
+              <RouteWrapper>
+                <AdminRouteGuard>
+                  <UpdateEvent />
+                </AdminRouteGuard>
               </RouteWrapper>
             }
           />
         </Routes>
       </BrowserRouter>
-      {/* <RouterProvider router={router} /> */}
     </UserProvider>
   );
 }

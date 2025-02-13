@@ -10,8 +10,10 @@ import { postLoginCred, registerData } from '../../ApiMethods';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Register.css';
 import FormHeading from '../FormHeading';
+import { useUser } from '../../useUser';
 
 function Register() {
+  const { setUserDetails } = useUser();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
@@ -41,6 +43,7 @@ function Register() {
           });
           localStorage.setItem('authToken', response.data.accessToken);
           navigate('/home');
+          setUserDetails({ email: formData.email });
         } catch (err) {
           console.log('Unable to post login Cred', err);
         }

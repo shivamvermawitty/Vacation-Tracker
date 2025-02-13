@@ -8,6 +8,7 @@ import ProjectName from '../ProjectName';
 import { postLoginCred } from '../../ApiMethods';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useUser } from '../../useUser';
 
 const formSchema = z.object({
   password: z.string().min(4, 'Invalid Password'),
@@ -15,6 +16,7 @@ const formSchema = z.object({
 });
 
 function Login() {
+  const { setUserDetails } = useUser();
   const navigate = useNavigate();
   const [loginCredential, setLoginCredential] = useState({
     email: '',
@@ -33,6 +35,7 @@ function Login() {
         const response = await postLoginCred(loginCredential);
         localStorage.setItem('authToken', response.data.accessToken);
         navigate('/home');
+        setUserDetails({ email: loginCredential.email });
         setErrors({});
         setInvalid(false);
       } catch (err) {

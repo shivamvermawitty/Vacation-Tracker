@@ -41,7 +41,7 @@ export default function Navbar() {
           <NavBarLink value={'Home'} route={'/home'} />
           <NavBarLink value={'Profile'} route={'/profile'} />
           {userDetails.email == 'admin@admin.com' ? (
-            <NavBarLink value={'Add Event'} route={'addEvent'} />
+            <NavBarLink value={'Add Event'} route={'/addEvent'} />
           ) : (
             ''
           )}
