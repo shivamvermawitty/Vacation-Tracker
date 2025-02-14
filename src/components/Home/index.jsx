@@ -66,13 +66,7 @@ function Home() {
       {showLeaveModal && localStorage.getItem('authToken') && (
         <>
           <div className="backdrop"></div>
-          <ApplyLeave
-            setShowLeaveModal={setShowLeaveModal}
-            modalRef={modalRef}
-            setUserLeaveDetails={setLeaveDetails}
-            month={month}
-            year={year}
-          />
+          <ApplyLeave modalRef={modalRef} />
         </>
       )}
     </>

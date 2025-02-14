@@ -1,31 +1,19 @@
 import { useState } from 'react';
-
 import { useUser } from '../../useUser';
 import LeaveDateInput from '../LeaveDateInput';
 import { postLeaveDetails } from '../../ApiMethods';
 import PropTypes from 'prop-types';
-
-import { z } from 'zod';
-
 import './ApplyLeave.css';
 import FormHeading from '../FormHeading';
+import { useHome } from '../../useHome';
+import { parseFormData } from './parcer';
 
-const formSchema = z.object({
-  fromDate: z.string().min(3, 'Date Of Birth is required'),
-  toDate: z.string().min(3, 'Date Of Birth is required'),
-  color: z.string().min(3, 'Color is required'),
-  email: z.string().email('Invalid Email'),
-});
-
-export default function ApplyLeave({
-  modalRef,
-  setShowLeaveModal,
-  setUserLeaveDetails,
-  month,
-  year,
-}) {
+export default function ApplyLeave({ modalRef }) {
   const [errors, setErrors] = useState({});
   const { userDetails } = useUser();
+  const { currentDate, setLeaveDetails, setShowLeaveModal } = useHome();
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
   const [leaveDetail, setLeaveDetail] = useState({
     fromDate: new Date(year, month, 2).toISOString().split('T')[0],
     toDate: new Date(year, month, 2).toISOString().split('T')[0],
@@ -35,20 +23,15 @@ export default function ApplyLeave({
 
   async function handleLeaveSubmit(e) {
     e.preventDefault();
-    try {
-      formSchema.parse(leaveDetail);
-      console.log(leaveDetail);
-      setUserLeaveDetails((data) => [...data, leaveDetail]);
-      await postLeaveDetails(leaveDetail);
-      setErrors({});
-      setShowLeaveModal(false);
-    } catch (err) {
-      if (err instanceof z.ZodError) {
-        const errorObj = {};
-        err.errors.forEach((error) => {
-          errorObj[error.path[0]] = error.message;
-        });
-        setErrors(errorObj);
+
+    if (!parseFormData(leaveDetail)) {
+      try {
+        setLeaveDetails((data) => [...data, leaveDetail]);
+        await postLeaveDetails(leaveDetail);
+        setErrors({});
+        setShowLeaveModal(false);
+      } catch (err) {
+        console.log('Unable to post leave Details', err);
       }
     }
   }
@@ -100,8 +83,4 @@ ApplyLeave.propTypes = {
   modalRef: PropTypes.shape({
     current: PropTypes.instanceOf(Element),
   }),
-  setUserLeaveDetails: PropTypes.func.isRequired,
-  setShowLeaveModal: PropTypes.func.isRequired,
-  month: PropTypes.number.isRequired,
-  year: PropTypes.number.isRequired,
 };

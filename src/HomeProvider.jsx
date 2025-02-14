@@ -6,11 +6,6 @@ export const HomeProvider = ({ children }) => {
   const [leaveDetails, setLeaveDetails] = useState();
   const [eventDetails, setEventDetails] = useState();
   const [currentDate, setCurrentDate] = useState(new Date());
-
-  // const monthYear = `${firstDay.toLocaleString('default', {
-  //   month: 'long',
-  // })} ${year}`;
-
   return (
     <HomeContext.Provider
       value={{
