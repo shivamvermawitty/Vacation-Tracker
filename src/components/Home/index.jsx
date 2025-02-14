@@ -48,6 +48,7 @@ function Home() {
 
     Promise.all([getLeaveDetails(), getEvent()])
       .then((value) => {
+        value[0].sort((a, b) => new Date(a.fromDate) - new Date(b.fromDate));
         setLeaveDetails(value[0]);
         setEventDetails(value[1]);
       })

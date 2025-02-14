@@ -9,9 +9,10 @@ import { postLoginCred } from '../../ApiMethods';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useUser } from '../../useUser';
+import { setStorage } from '../../setStorage';
 
 function Login() {
-  const { setUserDetails } = useUser();
+  const { setUserDetails, setUserToken } = useUser();
   const navigate = useNavigate();
   const [loginCredential, setLoginCredential] = useState({
     email: '',
@@ -27,7 +28,9 @@ function Login() {
     if (!parceFormData(loginCredential)) {
       try {
         const response = await postLoginCred(loginCredential);
-        localStorage.setItem('authToken', response.data.accessToken);
+        setUserToken(response.data.accessToken);
+        setStorage('authToken', response.data.accessToken);
+
         navigate('/');
         setUserDetails({ email: loginCredential.email });
         setErrors({});

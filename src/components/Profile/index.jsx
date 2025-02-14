@@ -24,6 +24,7 @@ import { useUser } from '../../useUser';
 
 function Profile() {
   const { userDetails, setUserDetails } = useUser();
+  console.log(userDetails);
   const { firstName, lastName, email, password, contact, dob, gender, color } =
     userDetails;
 

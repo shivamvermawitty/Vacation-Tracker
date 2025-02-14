@@ -40,7 +40,6 @@ export default function AddEvent() {
             setFormData={setEventDetail}
             errorMessage={errors.eventName}
           />
-
           <InputComponent
             label={'Date:'}
             type={'date'}
