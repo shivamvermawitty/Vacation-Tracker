@@ -9,7 +9,7 @@ import { postLoginCred } from '../../ApiMethods';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useUser } from '../../useUser';
-import { setStorage } from '../../setStorage';
+import { setStorage } from '../../storageMethod';
 
 function Login() {
   const { setUserDetails, setUserToken } = useUser();
@@ -21,7 +21,6 @@ function Login() {
 
   const [errors, setErrors] = useState(false);
   const [invalid, setInvalid] = useState(false);
-
   async function handleSubmit(e) {
     e.preventDefault();
 

@@ -1,7 +1,7 @@
 import './Profile.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
-// import { z } from 'zod';
+import { useEffect, useState } from 'react';
+
 import { parseFormData } from '../Register/parcer';
 import { useNavigate } from 'react-router-dom';
 import InputComponent from '../InputComponent';
@@ -11,20 +11,9 @@ import ProjectName from '../ProjectName';
 import { updateData } from '../../ApiMethods';
 import { useUser } from '../../useUser';
 
-// const formSchema = z.object({
-//   firstName: z.string().min(3, 'First name is required'),
-//   lastName: z.string().min(3, 'Last name is required'),
-//   password: z.string().min(4, 'Invalid Password'),
-//   email: z.string().email('Please enter a valid email address'),
-//   contact: z.string().min(10, 'Contact number should be at least 10 digits'),
-//   dob: z.string().min(3, 'Date Of Birth is required'),
-//   gender: z.string().min(4, 'Gender is required'),
-//   color: z.string().min(3, 'Color is required'),
-// });
-
 function Profile() {
   const { userDetails, setUserDetails } = useUser();
-  console.log(userDetails);
+
   const { firstName, lastName, email, password, contact, dob, gender, color } =
     userDetails;
 
@@ -34,7 +23,7 @@ function Profile() {
     email,
     password,
     contact,
-    dob: new Date(dob).toISOString().split('T')[0],
+    dob: dob ? new Date(dob).toISOString().split('T')[0] : '',
     gender,
     color,
   });
@@ -60,6 +49,19 @@ function Profile() {
       setErrors(parseFormData(formData));
     }
   }
+
+  useEffect(() => {
+    setFormData({
+      firstName,
+      lastName,
+      email,
+      password,
+      contact,
+      dob: dob ? new Date(dob).toISOString().split('T')[0] : '',
+      gender,
+      color,
+    });
+  }, [userDetails]);
 
   return (
     <div className="container-fluid py-4 backGround">

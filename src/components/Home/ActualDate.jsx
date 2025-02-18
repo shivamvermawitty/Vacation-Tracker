@@ -1,16 +1,17 @@
 import DateCard from '../Date';
 import PropTypes from 'prop-types';
-import { useHome } from '../../useHome';
 import EventDetails from './EventDetails';
 import LeaveDetails from './LeaveDetails';
 
-export default function ActualDate({ handleDateClick }) {
-  const { currentDate } = useHome();
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
-  const lastDay = new Date(year, month + 1, 0);
-  const daysInMonth = lastDay.getDate();
-
+export default function ActualDate({
+  handleDateClick,
+  currentDate,
+  year,
+  month,
+  daysInMonth,
+  leaveDetails,
+  eventDetails,
+}) {
   return (
     <>
       {new Array(daysInMonth).fill().map((_, index) => (
@@ -25,12 +26,23 @@ export default function ActualDate({ handleDateClick }) {
           key={index}
           onClick={() => handleDateClick()}
         >
-          <EventDetails index={index} />
+          <EventDetails
+            index={index}
+            year={year}
+            month={month}
+            eventDetails={eventDetails}
+          />
 
           <div>
             <DateCard date={index + 1} month={month} year={year} />
           </div>
-          <LeaveDetails index={index} />
+          <LeaveDetails
+            index={index}
+            leaveDetails={leaveDetails}
+            currentDate={currentDate}
+            year={year}
+            month={month}
+          />
         </div>
       ))}
     </>
@@ -38,4 +50,10 @@ export default function ActualDate({ handleDateClick }) {
 }
 ActualDate.propTypes = {
   handleDateClick: PropTypes.func.isRequired,
+  currentDate: PropTypes.number.isRequired,
+  year: PropTypes.number.isRequired,
+  month: PropTypes.number.isRequired,
+  daysInMonth: PropTypes.number.isRequired,
+  leaveDetails: PropTypes.object.isRequired,
+  eventDetails: PropTypes.object.isRequired,
 };

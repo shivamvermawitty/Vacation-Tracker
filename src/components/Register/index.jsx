@@ -10,10 +10,8 @@ import { registerData } from '../../ApiMethods';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Register.css';
 import FormHeading from '../FormHeading';
-// import { useUser } from '../../useUser';
 
 function Register() {
-  // const { setUserDetails } = useUser();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
@@ -36,17 +34,6 @@ function Register() {
         setErrors({});
         navigate('/login');
         alert('User Registered');
-        // try {
-        //   const response = await postLoginCred({
-        //     email: formData.email,
-        //     password: formData.password,
-        //   });
-        //   localStorage.setItem('authToken', response.data.accessToken);
-        //   navigate('/');
-        //   setUserDetails({ email: formData.email });
-        // } catch (err) {
-        //   console.log('Unable to post login Cred', err);
-        // }
       } catch (err) {
         console.log('Unable to register User', err);
       }

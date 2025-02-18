@@ -5,15 +5,20 @@ import { postLeaveDetails } from '../../ApiMethods';
 import PropTypes from 'prop-types';
 import './ApplyLeave.css';
 import FormHeading from '../FormHeading';
-import { useHome } from '../../useHome';
 import { parseFormData } from './parcer';
 
-export default function ApplyLeave({ modalRef }) {
+export default function ApplyLeave({
+  modalRef,
+  setLeaveDetails,
+  setShowLeaveModal,
+  year,
+  month,
+}) {
   const [errors, setErrors] = useState({});
   const { userDetails } = useUser();
-  const { currentDate, setLeaveDetails, setShowLeaveModal } = useHome();
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
+  // const { currentDate, setLeaveDetails, setShowLeaveModal } = useHome();
+  // const year = currentDate.getFullYear();
+  // const month = currentDate.getMonth();
   const [leaveDetail, setLeaveDetail] = useState({
     fromDate: new Date(year, month, 2).toISOString().split('T')[0],
     toDate: new Date(year, month, 2).toISOString().split('T')[0],
@@ -27,7 +32,9 @@ export default function ApplyLeave({ modalRef }) {
     if (!parseFormData(leaveDetail)) {
       try {
         setLeaveDetails((data) => [...data, leaveDetail]);
+
         await postLeaveDetails(leaveDetail);
+
         setErrors({});
         setShowLeaveModal(false);
       } catch (err) {
@@ -83,4 +90,8 @@ ApplyLeave.propTypes = {
   modalRef: PropTypes.shape({
     current: PropTypes.instanceOf(Element),
   }),
+  year: PropTypes.number.isRequired,
+  month: PropTypes.number.isRequired,
+  setLeaveDetails: PropTypes.func.isRequired,
+  setShowLeaveModal: PropTypes.func.is,
 };

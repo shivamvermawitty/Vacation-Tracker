@@ -6,10 +6,10 @@ import Profile from './components/Profile';
 import Home from './components/Home';
 import { UserProvider } from './UserProvider';
 import AddEvent from './components/AddEvent';
+import Events from './components/Events';
 import RouteWrapper from './components/RouteWrapper';
 import UpdateEvent from './components/UpdateEvent';
-import AdminRouteGuard from './components/AdminRouteGaurd';
-import { HomeProvider } from './HomeProvider';
+// import AdminRouteGuard from './components/AdminRouteGaurd';
 import Navbar from './components/Navbar';
 
 function App() {
@@ -46,31 +46,39 @@ function App() {
           <Route
             path="/"
             element={
-              // <RouteWrapper>
-              <HomeProvider>
+              <>
                 <Navbar />
                 <Home />
-              </HomeProvider>
-              // </RouteWrapper>
+              </>
             }
           />
           <Route
-            path="/addEvent"
+            path="/event"
             element={
               <RouteWrapper>
-                <AdminRouteGuard>
-                  <AddEvent />
-                </AdminRouteGuard>
+                {/* <AdminRouteGuard> */}
+                <Events />
+                {/* </AdminRouteGuard> */}
               </RouteWrapper>
             }
           />
           <Route
-            path="/updateEvent/:id"
+            path="/event/addEvent"
             element={
               <RouteWrapper>
-                <AdminRouteGuard>
-                  <UpdateEvent />
-                </AdminRouteGuard>
+                {/* <AdminRouteGuard> */}
+                <AddEvent />
+                {/* </AdminRouteGuard> */}
+              </RouteWrapper>
+            }
+          />
+          <Route
+            path="/event/updateEvent/:id"
+            element={
+              <RouteWrapper>
+                {/* <AdminRouteGuard> */}
+                <UpdateEvent />
+                {/* </AdminRouteGuard> */}
               </RouteWrapper>
             }
           />

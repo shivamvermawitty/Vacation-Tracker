@@ -1,11 +1,6 @@
 import PropTypes from 'prop-types';
-import { useHome } from '../../useHome';
 
-export default function LeaveDetails({ index }) {
-  const { leaveDetails, currentDate } = useHome();
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
-
+export default function LeaveDetails({ index, leaveDetails, year, month }) {
   return (
     <>
       {Array.isArray(leaveDetails)
@@ -36,4 +31,7 @@ export default function LeaveDetails({ index }) {
 }
 LeaveDetails.propTypes = {
   index: PropTypes.number.isRequired,
+  year: PropTypes.number.isRequired,
+  month: PropTypes.number.isRequired,
+  leaveDetails: PropTypes.object.isRequired,
 };

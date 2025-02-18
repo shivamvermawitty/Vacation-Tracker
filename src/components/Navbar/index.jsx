@@ -1,14 +1,14 @@
 import getData from '../../ApiMethods';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { clearStorage, getStorage } from '../../storageMethod';
 import './Navbar.css';
 import { useUser } from '../../useUser';
 import NavBarLink from './NavBarLink';
 
 export default function Navbar() {
   const { userDetails, setUserDetails } = useUser();
-  const [userName, setUserName] = useState();
+  const [userName, setUserName] = useState(null);
   const [showLogOut, setShowLogOut] = useState(false);
   const navigate = useNavigate();
 
@@ -23,17 +23,19 @@ export default function Navbar() {
       }
     }
 
-    localStorage.getItem('authToken') ? fetchUserData() : null;
-  }, [setUserDetails]);
+    if (getStorage('authToken')) {
+      fetchUserData();
+    }
+  }, [getStorage('authToken')]);
 
   function handleClick() {
     setShowLogOut((d) => !d);
   }
   function handleLogOut() {
-    localStorage.clear();
-    setShowLogOut(false);
-    setUserDetails({});
-
+    clearStorage();
+    setUserName(null);
+    setUserDetails(() => {});
+    setShowLogOut((val) => !val);
     navigate('/');
   }
   return (
@@ -42,7 +44,7 @@ export default function Navbar() {
         <ul className=" col-8 d-flex gap-3">
           <NavBarLink value={'Home'} route={'/'} />
 
-          {localStorage.getItem('authToken') ? (
+          {getStorage('authToken') ? (
             <NavBarLink value={'Profile'} route={'/profile'} />
           ) : (
             <>
@@ -51,13 +53,15 @@ export default function Navbar() {
             </>
           )}
 
-          {userDetails.email == 'admin@admin.com' ? (
-            <NavBarLink value={'Add Event'} route={'/addEvent'} />
+          {userDetails?.email == 'admin@admin.com' ? (
+            <>
+              <NavBarLink value={'Events'} route={'/event'} />
+            </>
           ) : (
             ''
           )}
         </ul>
-        {localStorage.getItem('authToken') ? (
+        {getStorage('authToken') ? (
           <div className="col-4 d-flex flex-column justify-content-end">
             <p
               className=" btn fs d-flex justify-content-end text-white"

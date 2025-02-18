@@ -1,10 +1,10 @@
 import InputComponent from '../InputComponent';
 import FormHeading from '../FormHeading';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { parceFormData } from '../AddEvent/parcer';
-import { updateEvent } from '../../ApiMethods';
+import { getEventById, updateEvent } from '../../ApiMethods';
 
 export default function UpdateEvent() {
   const { id } = useParams();
@@ -29,6 +29,20 @@ export default function UpdateEvent() {
       setErrors(parceFormData(eventDetail));
     }
   }
+  useEffect(() => {
+    async function fetchEventById(id) {
+      try {
+        const response = await getEventById(id);
+        setEventDetail({
+          eventName: response.eventName,
+          eventDate: new Date(response.eventDate).toISOString().split('T')[0],
+        });
+      } catch (err) {
+        console.log('Unable to fetch Event details ', err);
+      }
+    }
+    fetchEventById(id);
+  }, []);
   return (
     <div className="event">
       <div className="eventForm">

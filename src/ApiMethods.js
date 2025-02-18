@@ -77,3 +77,18 @@ export async function updateEvent(formData, id) {
     console.log('Update Unsuccessful', err);
   }
 }
+export async function deleteEvent(id) {
+  try {
+    await ApiInterceptor.delete(`event/remove/${id}`);
+  } catch (err) {
+    console.log('Unable to delete Event', err);
+  }
+}
+export async function getEventById(id) {
+  try {
+    const response = await ApiInterceptor.get(`event/fetch/${id}`);
+    return response.data;
+  } catch (err) {
+    console.log('Unable to fetch event by id', err);
+  }
+}

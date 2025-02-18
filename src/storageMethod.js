@@ -4,3 +4,6 @@ export function setStorage(key, value) {
 export function getStorage(key) {
   return localStorage.getItem(key);
 }
+export function clearStorage() {
+  localStorage.clear();
+}

@@ -1,8 +1,9 @@
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { getStorage } from '../../storageMethod';
 
 const RouteGuard = ({ children }) => {
-  const isAuthenticated = localStorage.getItem('authToken');
+  const isAuthenticated = getStorage('authToken');
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
