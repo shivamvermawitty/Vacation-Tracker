@@ -19,7 +19,7 @@ export default function AddEvent() {
       try {
         await postEvent(eventDetail);
         setErrors({});
-        navigate('/');
+        navigate('/event');
       } catch (err) {
         console.log('Unable to post event', err);
       }

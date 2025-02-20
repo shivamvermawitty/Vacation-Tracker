@@ -15,7 +15,7 @@ export default function Month({
   eventDetails,
 }) {
   return (
-    <div className="dateBox row">
+    <div className="row">
       <ExtraDate
         currentDate={currentDate}
         year={year}
@@ -39,13 +39,13 @@ export default function Month({
 
 Month.propTypes = {
   handleDateClick: PropTypes.func.isRequired,
-  currentDate: PropTypes.number.isRequired,
+  currentDate: PropTypes.instanceOf(Date).isRequired,
   year: PropTypes.number.isRequired,
   month: PropTypes.number.isRequired,
-  firstDay: PropTypes.number.isRequired,
+  firstDay: PropTypes.instanceOf(Date).isRequired,
   startingDay: PropTypes.number.isRequired,
   daysInMonth: PropTypes.number.isRequired,
-  lastDay: PropTypes.number.isRequired,
-  leaveDetails: PropTypes.object.isRequired,
-  eventDetails: PropTypes.object.isRequired,
+  lastDay: PropTypes.instanceOf(Date).isRequired,
+  leaveDetails: PropTypes.array,
+  eventDetails: PropTypes.array,
 };

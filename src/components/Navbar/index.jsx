@@ -62,7 +62,7 @@ export default function Navbar() {
           )}
         </ul>
         {getStorage('authToken') ? (
-          <div className="col-4 d-flex flex-column justify-content-end">
+          <div className="col-4 d-flex flex-column">
             <p
               className=" btn fs d-flex justify-content-end text-white"
               onClick={handleClick}

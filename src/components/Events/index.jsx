@@ -2,27 +2,39 @@ import { useEffect } from 'react';
 import './Events.css';
 import { useState } from 'react';
 import { deleteEvent, getEvent } from '../../ApiMethods';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Events() {
-  const [eventDetails, seteventDetails] = useState();
-  const navigate = useNavigate();
-  useEffect(() => {
-    async function getDetails() {
-      try {
-        const response = await getEvent();
+  const [eventDetails, setEventDetails] = useState([]);
+  async function getDetails() {
+    try {
+      const response = await getEvent();
 
-        seteventDetails(response);
-      } catch (err) {
-        console.log('Unable to fetch leave', err);
-      }
+      setEventDetails(response);
+    } catch (err) {
+      console.log('Unable to fetch leave', err);
     }
+  }
+  useEffect(() => {
     getDetails();
-  }, [eventDetails]);
+  }, []);
 
   async function handleDelete(id) {
-    deleteEvent(id);
-    navigate('/event');
+    const bool = confirm('Confirm to delete');
+    if (bool) {
+      try {
+        const response = await deleteEvent(id); // Assuming deleteEvent returns a promise
+        if (
+          response.success ||
+          response.status === 200 ||
+          response.status === 204
+        ) {
+          getDetails();
+        }
+      } catch (error) {
+        console.error('Error deleting event:', error);
+      }
+    }
   }
 
   return (

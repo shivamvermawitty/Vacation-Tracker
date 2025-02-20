@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { UserContext } from './UserContext';
 
 export const UserProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState({ name: '' });
   const [userToken, setUserToken] = useState(null);
+  let c = useRef(0);
 
   return (
     <UserContext.Provider
@@ -13,6 +14,7 @@ export const UserProvider = ({ children }) => {
         setUserDetails,
         userToken,
         setUserToken,
+        c,
       }}
     >
       {children}

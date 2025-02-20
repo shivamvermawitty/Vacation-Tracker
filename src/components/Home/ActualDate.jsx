@@ -16,13 +16,13 @@ export default function ActualDate({
     <>
       {new Array(daysInMonth).fill().map((_, index) => (
         <div
-          className={` ${new Date(year, month, index + 1).getDay() == 0 ? 'disabledDate' : 'dateCard'} ${new Date(year, month, index + 1).getDay() == 6 ? 'disabledDate' : 'dateCard'} ${
+          className={`${new Date(year, month, index + 1).getDay() == 0 ? 'disabledDate' : 'dateCard'} ${new Date(year, month, index + 1).getDay() == 6 ? 'disabledDate' : 'dateCard'} ${
             currentDate.getDate() == index + 1 &&
             currentDate.getMonth() == new Date().getMonth() &&
             currentDate.getFullYear() == new Date().getFullYear()
               ? 'currentDate'
               : ''
-          } eventCard`}
+          }  eventCard`}
           key={index}
           onClick={() => handleDateClick()}
         >
@@ -50,10 +50,10 @@ export default function ActualDate({
 }
 ActualDate.propTypes = {
   handleDateClick: PropTypes.func.isRequired,
-  currentDate: PropTypes.number.isRequired,
+  currentDate: PropTypes.instanceOf(Date).isRequired,
   year: PropTypes.number.isRequired,
   month: PropTypes.number.isRequired,
   daysInMonth: PropTypes.number.isRequired,
-  leaveDetails: PropTypes.object.isRequired,
-  eventDetails: PropTypes.object.isRequired,
+  leaveDetails: PropTypes.array,
+  eventDetails: PropTypes.array,
 };

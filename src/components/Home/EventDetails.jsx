@@ -25,5 +25,5 @@ EventDetails.propTypes = {
   index: PropTypes.number.isRequired,
   year: PropTypes.number.isRequired,
   month: PropTypes.number.isRequired,
-  eventDetails: PropTypes.object.isRequired,
+  eventDetails: PropTypes.array,
 };

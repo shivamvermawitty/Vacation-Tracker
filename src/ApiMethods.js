@@ -79,7 +79,8 @@ export async function updateEvent(formData, id) {
 }
 export async function deleteEvent(id) {
   try {
-    await ApiInterceptor.delete(`event/remove/${id}`);
+    const response = await ApiInterceptor.delete(`event/remove/${id}`);
+    return response;
   } catch (err) {
     console.log('Unable to delete Event', err);
   }
