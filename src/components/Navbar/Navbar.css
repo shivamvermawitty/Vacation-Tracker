@@ -3,7 +3,12 @@
   font-weight: 700;
 }
 .navBar {
-  background-color: #525252;
+  background-color: #412a68;
+  /* font-family: "Roboto Condensed", serif; */
+  /* font-family: "Roboto", serif; */
+  /* font-family: "PT Sans", serif; */
+  /* font-family: "Nunito", serif; */
+  
 }
 .logOutBtn {
   border: 1px solid black;

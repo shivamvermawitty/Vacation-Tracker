@@ -6,13 +6,14 @@
 }
 .eventForm {
   width: 30%;
-  background-color: rgb(80, 80, 80);
+  background-color: white;
   border-radius: 13px;
   padding: 10px;
-  color: white;
+  color: #412a68;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  box-shadow: 10px 10px 30px rgb(70, 70, 70);
 }
 .buttonDiv{
   display: flex;
@@ -38,14 +39,17 @@
   justify-content: end;
 } */
 .eventSubmitButton {
-  width: 150px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  width: 100px;
+  padding:5px 10px;
+  font-weight: 600;
   background-color: white;
-  border: none;
+  border: 1px solid #412a68;
   border-radius: 5px;
+  color: #412a68;
+}
+.eventSubmitButton:hover{
+  background-color: #412a68;
+  color: white;
 }
 /* .eventForm form div input{
     width: 70% !important;

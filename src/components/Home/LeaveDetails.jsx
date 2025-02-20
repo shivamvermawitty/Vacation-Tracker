@@ -9,19 +9,11 @@ export default function LeaveDetails({ index, leaveDetails, year, month }) {
     <>
       {Array.isArray(leaveDetails)
         ? leaveDetails.map((leaveDetail, ind) => {
-            if (index == 0) {
-              console.log(c.current, 'monthStart');
-            }
-
             if (
               new Date(year, month, index + 1).setHours(0, 0, 0, 0) ==
               new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0)
             ) {
               temp++;
-              console.log(
-                temp,
-                new Date(year, month, index + 1).toDateString()
-              );
               const lineBreak = Array.from({ length: c.current }, (_, i) => (
                 <br key={i} />
               ));
@@ -152,9 +144,7 @@ export default function LeaveDetails({ index, leaveDetails, year, month }) {
               c.current--;
             }
             if (ind == leaveDetails.length - 1) {
-              console.log(temp);
               c.current += temp;
-              console.log(c.current, 'another');
             }
           })
         : ''}

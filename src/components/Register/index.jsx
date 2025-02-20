@@ -43,82 +43,87 @@ function Register() {
   }
 
   return (
-    <div className="container-fluid py-4 backGround">
-      <ProjectName />
-      <div className="registartion mx-auto p-3">
-        <FormHeading heading={'SignUp'} />
-        <form onSubmit={(e) => handleSubmit(e)} className=" gap-2 ">
-          <InputComponent
-            label={'First Name:'}
-            type={'text'}
-            formData={formData}
-            name={'firstName'}
-            setFormData={setFormData}
-            errorMessage={errors.firstName}
-          />
-          <InputComponent
-            label="Last Name:"
-            type={'text'}
-            formData={formData}
-            name={'lastName'}
-            setFormData={setFormData}
-            errorMessage={errors.lastName}
-          />
-          <InputComponent
-            label="E-mail:"
-            type={'text'}
-            formData={formData}
-            name={'email'}
-            setFormData={setFormData}
-            errorMessage={errors.email}
-          />
-          <InputComponent
-            label={'Password:'}
-            type={'password'}
-            formData={formData}
-            name={'password'}
-            setFormData={setFormData}
-            errorMessage={errors.password}
-          />
-          <InputComponent
-            label={'Contact No.:'}
-            type={'text'}
-            formData={formData}
-            name={'contact'}
-            setFormData={setFormData}
-            errorMessage={errors.contact}
-          />
-          <InputComponent
-            label={'D.O.B'}
-            type={'date'}
-            formData={formData}
-            name={'dob'}
-            setFormData={setFormData}
-            errorMessage={errors.dob}
-          />
-          <InputComponent
-            label={'Color:'}
-            type={'color'}
-            formData={formData}
-            name={'color'}
-            setFormData={setFormData}
-            errorMessage={errors.color}
-          />
-          <Dropdown
-            label={'Gender:'}
-            formData={formData}
-            setFormData={setFormData}
-            name={'gender'}
-            optionArr={['Male', 'Female']}
-            errorMessage={errors.gender}
-          />
-          <div className=" width d-flex mx-4 align-items-center">
-            <input type="submit" value="Register" />
-            <Link to="/Login" className="loginButton d-flex align-items-center">
-              LogIn
-            </Link>
-          </div>
-        </form>
+    <div className="registrationBg">
+      <div className="container-fluid py-4 backGround">
+        <ProjectName />
+        <div className="registartion mx-auto p-3">
+          <FormHeading heading={'SignUp'} />
+          <form onSubmit={(e) => handleSubmit(e)} className=" gap-2 ">
+            <InputComponent
+              label={'First Name:'}
+              type={'text'}
+              formData={formData}
+              name={'firstName'}
+              setFormData={setFormData}
+              errorMessage={errors.firstName}
+            />
+            <InputComponent
+              label="Last Name:"
+              type={'text'}
+              formData={formData}
+              name={'lastName'}
+              setFormData={setFormData}
+              errorMessage={errors.lastName}
+            />
+            <InputComponent
+              label="E-mail:"
+              type={'text'}
+              formData={formData}
+              name={'email'}
+              setFormData={setFormData}
+              errorMessage={errors.email}
+            />
+            <InputComponent
+              label={'Password:'}
+              type={'password'}
+              formData={formData}
+              name={'password'}
+              setFormData={setFormData}
+              errorMessage={errors.password}
+            />
+            <InputComponent
+              label={'Contact No.:'}
+              type={'text'}
+              formData={formData}
+              name={'contact'}
+              setFormData={setFormData}
+              errorMessage={errors.contact}
+            />
+            <InputComponent
+              label={'D.O.B'}
+              type={'date'}
+              formData={formData}
+              name={'dob'}
+              setFormData={setFormData}
+              errorMessage={errors.dob}
+            />
+            <InputComponent
+              label={'Color:'}
+              type={'color'}
+              formData={formData}
+              name={'color'}
+              setFormData={setFormData}
+              errorMessage={errors.color}
+            />
+            <Dropdown
+              label={'Gender:'}
+              formData={formData}
+              setFormData={setFormData}
+              name={'gender'}
+              optionArr={['Male', 'Female']}
+              errorMessage={errors.gender}
+            />
+            <div className=" width d-flex mx-4 align-items-center">
+              <input type="submit" value="Register" />
+              <Link
+                to="/Login"
+                className="loginButton d-flex align-items-center"
+              >
+                LogIn
+              </Link>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -11,9 +11,9 @@ form {
   justify-content: center;
 }
 input {
-  border: 1px solid white;
+  border: 1px solid black !important;
   width: 150px !important;
-  border-radius: 16px !important;
+  /* border-radius: 1px !important; */
   padding: 8px;
 }
 input[type='date'] {
@@ -30,8 +30,8 @@ input[type='submit'] {
   height: 50px;
   width: 5rem !important;
   background-color: white;
-  border: 1px solid white;
-  color: #525252;
+  /* border: 10px solid 4b3075 !important; */
+  color: #4b3075;
   margin-right: 5px;
 }
 input[type='submit']:hover{
@@ -39,16 +39,15 @@ input[type='submit']:hover{
 }
 select {
   width: 150px !important;
-  border-radius: 16px !important;
+  border-radius: 5px !important;
 }
 .loginButton {
-  background-color: #525252;
   border: none !important;
-  color: white;
+  color: #4b3075;
   font-weight: 600;
 }
 .loginButton:hover{
-  color: rgb(161, 158, 158);
+  border: 1px solid #4b3075;
 }
 .backGround {
   height: 100vh;
@@ -56,18 +55,27 @@ select {
 .registartion {
   width: 30%;
   margin-top: auto;
-  background-color: #525252;
+  background-color: white !important;
   border-radius: 23px;
-  color: white;
+  color: #4b3075 !important;
   padding: 20px;
   box-shadow: 10px 10px 30px rgb(70, 70, 70);
+}
+.registrationBg{
+  position: fixed;
+  top: 68px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 5;
 }
 .logo {
   font-size: 2rem;
   align-items: center;
 }
 .logo div {
-  background-color: #525252;
+  background-color: #4b3075;
   width: 50px;
   display: flex;
   justify-content: center;

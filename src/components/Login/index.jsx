@@ -44,43 +44,45 @@ function Login() {
   }
 
   return (
-    <div className="container-fluid py-4 backGround">
-      <ProjectName />
-      <div className="registartion mx-auto p-3">
-        <FormHeading heading={'LogIn'} />
-        <form onSubmit={(e) => handleSubmit(e)} className="  gap-2 ">
-          <InputComponent
-            label={'Email:'}
-            type={'text'}
-            formData={loginCredential}
-            name={'email'}
-            setFormData={setLoginCredential}
-            errorMessage={errors.email}
-          />
+    <div className="registrationBg">
+      <div className="container-fluid py-4 backGround">
+        <ProjectName />
+        <div className="registartion mx-auto p-3">
+          <FormHeading heading={'LogIn'} />
+          <form onSubmit={(e) => handleSubmit(e)} className="  gap-2 ">
+            <InputComponent
+              label={'Email:'}
+              type={'text'}
+              formData={loginCredential}
+              name={'email'}
+              setFormData={setLoginCredential}
+              errorMessage={errors.email}
+            />
 
-          <InputComponent
-            label={'Password:'}
-            type={'password'}
-            formData={loginCredential}
-            name={'password'}
-            setFormData={setLoginCredential}
-            errorMessage={errors.password}
-          />
-          {invalid && (
-            <div className=" text-danger">Invalid Email or Passowrd</div>
-          )}
+            <InputComponent
+              label={'Password:'}
+              type={'password'}
+              formData={loginCredential}
+              name={'password'}
+              setFormData={setLoginCredential}
+              errorMessage={errors.password}
+            />
+            {invalid && (
+              <div className=" text-danger">Invalid Email or Passowrd</div>
+            )}
 
-          <div className="col-12  my-2 d-flex justify-content-center align-items-center gap-2 ">
-            <Link
-              to="/"
-              className="registerButton"
-              style={{ textDecoration: 'none' }}
-            >
-              Register
-            </Link>
-            <input className="btn" type="submit" value="Login" />
-          </div>
-        </form>
+            <div className="col-12  my-2 d-flex justify-content-center align-items-center gap-2 ">
+              <Link
+                to="/"
+                className="registerButton"
+                style={{ textDecoration: 'none' }}
+              >
+                Register
+              </Link>
+              <input className="btn" type="submit" value="Login" />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

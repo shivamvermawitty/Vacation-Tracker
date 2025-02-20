@@ -41,7 +41,7 @@ export default function Navbar() {
   return (
     <>
       <div className="row navBar">
-        <ul className=" col-8 d-flex gap-3">
+        <ul className=" col-8 d-flex align-items-center gap-3">
           <NavBarLink value={'Home'} route={'/'} />
 
           {getStorage('authToken') ? (

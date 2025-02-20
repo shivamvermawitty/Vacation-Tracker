@@ -23,7 +23,7 @@ export default function Events() {
     const bool = confirm('Confirm to delete');
     if (bool) {
       try {
-        const response = await deleteEvent(id); // Assuming deleteEvent returns a promise
+        const response = await deleteEvent(id);
         if (
           response.success ||
           response.status === 200 ||
