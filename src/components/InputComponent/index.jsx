@@ -20,8 +20,8 @@ export default function InputComponent({
           value={formData[name]}
           onChange={(e) => handleChange(e, name)}
         />{' '}
-        <br />
-        {errorMessage && <span className="  text-danger">{errorMessage}</span>}
+        {/* <br /> */}
+        {errorMessage && <span className=" text-danger">{errorMessage}</span>}
       </div>
     </>
   );

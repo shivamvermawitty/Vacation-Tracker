@@ -18,8 +18,8 @@ function Home() {
   //   setShowLeaveModal,
   // } = useHome();
   const [showLeaveModal, setShowLeaveModal] = useState(false);
-  const [leaveDetails, setLeaveDetails] = useState();
-  const [eventDetails, setEventDetails] = useState();
+  const [leaveDetails, setLeaveDetails] = useState([]);
+  const [eventDetails, setEventDetails] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
