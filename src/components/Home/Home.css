@@ -20,10 +20,10 @@
 }
 .dateCard {
   padding: 10px 0 !important;
-  position: relative;
+  position: relative !important;
   cursor: pointer;
   width: 14.15%;
-  height: 14.28vh;
+  height: 17.9vh;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 .calenderChange:hover {
@@ -34,7 +34,7 @@
   position: relative;
   padding: 10px 0 !important;
   width: 14.15%;
-  height: 14.28vh;
+  height: 17.9vh !important;
   background-color: rgb(240, 237, 237);
   border: 0.2px solid rgb(0, 0, 0, 0.3);
   box-shadow: 0 4px 6px rgb(0, 0, 0, 0.1);
@@ -80,8 +80,8 @@
   z-index: 5;
 }
 .leaveStrip {
-  position: relative !important;
-  /* top: 15px ; */
+  position: absolute !important;
+  /* top: 0 ; */
   width: 100%;
   height: 15px;
   font-size: 0.65rem !important;

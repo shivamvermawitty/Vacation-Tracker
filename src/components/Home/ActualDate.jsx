@@ -2,7 +2,7 @@ import DateCard from '../Date';
 import PropTypes from 'prop-types';
 import EventDetails from './EventDetails';
 import LeaveDetails from './LeaveDetails';
-
+import { useRef } from 'react';
 export default function ActualDate({
   handleDateClick,
   currentDate,
@@ -12,6 +12,8 @@ export default function ActualDate({
   leaveDetails,
   eventDetails,
 }) {
+  let set = new Set();
+  let pos = useRef({});
   return (
     <>
       {new Array(daysInMonth).fill().map((_, index) => (
@@ -42,6 +44,8 @@ export default function ActualDate({
             currentDate={currentDate}
             year={year}
             month={month}
+            set={set}
+            pos={pos}
           />
         </div>
       ))}
