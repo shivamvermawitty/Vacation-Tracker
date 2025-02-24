@@ -22,20 +22,6 @@ export default function LeaveDetails({
     <>
       {Array.isArray(leaveDetails)
         ? leaveDetails.map((leaveDetail, ind) => {
-            // if (new Date(year, month, index + 1).setHours(0, 0, 0, 0) == new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0)) {
-            //   pos[leaveDetail._id] = findPosition(set)
-            //   console.log(pos[leaveDetail._id], leaveDetail.email, new Date(leaveDetail.fromDate).toDateString())
-            //   return <div
-            //     key={ind}
-            //     className={`leaveStrip`}
-            //     style={{
-            //       backgroundColor: `${leaveDetail['color']}`,
-            //       top: `${(15 * pos[leaveDetail._id]) + 0.8}px`
-            //     }}
-            //   >
-            //     <p className=" text-white">{leaveDetail.email}</p>
-            //   </div>
-            // }
             if (
               new Date(year, month, index + 1).setHours(0, 0, 0, 0) >=
                 new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0) &&
@@ -73,26 +59,6 @@ export default function LeaveDetails({
               removePosition(set, leaveDetail._id, pos);
               return el;
             }
-
-            // if (
-            //   new Date(year, month, index + 1).setHours(0, 0, 0, 0) >=
-            //     new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0) &&
-            //   new Date(year, month, index + 1).setHours(0, 0, 0, 0) <=
-            //     new Date(leaveDetail.toDate).setHours(0, 0, 0, 0)
-            // ) {
-            //   returnElement = (
-            //     <div
-            //       key={ind}
-            //       className={`leaveStrip`}
-            //       style={{
-            //         backgroundColor: `${leaveDetail['color']}`,
-            //       }}
-            //     >
-            //       <p className=" text-white">{leaveDetail.email}</p>
-            //     </div>
-            //   );
-            // }
-            // return returnElement;
           })
         : ''}
     </>
