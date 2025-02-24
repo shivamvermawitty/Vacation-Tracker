@@ -1,5 +1,4 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+# #!/bin/sh
+# . "$(dirname "$0")/_/husky.sh"
 
-# Run your linting command (or any other command before commit)
-npm run lint
+npx lint-staged
