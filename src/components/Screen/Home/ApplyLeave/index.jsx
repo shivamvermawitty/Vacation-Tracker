@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useUser } from '../../useUser';
-import LeaveDateInput from '../LeaveDateInput';
-import { postLeaveDetails } from '../../ApiMethods';
+import { useUser } from '../../../../useUser';
+import LeaveDateInput from './LeaveDateInput';
+import { postLeaveDetails } from '../../../../ApiMethods';
 import PropTypes from 'prop-types';
 import './ApplyLeave.css';
-import FormHeading from '../FormHeading';
+import FormHeading from '../../../FormHeading';
 import { parseFormData } from './parcer';
 
 export default function ApplyLeave({

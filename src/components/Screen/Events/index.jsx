@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import './Events.css';
 import { useState } from 'react';
-import { deleteEvent, getEvent } from '../../ApiMethods';
+import { deleteEvent, getEvent } from '../../../ApiMethods';
 import { Link } from 'react-router-dom';
 
 export default function Events() {

@@ -1,4 +1,4 @@
-import DateCard from '../Date';
+import DateCard from './Date';
 import PropTypes from 'prop-types';
 
 export default function ExtraDate({ startingDay }) {

@@ -1,15 +1,14 @@
-// import { useState, Link, useNavigate, InputComponent, Dropdown, registerData,z } from './index';
 import { useState } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
-import ProjectName from '../ProjectName';
-import InputComponent from '../InputComponent';
-import Dropdown from '../DropDown';
+import ProjectName from '../../ProjectName';
+import InputComponent from '../../InputComponent';
+import Dropdown from '../../DropDown';
 import { parseFormData } from './parcer';
-import { registerData } from '../../ApiMethods';
+import { registerData } from '../../../ApiMethods';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Register.css';
-import FormHeading from '../FormHeading';
+import FormHeading from '../../FormHeading';
 
 function Register() {
   const navigate = useNavigate();

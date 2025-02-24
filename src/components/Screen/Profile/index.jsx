@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
 
 import { parseFormData } from '../Register/parcer';
 import { useNavigate } from 'react-router-dom';
-import InputComponent from '../InputComponent';
-import Dropdown from '../DropDown';
-import FormHeading from '../FormHeading';
-import ProjectName from '../ProjectName';
-import { updateData } from '../../ApiMethods';
-import { useUser } from '../../useUser';
+import InputComponent from '../../InputComponent';
+import Dropdown from '../../DropDown';
+import FormHeading from '../../FormHeading';
+import ProjectName from '../../ProjectName';
+import { updateData } from '../../../ApiMethods';
+import { useUser } from '../../../useUser';
 
 function Profile() {
   const { userDetails, setUserDetails } = useUser();

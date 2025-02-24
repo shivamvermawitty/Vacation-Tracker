@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import ApplyLeave from '../ApplyLeave';
+import ApplyLeave from './ApplyLeave';
 import './Home.css';
-import { getLeaveDetails } from '../../ApiMethods';
-import { getEvent } from '../../ApiMethods';
+import { getLeaveDetails, getEvent } from '../../../ApiMethods';
 import CalenderHeader from './CalenderHeader';
 import Week from './Week';
 import Month from './Month';
-import { getStorage } from '../../storageMethod';
+import { getStorage } from '../../../storageMethod';
 
 function Home() {
   // const {

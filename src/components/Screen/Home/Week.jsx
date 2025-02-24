@@ -1,4 +1,4 @@
-import DayName from '../DayName';
+import DayName from './DayName';
 
 export default function Week() {
   const days = [

@@ -2,14 +2,14 @@ import './Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import { parceFormData } from './parcer';
-import InputComponent from '../InputComponent';
-import FormHeading from '../FormHeading';
-import ProjectName from '../ProjectName';
-import { postLoginCred } from '../../ApiMethods';
+import InputComponent from '../../InputComponent';
+import FormHeading from '../../FormHeading';
+import ProjectName from '../../ProjectName';
+import { postLoginCred } from '../../../ApiMethods';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { useUser } from '../../useUser';
-import { setStorage } from '../../storageMethod';
+import { useUser } from '../../../useUser';
+import { setStorage } from '../../../storageMethod';
 
 function Login() {
   const { setUserDetails, setUserToken } = useUser();
