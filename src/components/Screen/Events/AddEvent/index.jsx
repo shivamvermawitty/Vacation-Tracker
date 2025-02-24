@@ -48,6 +48,7 @@ export default function AddEvent() {
             setFormData={setEventDetail}
             errorMessage={errors.eventDate}
           />
+
           <div className="buttonDiv">
             <button className="eventSubmitButton" type="submit">
               Submit
