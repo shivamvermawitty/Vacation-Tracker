@@ -41,7 +41,7 @@ export default function LeaveDetails({
                   className={`leaveStrip`}
                   style={{
                     backgroundColor: `${leaveDetail['color']}`,
-                    top: `${25 * (pos[leaveDetail._id] + 1.2)}px`,
+                    top: `${25 * (pos[leaveDetail._id] + 1.2) + 3 * pos[leaveDetail._id]}px`,
                     borderRadius:
                       isStart && isEnd
                         ? '10px'
@@ -67,7 +67,7 @@ export default function LeaveDetails({
                   className={`leaveStrip`}
                   style={{
                     backgroundColor: `${leaveDetail['color']}`,
-                    top: `${25 * (pos[leaveDetail._id] + 1.2)}px`,
+                    top: `${25 * (pos[leaveDetail._id] + 1.2) + 3 * pos[leaveDetail._id]}px`,
                     borderRadius: isEnd ? '0 10px 10px 0' : '',
                   }}
                 ></div>
