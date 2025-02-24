@@ -13,4 +13,3 @@ export function removePosition(set, id, pos) {
 }
 let s = new Set();
 s.add(0);
-console.log(findPosition(s));

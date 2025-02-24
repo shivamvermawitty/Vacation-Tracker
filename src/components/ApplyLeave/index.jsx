@@ -93,5 +93,5 @@ ApplyLeave.propTypes = {
   year: PropTypes.number.isRequired,
   month: PropTypes.number.isRequired,
   setLeaveDetails: PropTypes.func.isRequired,
-  setShowLeaveModal: PropTypes.func.is,
+  setShowLeaveModal: PropTypes.func,
 };
