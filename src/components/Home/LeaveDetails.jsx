@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 // import { useUser } from '../../useUser'
 import { findPosition, removePosition } from './findPos';
+
 export default function LeaveDetails({
   index,
   leaveDetails,
@@ -22,10 +23,12 @@ export default function LeaveDetails({
     <>
       {Array.isArray(leaveDetails)
         ? leaveDetails.map((leaveDetail, ind) => {
-          const isStart=new Date(year, month, index + 1).setHours(0, 0, 0, 0) ==
-          new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0);
-          const isEnd=new Date(year, month, index + 1).setHours(0, 0, 0, 0) ==
-          new Date(leaveDetail.toDate).setHours(0, 0, 0, 0)
+            const isStart =
+              new Date(year, month, index + 1).setHours(0, 0, 0, 0) ==
+              new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0);
+            const isEnd =
+              new Date(year, month, index + 1).setHours(0, 0, 0, 0) ==
+              new Date(leaveDetail.toDate).setHours(0, 0, 0, 0);
             if (
               new Date(year, month, index + 1).setHours(0, 0, 0, 0) >=
                 new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0) &&
@@ -38,11 +41,20 @@ export default function LeaveDetails({
                   className={`leaveStrip`}
                   style={{
                     backgroundColor: `${leaveDetail['color']}`,
-                    top: `${25 * (pos[leaveDetail._id]+1.2)}px`,
-                    borderRadius:isStart && isEnd?'10px':isStart? '10px 0 0 10px': isEnd?'0 10px 10px 0':''
+                    top: `${25 * (pos[leaveDetail._id] + 1.2)}px`,
+                    borderRadius:
+                      isStart && isEnd
+                        ? '10px'
+                        : isStart
+                          ? '10px 0 0 10px'
+                          : isEnd
+                            ? '0 10px 10px 0'
+                            : '',
                   }}
                 >
-                  {isStart && <p className=" text-white">{leaveDetail.email}</p>}
+                  {isStart && (
+                    <p className=" text-white">{leaveDetail.email}</p>
+                  )}
                 </div>
               );
             } else if (
@@ -55,11 +67,10 @@ export default function LeaveDetails({
                   className={`leaveStrip`}
                   style={{
                     backgroundColor: `${leaveDetail['color']}`,
-                    top: `${25 * (pos[leaveDetail._id]+1.2 )}px`,
-                    borderRadius: isEnd?'0 10px 10px 0':''
+                    top: `${25 * (pos[leaveDetail._id] + 1.2)}px`,
+                    borderRadius: isEnd ? '0 10px 10px 0' : '',
                   }}
-                >
-                </div>
+                ></div>
               );
               removePosition(set, leaveDetail._id, pos);
               return el;
