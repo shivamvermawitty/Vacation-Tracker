@@ -22,6 +22,10 @@ export default function LeaveDetails({
     <>
       {Array.isArray(leaveDetails)
         ? leaveDetails.map((leaveDetail, ind) => {
+          const isStart=new Date(year, month, index + 1).setHours(0, 0, 0, 0) ==
+          new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0);
+          const isEnd=new Date(year, month, index + 1).setHours(0, 0, 0, 0) ==
+          new Date(leaveDetail.toDate).setHours(0, 0, 0, 0)
             if (
               new Date(year, month, index + 1).setHours(0, 0, 0, 0) >=
                 new Date(leaveDetail.fromDate).setHours(0, 0, 0, 0) &&
@@ -34,10 +38,11 @@ export default function LeaveDetails({
                   className={`leaveStrip`}
                   style={{
                     backgroundColor: `${leaveDetail['color']}`,
-                    top: `${15 * (pos[leaveDetail._id] + 1.9)}px`,
+                    top: `${25 * (pos[leaveDetail._id]+1.2)}px`,
+                    borderRadius:isStart && isEnd?'10px':isStart? '10px 0 0 10px': isEnd?'0 10px 10px 0':''
                   }}
                 >
-                  <p className=" text-white">{leaveDetail.email}</p>
+                  {isStart && <p className=" text-white">{leaveDetail.email}</p>}
                 </div>
               );
             } else if (
@@ -50,10 +55,10 @@ export default function LeaveDetails({
                   className={`leaveStrip`}
                   style={{
                     backgroundColor: `${leaveDetail['color']}`,
-                    top: `${15 * (pos[leaveDetail._id] + 1.9)}px`,
+                    top: `${25 * (pos[leaveDetail._id]+1.2 )}px`,
+                    borderRadius: isEnd?'0 10px 10px 0':''
                   }}
                 >
-                  <p className=" text-white">{leaveDetail.email}</p>
                 </div>
               );
               removePosition(set, leaveDetail._id, pos);
