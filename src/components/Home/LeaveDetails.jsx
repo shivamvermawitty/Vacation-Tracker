@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 // import { useUser } from '../../useUser'
 import { findPosition, removePosition } from './findPos';
+import {useContext} from 'react'
 export default function LeaveDetails({
   index,
   leaveDetails,
