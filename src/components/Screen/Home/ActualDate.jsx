@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import EventDetails from './EventDetails';
 import LeaveDetails from './LeaveDetails';
 import { useRef } from 'react';
+import { getStorage } from '../../../storageMethod';
+
 export default function ActualDate({
   handleDateClick,
   currentDate,
@@ -25,6 +27,7 @@ export default function ActualDate({
               ? 'currentDate'
               : ''
           }  eventCard`}
+          style={{ cursor: getStorage('authToken') ? 'pointer' : '' }}
           key={index}
           onClick={() => handleDateClick()}
         >

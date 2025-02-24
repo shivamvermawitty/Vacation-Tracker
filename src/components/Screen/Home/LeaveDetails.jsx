@@ -85,6 +85,6 @@ LeaveDetails.propTypes = {
   year: PropTypes.number.isRequired,
   month: PropTypes.number.isRequired,
   leaveDetails: PropTypes.array,
-  set: PropTypes.instanceOf(Set).isRequired, // set is expected to be a Set
+  set: PropTypes.instanceOf(Set).isRequired,
   pos: PropTypes.shape({}).isRequired,
 };
