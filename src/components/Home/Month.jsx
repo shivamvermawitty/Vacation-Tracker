@@ -15,7 +15,7 @@ export default function Month({
   eventDetails,
 }) {
   return (
-    <div className="row mx-3">
+    <div className="row calender">
       <ExtraDate
         currentDate={currentDate}
         year={year}

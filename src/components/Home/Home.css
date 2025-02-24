@@ -113,6 +113,9 @@
 .midLeave{
   margin-left: 5%;
 }
+.calender{
+  margin-left: 0.66rem;
+}
 @media (max-width: 550px) {
   .dayBox {
     font-size: 8px;
