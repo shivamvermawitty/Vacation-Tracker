@@ -2,14 +2,14 @@ import './Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import { parceFormData } from './parcer';
-import InputComponent from '../../InputComponent';
-import FormHeading from '../../FormHeading';
-import ProjectName from '../../ProjectName';
-import { postLoginCred } from '../../../ApiMethods';
+import InputComponent from '../../components/InputComponent';
+import FormHeading from '../../components/FormHeading';
+import ProjectName from '../../components/ProjectName';
+import { postLoginCred } from '../../ApiMethods';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { useUser } from '../../../useUser';
-import { setStorage } from '../../../storageMethod';
+import { useUser } from '../../useUser';
+import { setStorage } from '../../storageMethod';
 
 function Login() {
   const { setUserDetails, setUserToken } = useUser();
@@ -27,13 +27,13 @@ function Login() {
     if (!parceFormData(loginCredential)) {
       try {
         const response = await postLoginCred(loginCredential);
-        setUserToken(response.data.accessToken);
-        setStorage('authToken', response.data.accessToken);
-
-        navigate('/');
+        const accessToken = response.data.accessToken;
+        setUserToken(accessToken);
+        setStorage('authToken', accessToken);
         setUserDetails({ email: loginCredential.email });
         setErrors({});
         setInvalid(false);
+        navigate('/');
       } catch (err) {
         console.log('Invalid Credentials', err);
         setInvalid(true);

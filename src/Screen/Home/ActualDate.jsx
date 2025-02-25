@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import EventDetails from './EventDetails';
 import LeaveDetails from './LeaveDetails';
 import { useRef } from 'react';
-import { getStorage } from '../../../storageMethod';
+import { getStorage } from '../../storageMethod';
 
 export default function ActualDate({
   handleDateClick,

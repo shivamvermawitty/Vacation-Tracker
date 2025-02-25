@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
-import ProjectName from '../../ProjectName';
-import InputComponent from '../../InputComponent';
-import Dropdown from '../../DropDown';
+import ProjectName from '../../components/ProjectName';
+import InputComponent from '../../components/InputComponent';
+import Dropdown from '../../components/DropDown';
 import { parseFormData } from './parcer';
-import { registerData } from '../../../ApiMethods';
+import { registerData } from '../../ApiMethods';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Register.css';
-import FormHeading from '../../FormHeading';
+import FormHeading from '../../components/FormHeading';
 
 function Register() {
   const navigate = useNavigate();
@@ -31,8 +31,8 @@ function Register() {
       try {
         await registerData(formData);
         setErrors({});
-        navigate('/login');
         alert('User Registered');
+        navigate('/login');
       } catch (err) {
         console.log('Unable to register User', err);
       }

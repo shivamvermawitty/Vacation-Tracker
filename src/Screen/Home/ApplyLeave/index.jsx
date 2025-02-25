@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useUser } from '../../../../useUser';
+import { useUser } from '../../../useUser';
 import LeaveDateInput from './LeaveDateInput';
-import { postLeaveDetails } from '../../../../ApiMethods';
+import { postLeaveDetails } from '../../../ApiMethods';
 import PropTypes from 'prop-types';
 import './ApplyLeave.css';
-import FormHeading from '../../../FormHeading';
+import FormHeading from '../../../components/FormHeading';
 import { parseFormData } from './parcer';
 
 export default function ApplyLeave({
@@ -16,9 +16,6 @@ export default function ApplyLeave({
 }) {
   const [errors, setErrors] = useState({});
   const { userDetails } = useUser();
-  // const { currentDate, setLeaveDetails, setShowLeaveModal } = useHome();
-  // const year = currentDate.getFullYear();
-  // const month = currentDate.getMonth();
   const [leaveDetail, setLeaveDetail] = useState({
     fromDate: new Date(year, month, 2).toISOString().split('T')[0],
     toDate: new Date(year, month, 2).toISOString().split('T')[0],
@@ -32,9 +29,7 @@ export default function ApplyLeave({
     if (!parseFormData(leaveDetail)) {
       try {
         setLeaveDetails((data) => [...data, leaveDetail]);
-
         await postLeaveDetails(leaveDetail);
-
         setErrors({});
         setShowLeaveModal(false);
       } catch (err) {

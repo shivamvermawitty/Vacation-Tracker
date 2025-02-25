@@ -1,21 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import ApplyLeave from './ApplyLeave';
 import './Home.css';
-import { getLeaveDetails, getEvent } from '../../../ApiMethods';
+import { getLeaveDetails, getEvent } from '../../ApiMethods';
 import CalenderHeader from './CalenderHeader';
 import Week from './Week';
 import Month from './Month';
-import { getStorage } from '../../../storageMethod';
+import { getStorage } from '../../storageMethod';
 
 function Home() {
-  // const {
-  //   setLeaveDetails,
-  //   setEventDetails,
-  //   currentDate,
-  //   setCurrentDate,
-  //   showLeaveModal,
-  //   setShowLeaveModal,
-  // } = useHome();
   const [showLeaveModal, setShowLeaveModal] = useState(false);
   const [leaveDetails, setLeaveDetails] = useState([]);
   const [eventDetails, setEventDetails] = useState([]);
@@ -30,11 +22,13 @@ function Home() {
   const monthYear = `${firstDay.toLocaleString('default', {
     month: 'long',
   })} ${year}`;
+
   function changeMonth(counter) {
     const newDate = new Date(currentDate);
     newDate.setMonth(currentDate.getMonth() + counter);
     setCurrentDate(newDate);
   }
+
   function handleDateClick() {
     if (!showLeaveModal) {
       setShowLeaveModal(true);
@@ -42,6 +36,7 @@ function Home() {
   }
 
   const modalRef = useRef(null);
+
   useEffect(() => {
     function handleModal(event) {
       if (modalRef.current && !modalRef.current.contains(event.target)) {

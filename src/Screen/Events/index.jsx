@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import './Events.css';
 import { useState } from 'react';
-import { deleteEvent, getEvent } from '../../../ApiMethods';
+import { deleteEvent, getEvent } from '../../ApiMethods';
 import { Link } from 'react-router-dom';
+import LeaveRow from './LeaveRow';
 
 export default function Events() {
   const [eventDetails, setEventDetails] = useState([]);
   async function getDetails() {
     try {
       const response = await getEvent();
-
       setEventDetails(response);
     } catch (err) {
       console.log('Unable to fetch leave', err);
@@ -23,14 +23,8 @@ export default function Events() {
     const bool = confirm('Confirm to delete');
     if (bool) {
       try {
-        const response = await deleteEvent(id);
-        if (
-          response.success ||
-          response.status === 200 ||
-          response.status === 204
-        ) {
-          getDetails();
-        }
+        await deleteEvent(id);
+        getDetails();
       } catch (error) {
         console.error('Error deleting event:', error);
       }
@@ -57,32 +51,15 @@ export default function Events() {
           </tr>
         </thead>
         <tbody>
-          {Array.isArray(eventDetails)
-            ? eventDetails.map((val, ind) => {
-                return (
-                  <tr className="row" key={ind}>
-                    <td className="col-5 d-flex justify-content-center align-items-center">
-                      {val.eventName}
-                    </td>
-                    <td className=" col-3 d-flex justify-content-center align-items-center">
-                      {new Date(val.eventDate).toLocaleDateString('en-GB')}
-                    </td>
-                    <td className=" col-4 d-flex flex-wrap gap-1 justify-content-center align-items-center">
-                      {' '}
-                      <Link to={`/event/updateEvent/${val._id}`}>
-                        Update
-                      </Link>{' '}
-                      <button
-                        onClick={() => handleDelete(val._id)}
-                        className="deleteButton"
-                      >
-                        Delete
-                      </button>{' '}
-                    </td>
-                  </tr>
-                );
-              })
-            : null}
+          {eventDetails.map(({ eventName, eventDate, _id }, ind) => (
+            <LeaveRow
+              key={ind}
+              eventDate={eventDate}
+              eventName={eventName}
+              _id={_id}
+              handleDelete={handleDelete}
+            />
+          ))}
         </tbody>
       </table>
     </div>

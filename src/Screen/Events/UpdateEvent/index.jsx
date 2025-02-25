@@ -1,12 +1,14 @@
-import { useState } from 'react';
-import './AddEvent.css';
-import InputComponent from '../../../InputComponent';
-import FormHeading from '../../../FormHeading';
+import InputComponent from '../../../components/InputComponent';
+import FormHeading from '../../../components/FormHeading';
 import { useNavigate } from 'react-router-dom';
-import { postEvent } from '../../../../ApiMethods';
-import { parceFormData } from './parcer';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { parceFormData } from '../AddEvent/parcer';
+import { getEventById, updateEvent } from '../../../ApiMethods';
 
-export default function AddEvent() {
+export default function UpdateEvent() {
+  const { id } = useParams();
+
   const navigate = useNavigate();
   const [eventDetail, setEventDetail] = useState({
     eventName: '',
@@ -17,20 +19,35 @@ export default function AddEvent() {
     e.preventDefault();
     if (!parceFormData(eventDetail)) {
       try {
-        await postEvent(eventDetail);
+        await updateEvent(eventDetail, id);
         setErrors({});
         navigate('/event');
       } catch (err) {
-        console.log('Unable to post event', err);
+        console.log('Unable to update event', err);
       }
     } else {
       setErrors(parceFormData(eventDetail));
     }
   }
+  useEffect(() => {
+    async function fetchEventById(id) {
+      try {
+        const response = await getEventById(id);
+        const { eventName, eventDate } = response;
+        setEventDetail({
+          eventName,
+          eventDate: new Date(eventDate).toISOString().split('T')[0],
+        });
+      } catch (err) {
+        console.log('Unable to fetch Event details ', err);
+      }
+    }
+    fetchEventById(id);
+  }, []);
   return (
     <div className="event">
       <div className="eventForm">
-        <FormHeading heading={'Add Event'} />
+        <FormHeading heading={'Update Event'} />
         <form onSubmit={handleSubmit}>
           <InputComponent
             label={'Event Name:'}
@@ -40,6 +57,7 @@ export default function AddEvent() {
             setFormData={setEventDetail}
             errorMessage={errors.eventName}
           />
+
           <InputComponent
             label={'Date:'}
             type={'date'}
@@ -48,7 +66,6 @@ export default function AddEvent() {
             setFormData={setEventDetail}
             errorMessage={errors.eventDate}
           />
-
           <div className="buttonDiv">
             <button className="eventSubmitButton" type="submit">
               Submit

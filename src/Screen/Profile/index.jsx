@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
 
 import { parseFormData } from '../Register/parcer';
 import { useNavigate } from 'react-router-dom';
-import InputComponent from '../../InputComponent';
-import Dropdown from '../../DropDown';
-import FormHeading from '../../FormHeading';
-import ProjectName from '../../ProjectName';
-import { updateData } from '../../../ApiMethods';
-import { useUser } from '../../../useUser';
+import InputComponent from '../../components/InputComponent';
+import Dropdown from '../../components/DropDown';
+import FormHeading from '../../components/FormHeading';
+import ProjectName from '../../components/ProjectName';
+import { updateData } from '../../ApiMethods';
+import { useUser } from '../../useUser';
 
 function Profile() {
   const { userDetails, setUserDetails } = useUser();
@@ -39,9 +39,10 @@ function Profile() {
     if (!parseFormData(formData)) {
       try {
         const response = await updateData(formData);
-        navigate('/');
+
         setErrors({});
         console.log('Profile Updated', response);
+        navigate('/');
       } catch (err) {
         console.log('Unable to register User', err);
       }
@@ -61,7 +62,7 @@ function Profile() {
       gender,
       color,
     });
-  }, [userDetails]);
+  }, []);
 
   return (
     <div className="container-fluid py-4 backGround">
