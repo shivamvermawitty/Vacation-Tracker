@@ -10,17 +10,7 @@ const formSchema = z.object({
   color: z.string().min(4, 'Invalid color'),
 });
 
-export function parseFormData(formData) {
-  try {
-    formSchema.parse(formData);
-    return false;
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      const errorObj = {};
-      err.errors.forEach((error) => {
-        errorObj[error.path[0]] = error.message;
-      });
-      return errorObj;
-    }
-  }
+export function validateUserData(formData) {
+  const result = formSchema.safeParse(formData);
+  return result;
 }

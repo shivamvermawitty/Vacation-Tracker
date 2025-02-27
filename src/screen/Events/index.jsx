@@ -21,13 +21,12 @@ export default function Events() {
 
   async function handleDelete(id) {
     const bool = confirm('Confirm to delete');
-    if (bool) {
-      try {
-        await deleteEvent(id);
-        getDetails();
-      } catch (error) {
-        console.error('Error deleting event:', error);
-      }
+    if (!bool) return;
+    try {
+      await deleteEvent(id);
+      getDetails();
+    } catch (error) {
+      console.error('Error deleting event:', error);
     }
   }
 

@@ -1,14 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Register from './Screen/Register';
-import Login from './Screen/Login';
+import Register from './screen/Register';
+import Login from './screen/Login';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Profile from './Screen/Profile';
-import Home from './Screen/Home';
+import Profile from './screen/Profile';
+import Home from './screen/Home';
 import { UserProvider } from './UserProvider';
-import AddEvent from './Screen/Events/AddEvent';
-import Events from './Screen/Events';
+import AddEvent from './screen/Events/AddEvent';
+import Events from './screen/Events';
 import RouteWrapper from './components/RouteWrapper';
-import UpdateEvent from './Screen/Events/UpdateEvent';
+import UpdateEvent from './screen/Events/UpdateEvent';
 // import AdminRouteGuard from './components/AdminRouteGaurd';
 import Navbar from './components/Navbar';
 

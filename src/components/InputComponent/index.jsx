@@ -3,24 +3,15 @@ import './InputComponent.css';
 export default function InputComponent({
   label,
   type,
-  formData,
-  name,
-  setFormData,
+  value,
+  handleChange,
   errorMessage,
 }) {
-  function handleChange(e, propertyName) {
-    setFormData((data) => ({ ...data, [propertyName]: e.target.value }));
-  }
   return (
     <>
       <div className="d-flex flex-column mx-4">
         <label>{label}</label>
-        <input
-          type={type}
-          value={formData[name]}
-          onChange={(e) => handleChange(e, name)}
-        />{' '}
-        {/* <br /> */}
+        <input type={type} value={value} onChange={handleChange} />{' '}
         {errorMessage && <span className=" text-danger">{errorMessage}</span>}
       </div>
     </>
@@ -28,9 +19,8 @@ export default function InputComponent({
 }
 InputComponent.propTypes = {
   label: PropTypes.string.isRequired,
-  formData: PropTypes.object.isRequired,
-  setFormData: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
   type: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
 };

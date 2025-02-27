@@ -1,7 +1,7 @@
 import './Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
-import { parceFormData } from './parcer';
+import { validateLoginData } from './parcer';
 import InputComponent from '../../components/InputComponent';
 import FormHeading from '../../components/FormHeading';
 import ProjectName from '../../components/ProjectName';
@@ -17,29 +17,45 @@ function Login() {
   const [loginCredential, setLoginCredential] = useState({
     email: '',
     password: '',
-  });
+  }); // login credential state
 
-  const [errors, setErrors] = useState(false);
-  const [invalid, setInvalid] = useState(false);
+  const [errors, setErrors] = useState(null);
+  const [serverError, setServerError] = useState(false);
+
+  function handleChange(e, propertyName) {
+    //  login input change handler
+    setLoginCredential((credential) => ({
+      ...credential,
+      [propertyName]: e.target.value,
+    }));
+  }
+
   async function handleSubmit(e) {
+    // login credential submit handler
     e.preventDefault();
+    const result = validateLoginData(loginCredential);
+    if (!result.success) {
+      // setting errors when the parsing fails
+      const errorObj = {};
+      result.error.errors.forEach((error) => {
+        errorObj[error.path[0]] = error.message;
+      });
+      setErrors(errorObj);
+      return;
+    }
 
-    if (!parceFormData(loginCredential)) {
-      try {
-        const response = await postLoginCred(loginCredential);
-        const accessToken = response.data.accessToken;
-        setUserToken(accessToken);
-        setStorage('authToken', accessToken);
-        setUserDetails({ email: loginCredential.email });
-        setErrors({});
-        setInvalid(false);
-        navigate('/');
-      } catch (err) {
-        console.log('Invalid Credentials', err);
-        setInvalid(true);
-      }
-    } else {
-      setErrors(parceFormData(loginCredential));
+    try {
+      const response = await postLoginCred(loginCredential); // calling login api
+      const accessToken = response.data.accessToken;
+      setUserToken(accessToken);
+      setStorage('authToken', accessToken);
+      setUserDetails({ email: loginCredential.email });
+      setErrors(null);
+      setServerError(false);
+      navigate('/');
+    } catch (err) {
+      console.log('Invalid Credentials', err);
+      setServerError(true);
     }
   }
 
@@ -48,26 +64,24 @@ function Login() {
       <div className="container-fluid py-4 backGround">
         <ProjectName />
         <div className="registartion mx-auto p-3">
-          <FormHeading heading={'LogIn'} />
+          <FormHeading heading="LogIn" />
           <form onSubmit={(e) => handleSubmit(e)} className="  gap-2 ">
             <InputComponent
-              label={'Email:'}
-              type={'text'}
-              formData={loginCredential}
-              name={'email'}
-              setFormData={setLoginCredential}
-              errorMessage={errors.email}
+              label="Email:"
+              type="text"
+              value={loginCredential['email']}
+              handleChange={(e) => handleChange(e, 'email')}
+              errorMessage={errors?.email}
             />
 
             <InputComponent
-              label={'Password:'}
-              type={'password'}
-              formData={loginCredential}
-              name={'password'}
-              setFormData={setLoginCredential}
-              errorMessage={errors.password}
+              label="Password:"
+              type="password"
+              value={loginCredential['password']}
+              handleChange={(e) => handleChange(e, 'password')}
+              errorMessage={errors?.password}
             />
-            {invalid && (
+            {serverError && (
               <div className=" text-danger">Invalid Email or Passowrd</div>
             )}
 

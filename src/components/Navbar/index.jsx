@@ -34,7 +34,7 @@ export default function Navbar() {
   function handleLogOut() {
     clearStorage();
     setUserName(null);
-    setUserDetails(() => {});
+    setUserDetails({});
     setShowLogOut((val) => !val);
     navigate('/');
   }

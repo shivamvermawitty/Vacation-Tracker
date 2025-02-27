@@ -9,7 +9,7 @@ export default function Week() {
     'Thursday',
     'Friday',
     'Saturday',
-  ];
+  ]; // weekdays array
   return (
     <div className="weekDays">
       {days.map((el, ind) => (

@@ -33,7 +33,7 @@ export default function LeaveDetails({
           color,
           ind,
           set
-        );
+        ); // this method will return the leave strip
       })}
     </>
   );

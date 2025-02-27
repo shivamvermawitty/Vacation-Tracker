@@ -14,8 +14,8 @@ export default function ActualDate({
   leaveDetails,
   eventDetails,
 }) {
-  let set = new Set();
-  let pos = useRef({});
+  let set = new Set(); // used to provide empty position tom leave strip
+  let pos = useRef({}); // stores leaveId and its corresponding position
   return (
     <>
       {new Array(daysInMonth).fill().map((_, index) => (

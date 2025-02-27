@@ -21,7 +21,7 @@ export default function LeaveRow({ eventName, eventDate, _id, handleDelete }) {
 }
 LeaveRow.propTypes = {
   eventName: PropTypes.string.isRequired,
-  eventDate: PropTypes.instanceOf(new Date()).isRequired,
-  _id: PropTypes.number.isRequired,
+  eventDate: PropTypes.string.isRequired,
+  _id: PropTypes.string.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };

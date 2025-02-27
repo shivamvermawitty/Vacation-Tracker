@@ -27,12 +27,7 @@ export async function postLoginCred(loginCred) {
 }
 
 export async function registerData(userData) {
-  try {
-    const response = await ApiInterceptor.post('register', userData);
-    return response;
-  } catch (error) {
-    console.log('Unable to Register data', error);
-  }
+  await ApiInterceptor.post('register', userData);
 }
 
 export async function postLeaveDetails(leaveDetails) {

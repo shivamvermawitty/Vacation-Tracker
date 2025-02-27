@@ -1,22 +1,18 @@
 import PropTypes from 'prop-types';
 export default function Dropdown({
   label,
-  formData,
-  setFormData,
-  name,
+  value,
+  handleChange,
   optionArr,
   errorMessage,
 }) {
-  function handleChange(e, propertyName) {
-    setFormData((data) => ({ ...data, [propertyName]: e.target.value }));
-  }
   return (
     <>
       <div className="d-flex flex-column mx-4">
         <label>{label}</label>
-        <select value={formData.gender} onChange={(e) => handleChange(e, name)}>
+        <select value={value} onChange={(e) => handleChange(e, name)}>
           <option value="" disabled>
-            Select {name}
+            Select
           </option>
           {optionArr.map((options, index) => (
             <option value={options} key={index}>
@@ -31,9 +27,8 @@ export default function Dropdown({
 }
 Dropdown.propTypes = {
   label: PropTypes.string.isRequired,
-  formData: PropTypes.object.isRequired,
-  setFormData: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  handleChange: PropTypes.func.isRequired,
   optionArr: PropTypes.array.isRequired,
   errorMessage: PropTypes.string,
 };

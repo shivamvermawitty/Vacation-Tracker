@@ -14,7 +14,7 @@ export default function ApplyLeave({
   year,
   month,
 }) {
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState();
   const { userDetails } = useUser();
   const [leaveDetail, setLeaveDetail] = useState({
     fromDate: new Date(year, month, 2).toISOString().split('T')[0],
@@ -23,7 +23,13 @@ export default function ApplyLeave({
     email: userDetails.email,
   });
 
+  function handleChange(e, propertyName) {
+    // Leave Input change handler
+    setLeaveDetail((data) => ({ ...data, [propertyName]: e.target.value }));
+  }
+
   async function handleLeaveSubmit(e) {
+    // Leave Submit handler
     e.preventDefault();
 
     if (!parseFormData(leaveDetail)) {
@@ -41,7 +47,7 @@ export default function ApplyLeave({
   return (
     <div className=" leaveModal">
       <div className="leave " ref={modalRef}>
-        <FormHeading heading={'Apply Leave'} />
+        <FormHeading heading="Apply Leave" />
 
         <form
           className=" d-flex flex-column justify-content-center"
@@ -49,25 +55,19 @@ export default function ApplyLeave({
         >
           <div className=" d-flex justify-content-between align-items-center gap-1">
             <LeaveDateInput
-              label={'From Date:'}
-              formData={leaveDetail}
-              name={'fromDate'}
-              setFormData={setLeaveDetail}
-              errorMessage={errors.fromDate}
-              month={month}
-              year={year}
+              label="From Date:"
+              value={leaveDetail['fromDate']}
+              handleChange={(e) => handleChange(e, 'fromDate')}
+              errorMessage={errors?.fromDate}
             />
           </div>
 
           <div className=" d-flex justify-content-between align-items-center gap-1">
             <LeaveDateInput
-              label={'To Date:'}
-              formData={leaveDetail}
-              name={'toDate'}
-              setFormData={setLeaveDetail}
-              errorMessage={errors.toDate}
-              month={month}
-              year={year}
+              label="To Date:"
+              value={leaveDetail['toDate']}
+              handleChange={(e) => handleChange(e, 'toDate')}
+              errorMessage={errors?.toDate}
             />
           </div>
           <br />

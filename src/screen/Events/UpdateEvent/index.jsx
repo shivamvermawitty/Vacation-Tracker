@@ -15,6 +15,11 @@ export default function UpdateEvent() {
     eventDate: '',
   });
   const [errors, setErrors] = useState({});
+
+  function handleChange(e, propertyName) {
+    setEventDetail((event) => ({ ...event, [propertyName]: e.target.value }));
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     if (!parceFormData(eventDetail)) {
@@ -47,23 +52,21 @@ export default function UpdateEvent() {
   return (
     <div className="event">
       <div className="eventForm">
-        <FormHeading heading={'Update Event'} />
+        <FormHeading heading="Update Event" />
         <form onSubmit={handleSubmit}>
           <InputComponent
-            label={'Event Name:'}
-            type={'text'}
-            formData={eventDetail}
-            name={'eventName'}
-            setFormData={setEventDetail}
+            label="Event Name:"
+            type="text"
+            value={eventDetail['eventName']}
+            handleChange={(e) => handleChange(e, 'eventName')}
             errorMessage={errors.eventName}
           />
 
           <InputComponent
-            label={'Date:'}
-            type={'date'}
-            formData={eventDetail}
-            name={'eventDate'}
-            setFormData={setEventDetail}
+            label="Date"
+            type="date"
+            value={eventDetail['eventDate']}
+            handleChange={(e) => handleChange(e, 'eventDate')}
             errorMessage={errors.eventDate}
           />
           <div className="buttonDiv">

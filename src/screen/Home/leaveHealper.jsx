@@ -1,5 +1,6 @@
 import { removePosition } from './findPos';
 function isStart(year, month, index, fromDate) {
+  // method to find if the date is the start day of leave
   return (
     new Date(year, month, index + 1).setHours(0, 0, 0, 0) ==
     new Date(fromDate).setHours(0, 0, 0, 0)
@@ -7,6 +8,7 @@ function isStart(year, month, index, fromDate) {
 }
 
 function isEnd(year, month, index, toDate) {
+  // method to find if the date is the end day of leave
   return (
     new Date(year, month, index + 1).setHours(0, 0, 0, 0) ==
     new Date(toDate).setHours(0, 0, 0, 0)
@@ -14,6 +16,7 @@ function isEnd(year, month, index, toDate) {
 }
 
 function isNotLastDayOfLeave(year, month, index, fromDate, toDate) {
+  // method to check the date is not the last day of leave
   return (
     new Date(year, month, index + 1).setHours(0, 0, 0, 0) >=
       new Date(fromDate).setHours(0, 0, 0, 0) &&
@@ -42,7 +45,7 @@ function generateLeaveStrip(
         className={`leaveStrip`}
         style={{
           backgroundColor: `${color}`,
-          top: `${25 * (pos[_id] + 1.2) + 3 * pos[_id]}px`,
+          top: `${25 * (pos[_id] + 1.2) + 3 * pos[_id]}px`, // top is set based on the position of leave
           borderRadius:
             isStart(year, month, index, fromDate) &&
             isEnd(year, month, index, toDate)

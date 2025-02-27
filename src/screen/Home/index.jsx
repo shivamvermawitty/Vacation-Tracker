@@ -24,21 +24,24 @@ function Home() {
   })} ${year}`;
 
   function changeMonth(counter) {
+    // method to change month
     const newDate = new Date(currentDate);
     newDate.setMonth(currentDate.getMonth() + counter);
     setCurrentDate(newDate);
   }
 
   function handleDateClick() {
+    // method to show the Apply leave modal when clicked on date
     if (!showLeaveModal) {
       setShowLeaveModal(true);
     }
   }
 
-  const modalRef = useRef(null);
+  const modalRef = useRef(null); // reference to that modal
 
   useEffect(() => {
     function handleModal(event) {
+      // this method check if it has been clicked outside the modal
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         setShowLeaveModal(false);
       }
@@ -54,7 +57,7 @@ function Home() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [getStorage('authToken')]); // used to handle the promise async
 
   return (
     <>
