@@ -42,20 +42,20 @@ export default function Navbar() {
     <>
       <div className="row navBar">
         <ul className=" col-8 d-flex align-items-center gap-3">
-          <NavBarLink value={'Home'} route={'/'} />
+          <NavBarLink value="Home" route="/" />
 
           {getStorage('authToken') ? (
-            <NavBarLink value={'Profile'} route={'/profile'} />
+            <NavBarLink value="Profile" route="/profile" />
           ) : (
             <>
-              <NavBarLink value={'LogIn'} route={'/login'} />
-              <NavBarLink value={'SignUp'} route={'/register'} />
+              <NavBarLink value="LogIn" route="/login" />
+              <NavBarLink value="SignUp" route="/register" />
             </>
           )}
 
           {userDetails?.email == 'admin@admin.com' ? (
             <>
-              <NavBarLink value={'Events'} route={'/event'} />
+              <NavBarLink value="Events" route="/event" />
             </>
           ) : (
             ''
