@@ -5,9 +5,11 @@ import { getLeaveDetails, getEvent } from '../../ApiMethods';
 import CalenderHeader from './CalenderHeader';
 import Week from './Week';
 import Month from './Month';
-import { getStorage } from '../../storageMethod';
+
+import { useUser } from '../../useUser';
 
 function Home() {
+  const { userToken } = useUser();
   const [showLeaveModal, setShowLeaveModal] = useState(false);
   const [leaveDetails, setLeaveDetails] = useState([]);
   const [eventDetails, setEventDetails] = useState([]);
@@ -57,7 +59,7 @@ function Home() {
       .catch((err) => {
         console.log(err);
       });
-  }, [getStorage('authToken')]); // used to handle the promise async
+  }, [userToken]); // used to handle the promise async
 
   return (
     <>
@@ -76,7 +78,7 @@ function Home() {
         eventDetails={eventDetails}
       />
 
-      {showLeaveModal && getStorage('authToken') && (
+      {showLeaveModal && userToken && (
         <>
           <div className="backdrop"></div>
           <ApplyLeave

@@ -1,13 +1,13 @@
 import getData from '../../ApiMethods';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { clearStorage, getStorage } from '../../storageMethod';
+import { clearStorage } from '../../storageMethod';
 import './Navbar.css';
 import { useUser } from '../../useUser';
 import NavBarLink from './NavBarLink';
 
 export default function Navbar() {
-  const { userDetails, setUserDetails } = useUser();
+  const { userDetails, setUserDetails, userToken, setUserToken } = useUser();
   const [userName, setUserName] = useState(null);
   const [showLogOut, setShowLogOut] = useState(false);
   const navigate = useNavigate();
@@ -23,10 +23,10 @@ export default function Navbar() {
       }
     }
 
-    if (getStorage('authToken')) {
+    if (userToken) {
       fetchUserData();
     }
-  }, [getStorage('authToken')]);
+  }, [userToken]);
 
   function handleClick() {
     setShowLogOut((d) => !d);
@@ -34,8 +34,9 @@ export default function Navbar() {
   function handleLogOut() {
     clearStorage();
     setUserName(null);
-    setUserDetails({});
+    setUserDetails(null);
     setShowLogOut((val) => !val);
+    setUserToken(null);
     navigate('/');
   }
   return (
@@ -44,7 +45,7 @@ export default function Navbar() {
         <ul className=" col-8 d-flex align-items-center gap-3">
           <NavBarLink value="Home" route="/" />
 
-          {getStorage('authToken') ? (
+          {userToken ? (
             <NavBarLink value="Profile" route="/profile" />
           ) : (
             <>
@@ -61,7 +62,7 @@ export default function Navbar() {
             ''
           )}
         </ul>
-        {getStorage('authToken') ? (
+        {userToken ? (
           <div className="col-4 d-flex flex-column">
             <p
               className=" btn fs d-flex justify-content-end text-white"

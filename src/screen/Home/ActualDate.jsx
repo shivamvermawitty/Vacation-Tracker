@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import EventDetails from './EventDetails';
 import LeaveDetails from './LeaveDetails';
 import { useRef } from 'react';
-import { getStorage } from '../../storageMethod';
+import { useUser } from '../../useUser';
 
 export default function ActualDate({
   handleDateClick,
@@ -14,6 +14,7 @@ export default function ActualDate({
   leaveDetails,
   eventDetails,
 }) {
+  const { userToken } = useUser();
   let set = new Set(); // used to provide empty position tom leave strip
   let pos = useRef({}); // stores leaveId and its corresponding position
   return (
@@ -27,7 +28,7 @@ export default function ActualDate({
               ? 'currentDate'
               : ''
           }  eventCard`}
-          style={{ cursor: getStorage('authToken') ? 'pointer' : '' }}
+          style={{ cursor: userToken ? 'pointer' : '' }}
           key={index}
           onClick={() => handleDateClick()}
         >

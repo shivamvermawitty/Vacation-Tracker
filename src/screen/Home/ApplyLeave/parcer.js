@@ -7,17 +7,7 @@ const formSchema = z.object({
   email: z.string().email('Invalid Email'),
 });
 
-export function parseFormData(formData) {
-  try {
-    formSchema.parse(formData);
-    return false;
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      const errorObj = {};
-      err.errors.forEach((error) => {
-        errorObj[error.path[0]] = error.message;
-      });
-      return errorObj;
-    }
-  }
+export function validateLeaveForm(formData) {
+  const result = formSchema.safeParse(formData);
+  return result;
 }

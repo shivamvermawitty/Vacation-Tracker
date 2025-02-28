@@ -5,7 +5,7 @@ import { postLeaveDetails } from '../../../ApiMethods';
 import PropTypes from 'prop-types';
 import './ApplyLeave.css';
 import FormHeading from '../../../components/FormHeading';
-import { parseFormData } from './parcer';
+import { validateLeaveForm } from './parcer';
 
 export default function ApplyLeave({
   modalRef,
@@ -14,7 +14,7 @@ export default function ApplyLeave({
   year,
   month,
 }) {
-  const [errors, setErrors] = useState();
+  const [errors, setErrors] = useState(null);
   const { userDetails } = useUser();
   const [leaveDetail, setLeaveDetail] = useState({
     fromDate: new Date(year, month, 2).toISOString().split('T')[0],
@@ -31,16 +31,24 @@ export default function ApplyLeave({
   async function handleLeaveSubmit(e) {
     // Leave Submit handler
     e.preventDefault();
+    const result = validateLeaveForm(leaveDetail);
+    if (!result.success) {
+      // setting errors when the parsing fails
+      const errorObj = {};
+      result.error.errors.forEach((error) => {
+        errorObj[error.path[0]] = error.message;
+      });
+      setErrors(errorObj);
+      return;
+    }
 
-    if (!parseFormData(leaveDetail)) {
-      try {
-        setLeaveDetails((data) => [...data, leaveDetail]);
-        await postLeaveDetails(leaveDetail);
-        setErrors({});
-        setShowLeaveModal(false);
-      } catch (err) {
-        console.log('Unable to post leave Details', err);
-      }
+    try {
+      setLeaveDetails((data) => [...data, leaveDetail]);
+      await postLeaveDetails(leaveDetail);
+      setErrors(null);
+      setShowLeaveModal(false);
+    } catch (err) {
+      console.log('Unable to post leave Details', err);
     }
   }
 

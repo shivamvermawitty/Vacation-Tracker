@@ -10,7 +10,7 @@ export default function Dropdown({
     <>
       <div className="d-flex flex-column mx-4">
         <label>{label}</label>
-        <select value={value} onChange={(e) => handleChange(e, name)}>
+        <select value={value} onChange={handleChange}>
           <option value="" disabled>
             Select
           </option>

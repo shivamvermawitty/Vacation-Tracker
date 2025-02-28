@@ -15,7 +15,7 @@ function Profile() {
   const { userDetails, setUserDetails } = useUser();
 
   const { firstName, lastName, email, password, contact, dob, gender, color } =
-    userDetails; // Destructuring userdetails Data
+    userDetails ?? {}; // Destructuring userDetails Data
 
   const [formData, setFormData] = useState({
     // Form Data Object
@@ -39,7 +39,7 @@ function Profile() {
   }
 
   async function handleSubmit(e) {
-    // Form Update Method
+    // Form Submit Method
     e.preventDefault();
     const [year, month, day] = formData.dob.split('-');
     const dateObj = new Date(year, month - 1, day);

@@ -33,7 +33,7 @@ export default function Events() {
   return (
     <div className="eventDiv">
       <div className=" mx-3 d-flex justify-content-end">
-        <Link to={'/event/addEvent'} className="addEventBtn">
+        <Link to="/event/addEvent" className="addEventBtn">
           Add Event
         </Link>
       </div>
