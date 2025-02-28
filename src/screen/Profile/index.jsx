@@ -132,7 +132,7 @@ function Profile() {
             label="Color:"
             type="color"
             value={formData['color']}
-            handleChange={(e) => handleChange(e, 'dob')}
+            handleChange={(e) => handleChange(e, 'color')}
             errorMessage={errors?.color}
           />
           <Dropdown
