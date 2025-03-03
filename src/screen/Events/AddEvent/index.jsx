@@ -4,7 +4,7 @@ import InputComponent from '../../../components/InputComponent';
 import FormHeading from '../../../components/FormHeading';
 import { useNavigate } from 'react-router-dom';
 import { postEvent } from '../../../ApiMethods';
-import { parceFormData } from './parcer';
+import { validateEventData } from './parcer';
 
 export default function AddEvent() {
   const navigate = useNavigate();
@@ -18,16 +18,23 @@ export default function AddEvent() {
   }
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!parceFormData(eventDetail)) {
-      try {
-        await postEvent(eventDetail);
-        setErrors({});
-        navigate('/event');
-      } catch (err) {
-        console.log('Unable to post event', err);
-      }
-    } else {
-      setErrors(parceFormData(eventDetail));
+
+    const result = validateEventData(eventDetail);
+    if (!result.success) {
+      const errorObj = {};
+      result.error.errors.forEach((error) => {
+        errorObj[error.path[0]] = error.message;
+      });
+      setErrors(errorObj);
+      return;
+    }
+
+    try {
+      await postEvent(eventDetail);
+      setErrors({});
+      navigate('/event');
+    } catch (err) {
+      console.log('Unable to post event', err);
     }
   }
   return (

@@ -3,7 +3,7 @@ import FormHeading from '../../../components/FormHeading';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { parceFormData } from '../AddEvent/parcer';
+import { validateEventData } from '../AddEvent/parcer';
 import { getEventById, updateEvent } from '../../../ApiMethods';
 
 export default function UpdateEvent() {
@@ -22,16 +22,21 @@ export default function UpdateEvent() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!parceFormData(eventDetail)) {
-      try {
-        await updateEvent(eventDetail, id);
-        setErrors({});
-        navigate('/event');
-      } catch (err) {
-        console.log('Unable to update event', err);
-      }
-    } else {
-      setErrors(parceFormData(eventDetail));
+    const result = validateEventData(eventDetail);
+    if (!result.success) {
+      const errorObj = {};
+      result.error.errors.forEach((error) => {
+        errorObj[error.path[0]] = error.message;
+      });
+      setErrors(errorObj);
+      return;
+    }
+    try {
+      await updateEvent(eventDetail, id);
+      setErrors({});
+      navigate('/event');
+    } catch (err) {
+      console.log('Unable to update event', err);
     }
   }
   useEffect(() => {
