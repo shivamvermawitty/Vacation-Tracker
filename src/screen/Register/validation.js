@@ -12,5 +12,14 @@ const formSchema = z.object({
 
 export function validateUserData(formData) {
   const result = formSchema.safeParse(formData);
-  return result;
+  if (!result.success) {
+    // create error object when the form data is not valid
+    const errorObj = {};
+    result.error.errors.forEach((error) => {
+      errorObj[error.path[0]] = error.message;
+    });
+
+    return { valid: result.success, error: errorObj };
+  }
+  return { valid: result.success, error: {} };
 }

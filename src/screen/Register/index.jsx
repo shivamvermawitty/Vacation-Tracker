@@ -1,15 +1,12 @@
-import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import ProjectName from '../../components/ProjectName';
 import InputComponent from '../../components/InputComponent';
 import Dropdown from '../../components/DropDown';
-import { validateUserData } from './parcer';
+import { validateUserData } from './validation';
 import { registerData } from '../../ApiMethods';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './Register.css';
 import FormHeading from '../../components/FormHeading';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
   const navigate = useNavigate();
@@ -24,6 +21,7 @@ function Register() {
     color: '#ffffff',
   });
   const [errors, setErrors] = useState(null);
+  const [serverError, setServerError] = useState(false);
 
   function handleChange(e, propertyName) {
     // form input change handler
@@ -35,13 +33,9 @@ function Register() {
     e.preventDefault();
     const result = validateUserData(formData);
 
-    if (!result.success) {
+    if (!result.valid) {
       // sets up the error state when the form data is not valid
-      const errorObj = {};
-      result.error.errors.forEach((error) => {
-        errorObj[error.path[0]] = error.message;
-      });
-      setErrors(errorObj);
+      setErrors(result.error);
       return;
     }
 
@@ -52,7 +46,8 @@ function Register() {
       navigate('/login');
     } catch (err) {
       console.log('Unable to register User', err);
-      toast.error('Please Enter Valid Details'); // Show error toast
+      setErrors(null);
+      setServerError(true);
     }
   }
 
@@ -62,6 +57,11 @@ function Register() {
         <ProjectName />
         <div className="registartion mx-auto p-3">
           <FormHeading heading="SignUp" />
+          {serverError && (
+            <div className=" d-flex justify-content-center text-danger">
+              User Already Registered
+            </div>
+          )}
           <form onSubmit={(e) => handleSubmit(e)} className=" gap-2 ">
             <InputComponent
               label="First Name:"
@@ -133,8 +133,6 @@ function Register() {
           </form>
         </div>
       </div>
-      <ToastContainer />{' '}
-      {/* Add ToastContainer here to render the toast messages */}
     </div>
   );
 }

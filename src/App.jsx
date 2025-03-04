@@ -9,7 +9,7 @@ import AddEvent from './screen/Events/AddEvent';
 import Events from './screen/Events';
 import RouteWrapper from './components/RouteWrapper';
 import UpdateEvent from './screen/Events/UpdateEvent';
-// import AdminRouteGuard from './components/AdminRouteGaurd';
+import AdminRouteGuard from './components/AdminRouteGaurd';
 import Navbar from './components/Navbar';
 
 function App() {
@@ -56,9 +56,9 @@ function App() {
             path="/event"
             element={
               <RouteWrapper>
-                {/* <AdminRouteGuard> */}
-                <Events />
-                {/* </AdminRouteGuard> */}
+                <AdminRouteGuard>
+                  <Events />
+                </AdminRouteGuard>
               </RouteWrapper>
             }
           />
@@ -66,9 +66,9 @@ function App() {
             path="/event/addEvent"
             element={
               <RouteWrapper>
-                {/* <AdminRouteGuard> */}
-                <AddEvent />
-                {/* </AdminRouteGuard> */}
+                <AdminRouteGuard>
+                  <AddEvent />
+                </AdminRouteGuard>
               </RouteWrapper>
             }
           />
@@ -76,9 +76,9 @@ function App() {
             path="/event/updateEvent/:id"
             element={
               <RouteWrapper>
-                {/* <AdminRouteGuard> */}
-                <UpdateEvent />
-                {/* </AdminRouteGuard> */}
+                <AdminRouteGuard>
+                  <UpdateEvent />
+                </AdminRouteGuard>
               </RouteWrapper>
             }
           />

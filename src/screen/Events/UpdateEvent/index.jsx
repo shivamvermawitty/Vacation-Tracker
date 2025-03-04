@@ -3,7 +3,7 @@ import FormHeading from '../../../components/FormHeading';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { validateEventData } from '../AddEvent/parcer';
+import { validateEventData } from '../AddEvent/validation';
 import { getEventById, updateEvent } from '../../../ApiMethods';
 
 export default function UpdateEvent() {
@@ -16,29 +16,6 @@ export default function UpdateEvent() {
   });
   const [errors, setErrors] = useState({});
 
-  function handleChange(e, propertyName) {
-    setEventDetail((event) => ({ ...event, [propertyName]: e.target.value }));
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const result = validateEventData(eventDetail);
-    if (!result.success) {
-      const errorObj = {};
-      result.error.errors.forEach((error) => {
-        errorObj[error.path[0]] = error.message;
-      });
-      setErrors(errorObj);
-      return;
-    }
-    try {
-      await updateEvent(eventDetail, id);
-      setErrors({});
-      navigate('/event');
-    } catch (err) {
-      console.log('Unable to update event', err);
-    }
-  }
   useEffect(() => {
     async function fetchEventById(id) {
       try {
@@ -54,6 +31,26 @@ export default function UpdateEvent() {
     }
     fetchEventById(id);
   }, []);
+
+  function handleChange(e, propertyName) {
+    setEventDetail((event) => ({ ...event, [propertyName]: e.target.value }));
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const result = validateEventData(eventDetail);
+    if (!result.valid) {
+      setErrors(result.error);
+      return;
+    }
+    try {
+      await updateEvent(eventDetail, id);
+      setErrors({});
+      navigate('/event');
+    } catch (err) {
+      console.log('Unable to update event', err);
+    }
+  }
   return (
     <div className="event">
       <div className="eventForm">

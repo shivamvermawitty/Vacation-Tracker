@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { findPosition } from './findPos';
-import { generateLeaveStrip } from './leaveHealper';
+import LeaveStrip from './LeaveStrip';
 
 export default function LeaveDetails({
   index,
@@ -21,20 +21,23 @@ export default function LeaveDetails({
   return (
     <>
       {leaveDetails.map(({ fromDate, toDate, email, _id, color }, ind) => {
-        return generateLeaveStrip(
-          year,
-          month,
-          index,
-          fromDate,
-          toDate,
-          pos,
-          _id,
-          email,
-          color,
-          ind,
-          set
+        return (
+          <LeaveStrip
+            key={ind}
+            year={year}
+            month={month}
+            index={index}
+            fromDate={fromDate}
+            toDate={toDate}
+            pos={pos}
+            _id={_id}
+            email={email}
+            color={color}
+            ind={ind}
+            set={set}
+          />
         ); // this method will return the leave strip
-      })}
+      })}{' '}
     </>
   );
 }

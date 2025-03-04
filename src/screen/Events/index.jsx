@@ -7,6 +7,9 @@ import LeaveRow from './LeaveRow';
 
 export default function Events() {
   const [eventDetails, setEventDetails] = useState([]);
+  useEffect(() => {
+    getDetails();
+  }, []);
   async function getDetails() {
     try {
       const response = await getEvent();
@@ -15,9 +18,6 @@ export default function Events() {
       console.log('Unable to fetch leave', err);
     }
   }
-  useEffect(() => {
-    getDetails();
-  }, []);
 
   async function handleDelete(id) {
     const bool = confirm('Confirm to delete');

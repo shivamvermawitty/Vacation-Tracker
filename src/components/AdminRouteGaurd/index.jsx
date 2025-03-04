@@ -6,7 +6,7 @@ const AdminRouteGuard = ({ children }) => {
   const { userDetails } = useUser();
 
   if (userDetails?.email != 'admin@admin.com') {
-    return <Navigate to="/home" />;
+    return <Navigate to="/" />;
   }
 
   return children;

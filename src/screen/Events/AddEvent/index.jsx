@@ -4,7 +4,7 @@ import InputComponent from '../../../components/InputComponent';
 import FormHeading from '../../../components/FormHeading';
 import { useNavigate } from 'react-router-dom';
 import { postEvent } from '../../../ApiMethods';
-import { validateEventData } from './parcer';
+import { validateEventData } from './validation';
 
 export default function AddEvent() {
   const navigate = useNavigate();
@@ -13,19 +13,19 @@ export default function AddEvent() {
     eventDate: '',
   });
   const [errors, setErrors] = useState({});
+
   function handleChange(e, propertyName) {
+    // event Input change handler
     setEventDetail((data) => ({ ...data, [propertyName]: e.target.value }));
   }
   async function handleSubmit(e) {
+    // event submit handler
     e.preventDefault();
 
     const result = validateEventData(eventDetail);
-    if (!result.success) {
-      const errorObj = {};
-      result.error.errors.forEach((error) => {
-        errorObj[error.path[0]] = error.message;
-      });
-      setErrors(errorObj);
+    console.log(result);
+    if (!result.valid) {
+      setErrors(result.error);
       return;
     }
 

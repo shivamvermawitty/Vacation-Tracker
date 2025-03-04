@@ -2,7 +2,7 @@ import './Profile.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
 
-import { validateUserData } from '../Register/parcer';
+import { validateUserData } from '../Register/validation';
 import { useNavigate } from 'react-router-dom';
 import InputComponent from '../../components/InputComponent';
 import Dropdown from '../../components/DropDown';
@@ -17,17 +17,7 @@ function Profile() {
   const { firstName, lastName, email, password, contact, dob, gender, color } =
     userDetails ?? {}; // Destructuring userDetails Data
 
-  const [formData, setFormData] = useState({
-    // Form Data Object
-    firstName,
-    lastName,
-    email,
-    password,
-    contact,
-    dob: dob ? new Date(dob).toISOString().split('T')[0] : '',
-    gender,
-    color,
-  });
+  const [formData, setFormData] = useState({});
   const navigate = useNavigate();
 
   const [errors, setErrors] = useState(null);
@@ -46,13 +36,9 @@ function Profile() {
     setUserDetails({ ...formData, dob: dateObj.toISOString() });
     const result = validateUserData(formData);
 
-    if (!result.success) {
+    if (!result.valid) {
       // setting Errors when parsing form data returns false
-      const errorObj = {};
-      result.error.errors.forEach((error) => {
-        errorObj[error.path[0]] = error.message;
-      });
-      setErrors(errorObj);
+      setErrors(result.error);
       return;
     }
     try {
