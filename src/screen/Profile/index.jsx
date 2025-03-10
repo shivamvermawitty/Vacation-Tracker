@@ -1,9 +1,7 @@
 import './Profile.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
-
-import { validateUserData } from '../Register/validation';
 import { useNavigate } from 'react-router-dom';
+import { validateUserData } from '../Register/validation';
 import InputComponent from '../../components/InputComponent';
 import Dropdown from '../../components/DropDown';
 import FormHeading from '../../components/FormHeading';
@@ -21,6 +19,19 @@ function Profile() {
   const navigate = useNavigate();
 
   const [errors, setErrors] = useState(null);
+
+  useEffect(() => {
+    setFormData({
+      firstName,
+      lastName,
+      email,
+      password,
+      contact,
+      dob: dob ? new Date(dob).toISOString().split('T')[0] : '',
+      gender,
+      color,
+    });
+  }, [firstName, lastName, email, password, contact, dob, gender, color]);
 
   function handleChange(e, propertyName) {
     // Form  Value Change Method
@@ -50,19 +61,6 @@ function Profile() {
       console.log('Unable to register User', err);
     }
   }
-
-  useEffect(() => {
-    setFormData({
-      firstName,
-      lastName,
-      email,
-      password,
-      contact,
-      dob: dob ? new Date(dob).toISOString().split('T')[0] : '',
-      gender,
-      color,
-    });
-  }, [firstName, lastName, email, password, contact, dob, gender, color]);
 
   return (
     <div className="container-fluid py-4 backGround">

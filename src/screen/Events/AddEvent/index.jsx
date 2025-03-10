@@ -1,8 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './AddEvent.css';
 import InputComponent from '../../../components/InputComponent';
 import FormHeading from '../../../components/FormHeading';
-import { useNavigate } from 'react-router-dom';
 import { postEvent } from '../../../ApiMethods';
 import { validateEventData } from './validation';
 

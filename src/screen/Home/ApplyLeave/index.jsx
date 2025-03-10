@@ -5,7 +5,7 @@ import { postLeaveDetails } from '../../../ApiMethods';
 import PropTypes from 'prop-types';
 import './ApplyLeave.css';
 import FormHeading from '../../../components/FormHeading';
-import { validateLeaveForm } from './parcer';
+import { validateLeaveForm } from './validation';
 
 export default function ApplyLeave({
   modalRef,
@@ -32,13 +32,9 @@ export default function ApplyLeave({
     // Leave Submit handler
     e.preventDefault();
     const result = validateLeaveForm(leaveDetail);
-    if (!result.success) {
+    if (!result.valid) {
       // setting errors when the parsing fails
-      const errorObj = {};
-      result.error.errors.forEach((error) => {
-        errorObj[error.path[0]] = error.message;
-      });
-      setErrors(errorObj);
+      setErrors(result.error);
       return;
     }
 

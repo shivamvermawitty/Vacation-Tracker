@@ -96,7 +96,7 @@ LeaveStrip.propTypes = {
   fromDate: PropTypes.string.isRequired, // Assuming date is passed as a string, adjust if it's a Date object
   toDate: PropTypes.string.isRequired, // Assuming date is passed as a string
   pos: PropTypes.object.isRequired,
-  _id: PropTypes.number.isRequired,
+  _id: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   ind: PropTypes.number.isRequired,

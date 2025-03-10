@@ -1,12 +1,10 @@
 import './Login.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom';
-import { validateLoginData } from './parcer';
+import { Link, useNavigate } from 'react-router-dom';
+import { validateLoginData } from './validation';
 import InputComponent from '../../components/InputComponent';
 import FormHeading from '../../components/FormHeading';
 import ProjectName from '../../components/ProjectName';
 import { postLoginCred } from '../../ApiMethods';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useUser } from '../../useUser';
 import { setStorage } from '../../storageMethod';
@@ -34,13 +32,9 @@ function Login() {
     // login credential submit handler
     e.preventDefault();
     const result = validateLoginData(loginCredential);
-    if (!result.success) {
+    if (!result.valid) {
       // setting errors when the parsing fails
-      const errorObj = {};
-      result.error.errors.forEach((error) => {
-        errorObj[error.path[0]] = error.message;
-      });
-      setErrors(errorObj);
+      setErrors(result.error);
       return;
     }
 

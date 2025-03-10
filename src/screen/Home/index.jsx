@@ -25,20 +25,6 @@ function Home() {
     month: 'long',
   })} ${year}`;
 
-  function changeMonth(counter) {
-    // method to change month
-    const newDate = new Date(currentDate);
-    newDate.setMonth(currentDate.getMonth() + counter);
-    setCurrentDate(newDate);
-  }
-
-  function handleDateClick() {
-    // method to show the Apply leave modal when clicked on date
-    if (!showLeaveModal) {
-      setShowLeaveModal(true);
-    }
-  }
-
   const modalRef = useRef(null); // reference to that modal
 
   useEffect(() => {
@@ -60,6 +46,20 @@ function Home() {
         console.log(err);
       });
   }, [userToken]); // used to handle the promise async
+
+  function changeMonth(counter) {
+    // method to change month
+    const newDate = new Date(currentDate);
+    newDate.setMonth(currentDate.getMonth() + counter);
+    setCurrentDate(newDate);
+  }
+
+  function handleDateClick() {
+    // method to show the Apply leave modal when clicked on date
+    if (!showLeaveModal) {
+      setShowLeaveModal(true);
+    }
+  }
 
   return (
     <>

@@ -22,5 +22,5 @@ LastDayStrip.propTypes = {
   removePosition: PropTypes.func.isRequired,
   set: PropTypes.instanceOf(Set).isRequired,
   getStyle: PropTypes.func.isRequired,
-  _id: PropTypes.number.isRequired,
+  _id: PropTypes.string.isRequired,
 };

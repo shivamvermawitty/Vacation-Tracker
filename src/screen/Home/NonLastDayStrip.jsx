@@ -11,7 +11,7 @@ export default function NonLastDayStrip({
   getStyle,
 }) {
   return (
-    <div key={ind} className={`leaveStrip`} style={getStyle(index)}>
+    <div key={ind} className="leaveStrip" style={getStyle(index)}>
       {isStart(year, month, index, fromDate) && (
         <p className=" text-white">{email}</p>
       )}
